@@ -11,4 +11,4 @@
   android:name="com.ampieguillermo.bakingforall.RecipeListFragment"
   app:layoutManager="android.support.v7.widget.LinearLayoutManager"
   tools:context=".RecipeListActivity"
-  tools:listitem="@layout/recipe_list_content"/>
+  tools:listitem="@layout/item_recipe_list"/>
