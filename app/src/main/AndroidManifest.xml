@@ -21,7 +21,7 @@
         </activity>
         <activity
             android:name=".RecipeDetailActivity"
-            android:label="@string/title_recipe_detail"
+            android:label="@string/recipe_detail_title"
             android:parentActivityName=".RecipeListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
