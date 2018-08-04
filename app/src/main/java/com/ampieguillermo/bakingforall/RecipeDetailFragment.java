@@ -48,7 +48,7 @@ public class RecipeDetailFragment extends Fragment {
 
       Activity activity = this.getActivity();
       CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity
-          .findViewById(R.id.toolbar_layout);
+          .findViewById(R.id.ctoolbarlayout_recipe_detail);
       if (appBarLayout != null) {
         appBarLayout.setTitle(mItem.content);
       }
@@ -62,7 +62,7 @@ public class RecipeDetailFragment extends Fragment {
 
     // Show the dummy content as text in a TextView.
     if (mItem != null) {
-      ((TextView) rootView.findViewById(R.id.recipe_detail)).setText(mItem.details);
+      ((TextView) rootView.findViewById(R.id.textview_recipe_detail)).setText(mItem.details);
     }
 
     return rootView;

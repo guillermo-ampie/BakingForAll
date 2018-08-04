@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <dimen name="fab_margin">16dp</dimen>
-  <dimen name="app_bar_height">200dp</dimen>
-  <dimen name="item_width">200dp</dimen>
-  <dimen name="text_margin">16dp</dimen>
+  <dimen name="margin_all_fab">16dp</dimen>
+  <dimen name="height_recipe_detail_appbar">200dp</dimen>
+  <dimen name="width_layout_recipe_list_item">200dp</dimen>
+  <dimen name="margin_item_recipe_list_text">16dp</dimen>
 </resources>

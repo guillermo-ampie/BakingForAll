@@ -37,11 +37,11 @@ public class RecipeListActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_recipe_list);
 
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_recipe_list);
     setSupportActionBar(toolbar);
     toolbar.setTitle(getTitle());
 
-    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_recipe_list);
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -58,7 +58,7 @@ public class RecipeListActivity extends AppCompatActivity {
       mTwoPane = true;
     }
 
-    View recyclerView = findViewById(R.id.recipe_list);
+    View recyclerView = findViewById(R.id.recyclerview_recipe_list);
     assert recyclerView != null;
     setupRecyclerView((RecyclerView) recyclerView);
   }
@@ -131,8 +131,8 @@ public class RecipeListActivity extends AppCompatActivity {
 
       ViewHolder(View view) {
         super(view);
-        mIdView = (TextView) view.findViewById(R.id.id_text);
-        mContentView = (TextView) view.findViewById(R.id.content);
+        mIdView = (TextView) view.findViewById(R.id.textview_recipe_list_id);
+        mContentView = (TextView) view.findViewById(R.id.textview_recipe_list_content);
       }
     }
   }

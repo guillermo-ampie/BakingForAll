@@ -22,10 +22,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_recipe_detail);
-    Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_recipe_detail);
     setSupportActionBar(toolbar);
 
-    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_recipe_detail);
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
