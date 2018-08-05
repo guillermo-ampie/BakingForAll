@@ -51,8 +51,9 @@ public class SimpleItemAdapter
     mTwoPane = twoPane;
   }
 
+  @NonNull
   @Override
-  public SimpleItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public SimpleItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     final View view = LayoutInflater.from(parent.getContext())
         .inflate(R.layout.item_recipe_list, parent, false);
     return new SimpleItemViewHolder(view, mOnClickListener);
