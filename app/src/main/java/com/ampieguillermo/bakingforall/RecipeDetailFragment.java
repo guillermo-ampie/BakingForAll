@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.ampieguillermo.bakingforall.dummy.DummyContent;
+import java.util.Objects;
 
 /**
  * A fragment representing a single Recipe detail screen.
@@ -40,14 +41,14 @@ public class RecipeDetailFragment extends Fragment {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    if (getArguments().containsKey(ARG_ITEM_ID)) {
+    if (Objects.requireNonNull(getArguments()).containsKey(ARG_ITEM_ID)) {
       // Load the dummy content specified by the fragment
       // arguments. In a real-world scenario, use a Loader
       // to load content from a content provider.
       mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
-      Activity activity = this.getActivity();
-      CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity
+      final Activity activity = getActivity();
+      final CollapsingToolbarLayout appBarLayout = Objects.requireNonNull(activity)
           .findViewById(R.id.ctoolbarlayout_recipe_detail);
       if (appBarLayout != null) {
         appBarLayout.setTitle(mItem.content);
@@ -58,7 +59,8 @@ public class RecipeDetailFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
+    final View rootView =
+        inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
     // Show the dummy content as text in a TextView.
     if (mItem != null) {

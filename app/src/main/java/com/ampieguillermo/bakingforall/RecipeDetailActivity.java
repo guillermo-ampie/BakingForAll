@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 /**
  * An activity representing a single Recipe detail screen. This
@@ -22,20 +21,18 @@ public class RecipeDetailActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_recipe_detail);
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_recipe_detail);
+    final Toolbar toolbar = findViewById(R.id.toolbar_recipe_detail);
     setSupportActionBar(toolbar);
 
-    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_recipe_detail);
-    fab.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show();
-      }
-    });
+    final FloatingActionButton fab = findViewById(R.id.fab_recipe_detail);
+    fab.setOnClickListener(
+        view -> Snackbar.make(view,
+            "Replace with your own detail action",
+            Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show());
 
     // Show the Up button in the action bar.
-    ActionBar actionBar = getSupportActionBar();
+    final ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
@@ -52,10 +49,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
     if (savedInstanceState == null) {
       // Create the detail fragment and add it to the activity
       // using a fragment transaction.
-      Bundle arguments = new Bundle();
+      final Bundle arguments = new Bundle();
       arguments.putString(RecipeDetailFragment.ARG_ITEM_ID,
           getIntent().getStringExtra(RecipeDetailFragment.ARG_ITEM_ID));
-      RecipeDetailFragment fragment = new RecipeDetailFragment();
+      final RecipeDetailFragment fragment = new RecipeDetailFragment();
       fragment.setArguments(arguments);
       getSupportFragmentManager().beginTransaction()
           .add(R.id.recipe_detail_container, fragment)
@@ -65,7 +62,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
+    final int id = item.getItemId();
     if (id == android.R.id.home) {
       // This ID represents the Home or Up button. In the case of this
       // activity, the Up button is shown. For
