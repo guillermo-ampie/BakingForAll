@@ -2,6 +2,7 @@ package com.ampieguillermo.bakingforall;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ public class RecipeDetailFragment extends Fragment {
    * fragment (e.g. upon screen orientation changes).
    */
   public RecipeDetailFragment() {
+    // Mandatory empty constructor
   }
 
   @Override
@@ -57,7 +59,7 @@ public class RecipeDetailFragment extends Fragment {
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     final View rootView =
         inflater.inflate(R.layout.fragment_recipe_detail, container, false);
