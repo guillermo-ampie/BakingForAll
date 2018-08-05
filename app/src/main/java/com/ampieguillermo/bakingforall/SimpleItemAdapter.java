@@ -9,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.ampieguillermo.bakingforall.SimpleItemRecyclerViewAdapter.SimpleItemViewHolder;
+import com.ampieguillermo.bakingforall.SimpleItemAdapter.SimpleItemViewHolder;
 import com.ampieguillermo.bakingforall.dummy.DummyContent.DummyItem;
 import java.util.List;
 
-public class SimpleItemRecyclerViewAdapter
+public class SimpleItemAdapter
     extends RecyclerView.Adapter<SimpleItemViewHolder> {
 
   /* package */ final RecipeListActivity mParentActivity;
@@ -43,7 +43,7 @@ public class SimpleItemRecyclerViewAdapter
     }
   };
 
-  SimpleItemRecyclerViewAdapter(RecipeListActivity parent,
+  SimpleItemAdapter(RecipeListActivity parent,
       List<DummyItem> items,
       boolean twoPane) {
     mValues = items;
