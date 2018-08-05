@@ -5,9 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import com.ampieguillermo.bakingforall.dummy.DummyContent;
 
 /**
@@ -48,14 +49,21 @@ public class RecipeListActivity extends AppCompatActivity {
       mTwoPane = true;
     }
 
-    final View recyclerView = findViewById(R.id.recyclerview_recipe_list);
+    final RecyclerView recyclerView = findViewById(R.id.recyclerview_recipe_list);
     assert recyclerView != null;
-    setupRecyclerView((RecyclerView) recyclerView);
+    setupRecyclerView(recyclerView);
   }
 
-  private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-    recyclerView
-        .setAdapter(new SimpleItemAdapter(this, DummyContent.ITEMS, mTwoPane));
+  private void setupRecyclerView(@NonNull final RecyclerView recyclerView) {
+
+    final LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+    // Set a divider line
+    final DividerItemDecoration dividerLine =
+        new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
+    recyclerView.addItemDecoration(dividerLine);
+
+    recyclerView.setAdapter(new SimpleItemAdapter(this, DummyContent.ITEMS, mTwoPane));
+    recyclerView.setHasFixedSize(true);
   }
 
 }
