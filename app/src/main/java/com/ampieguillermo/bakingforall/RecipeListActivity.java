@@ -55,7 +55,7 @@ public class RecipeListActivity extends AppCompatActivity {
 
   private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
     recyclerView
-        .setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        .setAdapter(new SimpleItemAdapter(this, DummyContent.ITEMS, mTwoPane));
   }
 
 }
