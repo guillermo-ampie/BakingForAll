@@ -9,6 +9,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // Enable Vector drawables support library
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -17,6 +20,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // Enable Data Binding
+    dataBinding.enabled = true
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
