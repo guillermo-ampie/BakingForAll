@@ -39,11 +39,10 @@ public class BakingForAllApp extends Application {
   }
 
   private void enableLeakCanary() {
-    if (LeakCanary.isInAnalyzerProcess(this)) {
-      // This process is dedicated to LeakCanary for heap analysis.
-      // You should not init your app in this process.
-      return;
+    if (!LeakCanary.isInAnalyzerProcess(this)) {
+      LeakCanary.install(this);
     }
-    LeakCanary.install(this);
+    // This process is dedicated to LeakCanary for heap analysis.
+    // You should not init your app in this process.
   }
 }
