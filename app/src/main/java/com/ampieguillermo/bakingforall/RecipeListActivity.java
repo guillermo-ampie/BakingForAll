@@ -62,8 +62,8 @@ public class RecipeListActivity extends AppCompatActivity {
         new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
     recyclerView.addItemDecoration(dividerLine);
 
-    recyclerView.setAdapter(new SimpleItemAdapter(this, DummyContent.ITEMS, mTwoPane));
     recyclerView.setHasFixedSize(true);
+    recyclerView.setAdapter(new SimpleItemAdapter(this, DummyContent.ITEMS, mTwoPane));
   }
 
 }
