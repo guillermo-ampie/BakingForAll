@@ -25,11 +25,18 @@ public class BakingForAllApp extends Application {
   private void enableStrictMode() {
     if (BuildConfig.DEBUG) {
       // Detect for blocking the UI thread
-      StrictMode.setThreadPolicy(
-          new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
+      StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy
+          .Builder()
+          .detectAll()
+          .penaltyLog()
+          .build());
 
       // Detect for memory leaks
-      StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
+      StrictMode.setVmPolicy(new StrictMode.VmPolicy
+          .Builder()
+          .detectAll()
+          .penaltyLog()
+          .build());
     }
   }
 
