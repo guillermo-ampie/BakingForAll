@@ -20,6 +20,8 @@ import java.util.Objects;
  */
 public class RecipeDetailFragment extends Fragment {
 
+  private static final String LOG_TAG = RecipeDetailFragment.class.getSimpleName();
+
   /**
    * The fragment argument representing the item ID that this fragment
    * represents.

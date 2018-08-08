@@ -21,6 +21,8 @@ import com.ampieguillermo.bakingforall.dummy.DummyContent;
  */
 public class RecipeListActivity extends AppCompatActivity {
 
+  private static final String LOG_TAG = RecipeListActivity.class.getSimpleName();
+
   /**
    * Whether or not the activity is in two-pane mode, i.e. running on a tablet
    * device.

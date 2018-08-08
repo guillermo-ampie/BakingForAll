@@ -17,6 +17,8 @@ import android.view.MenuItem;
  */
 public class RecipeDetailActivity extends AppCompatActivity {
 
+  private static final String LOG_TAG = RecipeDetailActivity.class.getSimpleName();
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
