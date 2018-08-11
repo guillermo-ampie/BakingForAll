@@ -15,7 +15,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class Ingredient {
 
   @SerializedName("quantity")
-  /* package */ final int quantity;
+  /* package */ final double quantity;
   @SerializedName("measure")
   /* package */ final String measure;
   @SerializedName("ingredient")
@@ -27,13 +27,13 @@ public class Ingredient {
    * @param ingredient
    * @param quantity
    */
-  public Ingredient(final int quantity, final String measure, final String ingredient) {
+  public Ingredient(final double quantity, final String measure, final String ingredient) {
     this.quantity = quantity;
     this.measure = measure;
     this.ingredient = ingredient;
   }
 
-  public int getQuantity() {
+  public double getQuantity() {
     return quantity;
   }
 
