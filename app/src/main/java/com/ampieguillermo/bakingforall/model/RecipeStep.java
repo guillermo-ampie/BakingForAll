@@ -6,12 +6,12 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * class Step: Represents a step when preparing a recipe
+ * class RecipeStep: Represents a step when preparing a recipe
  * POJO class created with: http://www.jsonschema2pojo.org/
  * Note: In order to use the Parceler library the POJO's member variables cannot be "private"
  */
 //@Parcel
-public class Step {
+public class RecipeStep {
 
   @SerializedName("id")
   /* package */ final int id;
@@ -32,7 +32,7 @@ public class Step {
    * @param videoURL
    * @param thumbnailURL
    */
-  public Step(final int id,
+  public RecipeStep(final int id,
       final String shortDescription,
       final String description,
       final String videoURL,
@@ -90,10 +90,10 @@ public class Step {
     if (other == this) {
       return true;
     }
-    if (!(other instanceof Step)) {
+    if (!(other instanceof RecipeStep)) {
       return false;
     }
-    final Step rhs = ((Step) other);
+    final RecipeStep rhs = ((RecipeStep) other);
     return new EqualsBuilder()
         .append(id, rhs.id)
         .append(shortDescription, rhs.shortDescription)
