@@ -7,28 +7,32 @@ import java.util.List;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.parceler.Parcel;
 
 /**
  * class Recipe: Represents a Recipe to prepare something delicious
  * POJO class created with: http://www.jsonschema2pojo.org/
  * Note: In order to use the Parceler library the POJO's member variables cannot be "private"
  */
-//@Parcel
+@Parcel
 public class Recipe {
 
   @SerializedName("id")
-  /* package */ final int id;
+  /* package */ int id;
   @SerializedName("name")
-  /* package */ final String name;
+  /* package */ String name;
   @SerializedName("ingredients")
-  /* package */ final List<Ingredient> ingredients;
+  /* package */ List<Ingredient> ingredients;
   @SerializedName("steps")
-  /* package */ final List<RecipeStep> steps;
+  /* package */ List<RecipeStep> steps;
   @SerializedName("servings")
-  /* package */ final int servings;
+  /* package */ int servings;
   @SerializedName("image")
-  /* package */ final String image;
+  /* package */ String image;
 
+  public Recipe() {
+    // Mandatory default constructor needed by the Parceler library
+  }
 
   /**
    *

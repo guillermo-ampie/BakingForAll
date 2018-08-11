@@ -4,25 +4,30 @@ import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.parceler.Parcel;
 
 /**
  * class RecipeStep: Represents a step when preparing a recipe
  * POJO class created with: http://www.jsonschema2pojo.org/
  * Note: In order to use the Parceler library the POJO's member variables cannot be "private"
  */
-//@Parcel
+@Parcel
 public class RecipeStep {
 
   @SerializedName("id")
-  /* package */ final int id;
+  /* package */ int id;
   @SerializedName("shortDescription")
-  /* package */ final String shortDescription;
+  /* package */ String shortDescription;
   @SerializedName("description")
-  /* package */ final String description;
+  /* package */ String description;
   @SerializedName("videoURL")
-  /* package */ final String videoURL; // URL stored as a String
+  /* package */ String videoURL; // URL stored as a String
   @SerializedName("thumbnailURL")
-  /* package */ final String thumbnailURL; // URL stores as a String
+  /* package */ String thumbnailURL; // URL stores as a String
+
+  public RecipeStep() {
+    // Mandatory default constructor needed by the Parceler library
+  }
 
   /**
    *

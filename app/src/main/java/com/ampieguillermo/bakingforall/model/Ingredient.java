@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.parceler.Parcel;
 
 /**
  * Class Ingredient: Represents an ingredient used in a Recipe
@@ -11,15 +12,19 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * Note: In order to use the Parceler library the POJO's member variables cannot be "private"
  */
 
-//@Parcel
+@Parcel
 public class Ingredient {
 
   @SerializedName("quantity")
-  /* package */ final double quantity;
+  /* package */ double quantity;
   @SerializedName("measure")
-  /* package */ final String measure;
+  /* package */ String measure;
   @SerializedName("ingredient")
-  /* package */ final String ingredient;
+  /* package */ String ingredient;
+
+  public Ingredient() {
+    // Mandatory default constructor needed by the Parceler library
+  }
 
   /**
    *
