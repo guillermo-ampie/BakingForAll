@@ -39,6 +39,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     // Apache Commons Lang Library
     implementation 'org.apache.commons:commons-lang3:3.6'
+    // Parceler
+    implementation 'org.parceler:parceler-api:1.1.11'
+    annotationProcessor 'org.parceler:parceler:1.1.11'
     //
     // Debugging support libraries
     //
