@@ -1,7 +1,6 @@
 package com.ampieguillermo.bakingforall.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.squareup.leakcanary.AnalyzerProgressListener.Step;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +23,7 @@ public class Recipe {
   @SerializedName("ingredients")
   /* package */ final List<Ingredient> ingredients;
   @SerializedName("steps")
-  /* package */ final List<Step> steps;
+  /* package */ final List<RecipeStep> steps;
   @SerializedName("servings")
   /* package */ final int servings;
   @SerializedName("image")
@@ -43,7 +42,7 @@ public class Recipe {
   public Recipe(final int id,
       final String name,
       final List<Ingredient> ingredients,
-      final List<Step> steps,
+      final List<RecipeStep> steps,
       final int servings,
       final String image) {
     this.id = id;
@@ -66,7 +65,7 @@ public class Recipe {
     return Collections.unmodifiableList(ingredients);
   }
 
-  public List<Step> getSteps() {
+  public List<RecipeStep> getSteps() {
     return Collections.unmodifiableList(steps);
   }
 
