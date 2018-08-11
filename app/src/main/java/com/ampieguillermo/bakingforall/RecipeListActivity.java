@@ -10,9 +10,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import com.ampieguillermo.bakingforall.dummy.DummyContent;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,6 +22,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * An activity representing a list of Recipes. This activity
@@ -33,12 +36,12 @@ import java.util.ArrayList;
 public class RecipeListActivity extends AppCompatActivity {
 
   private static final String LOG_TAG = RecipeListActivity.class.getSimpleName();
-
   /**
    * Whether or not the activity is in two-pane mode, i.e. running on a tablet
    * device.
    */
   /* package */ boolean mTwoPane;
+  private SimpleItemAdapter itemAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -77,21 +80,27 @@ public class RecipeListActivity extends AppCompatActivity {
     recyclerView.addItemDecoration(dividerLine);
 
     recyclerView.setHasFixedSize(true);
-    recyclerView.setAdapter(new SimpleItemAdapter(this, DummyContent.ITEMS, mTwoPane));
+    itemAdapter = new SimpleItemAdapter(this, mTwoPane);
+    itemAdapter.setItemList(loadJsonData());
+    recyclerView.setAdapter(itemAdapter);
   }
 
   // TODO: 8/11/18 Move this to an AsyncTaskLoader
-  private void loadJsonData() {
+  private List<Recipe> loadJsonData() {
     final Gson gson = new Gson();
 
     try (InputStream inputStream = getAssets().open("baking.json")) {
       final Reader reader = new InputStreamReader(inputStream, Charset.defaultCharset());
-      final ArrayList<Recipe> recipeList =
-          gson.fromJson(reader, new TypeToken<ArrayList<Recipe>>() {}.getType());
+      return gson.fromJson(reader, new TypeToken<ArrayList<Recipe>>() {}.getType());
     } catch (final FileNotFoundException e) {
-      Log.e(LOG_TAG, String.format("File not found: %s", e.getLocalizedMessage()));
+      Log.e(LOG_TAG, String.format("Error opening file: %s", e.getLocalizedMessage()));
+      return Collections.emptyList();
     } catch (final IOException e) {
       Log.e(LOG_TAG, String.format("I/O Error: %s", e.getLocalizedMessage()));
+      return Collections.emptyList();
+    } catch (final JsonIOException | JsonSyntaxException e) {
+      Log.e(LOG_TAG, String.format("Error reading from JSON file: %s", e.getLocalizedMessage()));
+      return Collections.emptyList();
     }
   }
 }
