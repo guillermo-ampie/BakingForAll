@@ -1,5 +1,6 @@
 package com.ampieguillermo.bakingforall;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +9,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import com.ampieguillermo.bakingforall.model.Recipe;
+import org.parceler.Parcels;
 
 /**
  * An activity representing a single Recipe detail screen. This
@@ -18,6 +21,14 @@ import android.view.MenuItem;
 public class RecipeDetailActivity extends AppCompatActivity {
 
   private static final String LOG_TAG = RecipeDetailActivity.class.getSimpleName();
+  private static final String EXTRA_RECIPE = "com.ampieguillermo.bakingforall.EXTRA_RECIPE";
+
+  public static Intent getStartIntent(final Context context, final Recipe recipe) {
+    final Intent intent = new Intent(context, RecipeDetailActivity.class);
+
+    intent.putExtra(EXTRA_RECIPE, Parcels.wrap(recipe));
+    return intent;
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +62,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
     if (savedInstanceState == null) {
       // Create the detail fragment and add it to the activity
       // using a fragment transaction.
-      final Bundle arguments = new Bundle();
-      arguments.putString(RecipeDetailFragment.ARG_ITEM_ID,
-          getIntent().getStringExtra(RecipeDetailFragment.ARG_ITEM_ID));
-      final RecipeDetailFragment fragment = new RecipeDetailFragment();
-      fragment.setArguments(arguments);
+      final Recipe recipe = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_RECIPE));
+
+      final RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(recipe);
       getSupportFragmentManager().beginTransaction()
           .add(R.id.recipe_detail_container, fragment)
           .commit();

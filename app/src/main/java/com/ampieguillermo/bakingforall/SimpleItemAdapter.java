@@ -1,8 +1,6 @@
 package com.ampieguillermo.bakingforall;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
@@ -38,24 +36,17 @@ public class SimpleItemAdapter extends ListAdapter<Recipe, SimpleItemViewHolder>
     @Override
     public void onClick(View view) {
       final int position = (int) view.getTag();
+      final Recipe recipe = getItem(position);
+
       if (mTwoPane) {
-        final Bundle arguments = new Bundle();
-        arguments.putString(RecipeDetailFragment.ARG_ITEM_ID,
-            Integer.toString(getItem(position).getId()));
-        final RecipeDetailFragment fragment = new RecipeDetailFragment();
-        fragment.setArguments(arguments);
-        mParentActivity
-            .getSupportFragmentManager()
+        final RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(recipe);
+        mParentActivity.getSupportFragmentManager()
             .beginTransaction()
             .replace(R.id.recipe_detail_container, fragment)
             .commit();
       } else {
         final Context context = view.getContext();
-        final Intent intent = new Intent(context, RecipeDetailActivity.class);
-        intent.putExtra(RecipeDetailFragment.ARG_ITEM_ID,
-            Integer.toString(getItem(position).getId()));
-
-        context.startActivity(intent);
+        context.startActivity(RecipeDetailActivity.getStartIntent(context, recipe));
       }
     }
   };

@@ -9,8 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.ampieguillermo.bakingforall.dummy.DummyContent;
+import com.ampieguillermo.bakingforall.model.Recipe;
 import java.util.Objects;
+import org.parceler.Parcels;
 
 /**
  * A fragment representing a single Recipe detail screen.
@@ -23,15 +24,11 @@ public class RecipeDetailFragment extends Fragment {
   private static final String LOG_TAG = RecipeDetailFragment.class.getSimpleName();
 
   /**
-   * The fragment argument representing the item ID that this fragment
-   * represents.
+   * The fragment argument representing the Recipe that this fragment will handle
    */
-  public static final String ARG_ITEM_ID = "item_id";
+  private static final String ARGUMENT_SELECTED_RECIPE = "ARGUMENT_SELECTED_RECIPE";
 
-  /**
-   * The dummy content this fragment is presenting.
-   */
-  private DummyContent.DummyItem mItem;
+  private Recipe recipe;
 
   /**
    * Mandatory empty constructor for the fragment manager to instantiate the
@@ -41,21 +38,29 @@ public class RecipeDetailFragment extends Fragment {
     // Mandatory empty constructor
   }
 
+
+  public static RecipeDetailFragment newInstance(final Recipe recipe) {
+    final RecipeDetailFragment fragment = new RecipeDetailFragment();
+    final Bundle args = new Bundle();
+
+    args.putParcelable(ARGUMENT_SELECTED_RECIPE, Parcels.wrap(recipe));
+    fragment.setArguments(args);
+    return fragment;
+  }
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    if (Objects.requireNonNull(getArguments()).containsKey(ARG_ITEM_ID)) {
-      // Load the dummy content specified by the fragment
-      // arguments. In a real-world scenario, use a Loader
-      // to load content from a content provider.
-      mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+    if (Objects.requireNonNull(getArguments()).containsKey(ARGUMENT_SELECTED_RECIPE)) {
+      // Get the Recipe specified by the fragment arguments.
+      recipe = Parcels.unwrap(getArguments().getParcelable(ARGUMENT_SELECTED_RECIPE));
 
       final Activity activity = getActivity();
       final CollapsingToolbarLayout appBarLayout = Objects.requireNonNull(activity)
           .findViewById(R.id.ctoolbarlayout_recipe_detail);
       if (appBarLayout != null) {
-        appBarLayout.setTitle(mItem.content);
+        appBarLayout.setTitle(recipe.getName());
       }
     }
   }
@@ -67,10 +72,10 @@ public class RecipeDetailFragment extends Fragment {
         inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
     // Show the dummy content as text in a TextView.
-    if (mItem != null) {
-      ((TextView) rootView.findViewById(R.id.textview_recipe_detail)).setText(mItem.details);
+    if (recipe != null) {
+      ((TextView) rootView.findViewById(R.id.textview_recipe_detail))
+          .setText(recipe.getIngredients().toString());
     }
-
     return rootView;
   }
 }
