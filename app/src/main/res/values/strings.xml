@@ -2,4 +2,7 @@
   <!-- App and Activities titles -->
   <string name="app_name">BakingForAll</string>
   <string name="recipe_detail_title">Recipe Detail</string>
+
+  <!-- Strings for "android:contentDescription" -->
+  <string name="description_recipe_image">The Recipe\'s Photo</string>
 </resources>
