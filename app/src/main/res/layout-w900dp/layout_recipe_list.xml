@@ -13,6 +13,7 @@
   android:showDividers="middle"
   tools:context=".RecipeListActivity">
 
+
   <!--
   This layout is a two-pane layout for the Recipes
   master/detail flow.
@@ -28,7 +29,7 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:name="com.ampieguillermo.bakingforall.RecipeListFragment"
-    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    app:layoutManager="android.support.v7.widget.GridLayoutManager"
     tools:context="com.ampieguillermo.bakingforall.RecipeListActivity"
     tools:listitem="@layout/item_recipe_list"/>
 
