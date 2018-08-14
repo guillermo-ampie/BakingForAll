@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:orientation="horizontal"
   android:background="@drawable/list_item_selector">
 
-  <TextView
-    android:id="@+id/textview_recipe_list_id"
-    android:layout_width="wrap_content"
+  <ImageView
+    android:id="@+id/imageview_recipe_list_recipe_photo"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_item_recipe_list_text"
-    android:textAppearance="?attr/textAppearanceListItem"/>
+    android:layout_gravity="start|center_vertical"
+    android:contentDescription="@string/description_recipe_image"
+    android:adjustViewBounds="true"
+    android:padding="@dimen/margin_item_recipe_list_recipe_photo"
+    tools:src="@tools:sample/backgrounds/scenic"/>
 
   <TextView
-    android:id="@+id/textview_recipe_list_content"
+    android:id="@+id/textview_recipe_list_recipe_name"
+    android:textStyle="bold"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_item_recipe_list_text"
-    android:textAppearance="?attr/textAppearanceListItem"/>
-</LinearLayout>
+    android:layout_margin="@dimen/margin_item_recipe_list_recipe_name"
+    android:layout_gravity="bottom|start"
+    android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
+    android:background="@color/colorAccent"
+    tools:text="@sample/recipe_data.json/name"/>
+</FrameLayout>

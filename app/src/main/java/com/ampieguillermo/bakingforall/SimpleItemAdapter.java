@@ -8,9 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.ampieguillermo.bakingforall.SimpleItemAdapter.SimpleItemViewHolder;
 import com.ampieguillermo.bakingforall.model.Recipe;
+import com.ampieguillermo.bakingforall.utils.RecipePhotoAssets;
 import java.util.List;
 import java.util.Objects;
 
@@ -77,19 +79,20 @@ public class SimpleItemAdapter extends ListAdapter<Recipe, SimpleItemViewHolder>
 
   /* package */ static class SimpleItemViewHolder extends RecyclerView.ViewHolder {
 
-    private final TextView mIdView;
-    private final TextView mContentView;
+    private final TextView textRecipeName;
+    private final ImageView imageRecipePhoto;
 
     SimpleItemViewHolder(final View view, final View.OnClickListener listener) {
       super(view);
-      mIdView = view.findViewById(R.id.textview_recipe_list_id);
-      mContentView = view.findViewById(R.id.textview_recipe_list_content);
+      textRecipeName = view.findViewById(R.id.textview_recipe_list_recipe_name);
+      imageRecipePhoto = view.findViewById(R.id.imageview_recipe_list_recipe_photo);
       itemView.setOnClickListener(listener);
     }
 
     void setupItemView(final Recipe recipe) {
-      mIdView.setText(String.format("<%d> ", recipe.getId()));
-      mContentView.setText(recipe.getName());
+      final String recipeName = recipe.getName();
+      textRecipeName.setText(String.format("  %s  ", recipeName));
+      imageRecipePhoto.setImageResource(RecipePhotoAssets.getPhotoAsset(recipeName));
       itemView.setTag(getAdapterPosition());
     }
   }
