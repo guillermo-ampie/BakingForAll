@@ -8,14 +8,16 @@ import com.ampieguillermo.bakingforall.R;
 public enum RecipePhotoAssets {
   ;
 
-  private static final ArrayMap<String, Integer> assets = new ArrayMap<String, Integer>() {{
-    put("Nutella Pie", R.drawable.nutella_pie);
-    put("Brownies", R.drawable.brownies);
-    put("Yellow Cake", R.drawable.yellow_cake);
-    put("Cheesecake", R.drawable.cheesecake);
-  }};
+  private static final ArrayMap<String, Integer> ASSETS_MAP = new ArrayMap<>();
+
+  static {
+    ASSETS_MAP.put("Cheesecake", R.drawable.cheesecake);
+    ASSETS_MAP.put("Yellow Cake", R.drawable.yellow_cake);
+    ASSETS_MAP.put("Brownies", R.drawable.brownies);
+    ASSETS_MAP.put("Nutella Pie", R.drawable.nutella_pie);
+  }
 
   public static int getPhotoAsset(final String recipeName) {
-    return assets.get(recipeName);
+    return ASSETS_MAP.get(recipeName);
   }
 }
