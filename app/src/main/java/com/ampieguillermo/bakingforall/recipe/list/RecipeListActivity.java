@@ -1,4 +1,4 @@
-package com.ampieguillermo.bakingforall;
+package com.ampieguillermo.bakingforall.recipe.list;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +9,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import com.ampieguillermo.bakingforall.R;
+import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;

@@ -1,4 +1,4 @@
-package com.ampieguillermo.bakingforall;
+package com.ampieguillermo.bakingforall.recipe.detail;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import com.ampieguillermo.bakingforall.R;
 import com.ampieguillermo.bakingforall.model.Recipe;
+import com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity;
 import org.parceler.Parcels;
 
 /**

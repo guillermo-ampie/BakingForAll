@@ -12,7 +12,7 @@
     android:theme="@style/AppTheme">
     <activity
       android:label="@string/app_name"
-      android:name=".RecipeListActivity"
+      android:name=".recipe.list.RecipeListActivity"
       android:theme="@style/AppTheme.NoActionBar"
       android:launchMode="singleTop">
       <intent-filter>
@@ -23,12 +23,12 @@
     </activity>
     <activity
       android:label="@string/recipe_detail_title"
-      android:name=".RecipeDetailActivity"
-      android:parentActivityName=".RecipeListActivity"
+      android:name=".recipe.detail.RecipeDetailActivity"
+      android:parentActivityName=".recipe.list.RecipeListActivity"
       android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.ampieguillermo.bakingforall.RecipeListActivity"/>
+        android:value="com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity"/>
     </activity>
   </application>
 

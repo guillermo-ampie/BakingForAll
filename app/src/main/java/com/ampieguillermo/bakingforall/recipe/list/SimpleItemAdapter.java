@@ -1,4 +1,4 @@
-package com.ampieguillermo.bakingforall;
+package com.ampieguillermo.bakingforall.recipe.list;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.ampieguillermo.bakingforall.SimpleItemAdapter.SimpleItemViewHolder;
+import com.ampieguillermo.bakingforall.R;
+import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
+import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailFragment;
+import com.ampieguillermo.bakingforall.recipe.list.SimpleItemAdapter.SimpleItemViewHolder;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.ampieguillermo.bakingforall.utils.RecipePhotoAssets;
 import java.util.List;

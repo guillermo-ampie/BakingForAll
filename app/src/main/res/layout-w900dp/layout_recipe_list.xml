@@ -11,7 +11,7 @@
   android:divider="?android:attr/dividerHorizontal"
   android:orientation="horizontal"
   android:showDividers="middle"
-  tools:context=".RecipeListActivity">
+  tools:context=".recipe.list.RecipeListActivity">
 
 
   <!--
@@ -30,7 +30,7 @@
 
     android:name="com.ampieguillermo.bakingforall.RecipeListFragment"
     app:layoutManager="android.support.v7.widget.GridLayoutManager"
-    tools:context="com.ampieguillermo.bakingforall.RecipeListActivity"
+    tools:context="com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity"
     tools:listitem="@layout/item_recipe_list"/>
 
   <FrameLayout

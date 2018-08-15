@@ -1,4 +1,4 @@
-package com.ampieguillermo.bakingforall;
+package com.ampieguillermo.bakingforall.recipe.detail;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.ampieguillermo.bakingforall.R;
 import com.ampieguillermo.bakingforall.model.Recipe;
+import com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity;
 import java.util.Objects;
 import org.parceler.Parcels;
 
