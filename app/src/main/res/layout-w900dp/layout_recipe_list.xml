@@ -26,8 +26,8 @@
     android:id="@+id/recyclerview_recipe_list"
     android:layout_width="@dimen/width_layout_recipe_list_item"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_margin="@dimen/margin_layout_recipe_list_recyclerview"
+
     android:name="com.ampieguillermo.bakingforall.RecipeListFragment"
     app:layoutManager="android.support.v7.widget.GridLayoutManager"
     tools:context="com.ampieguillermo.bakingforall.RecipeListActivity"
