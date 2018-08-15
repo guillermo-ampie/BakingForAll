@@ -2,7 +2,10 @@
 <resources>
   <dimen name="margin_all_fab">16dp</dimen>
   <dimen name="height_recipe_detail_appbar">200dp</dimen>
+
   <dimen name="width_layout_recipe_list_item">320dp</dimen>
+  <dimen name="margin_layout_recipe_list_recyclerview">16dp</dimen>
+
   <dimen name="margin_item_recipe_list_recipe_name">32dp</dimen>
   <dimen name="margin_item_recipe_list_cardview">8dp</dimen>
   <dimen name="padding_item_recipe_list_recipe_photo">16dp</dimen>
