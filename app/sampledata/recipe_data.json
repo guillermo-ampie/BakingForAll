@@ -1,5 +1,19 @@
 {
   "id": 1,
   "name": " Nutella Pie ",
-  "servings": 8
+  "servings": 8,
+  "ingredients": [
+    {
+      "id": 1,
+      "quantity": 2,
+      "measure": "CUP",
+      "ingredient": "Graham Cracker crumbs"
+    },
+    {
+      "id": 2,
+      "quantity": 6,
+      "measure": "TBLSP",
+      "ingredient": "unsalted butter, melted"
+    }
+  ]
 }
