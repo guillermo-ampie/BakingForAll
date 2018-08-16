@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import com.ampieguillermo.bakingforall.R;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity;
@@ -73,11 +75,29 @@ public class RecipeDetailFragment extends Fragment {
     final View rootView =
         inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
-    // Show the dummy content as text in a TextView.
-    if (recipe != null) {
-      ((TextView) rootView.findViewById(R.id.textview_recipe_detail))
-          .setText(recipe.getIngredients().toString());
-    }
+    final RecyclerView recyclerViewIngredientList =
+        rootView.findViewById(R.id.recyclerview_fragment_recipe_detail_ingredient_list);
+    assert (recyclerViewIngredientList != null);
+    setupRecyclerViewIngredientList(recyclerViewIngredientList);
     return rootView;
+  }
+
+  private void setupRecyclerViewIngredientList(@NonNull final RecyclerView recyclerIngredientList) {
+    final LinearLayoutManager layoutManager =
+        (LinearLayoutManager) recyclerIngredientList.getLayoutManager();
+
+    // Set a divider line
+    final DividerItemDecoration dividerLine =
+        new DividerItemDecoration(recyclerIngredientList.getContext(),
+            layoutManager.getOrientation());
+    recyclerIngredientList.addItemDecoration(dividerLine);
+
+    recyclerIngredientList.setHasFixedSize(true);
+
+    final IngredientItemAdapter itemAdapter = new IngredientItemAdapter();
+    if (recipe != null) {
+      itemAdapter.setItemList(recipe.getIngredients());
+    }
+    recyclerIngredientList.setAdapter(itemAdapter);
   }
 }

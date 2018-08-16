@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:divider="?android:attr/dividerVertical"
+  android:orientation="horizontal"
+  android:showDividers="middle">
+
+  <ImageView
+    android:id="@+id/imageview_item_ingredient_list_icon"
+    android:layout_width="@dimen/size_item_ingredient_list_icon"
+    android:layout_height="@dimen/size_item_ingredient_list_icon"
+    android:layout_marginStart="@dimen/margin_all_horizontal"
+    android:layout_marginEnd="@dimen/margin_all_horizontal"
+    android:contentDescription="@string/description_ingredient_icon"
+    tools:srcCompat="@drawable/ic_measure_cup_24dp"/>
+
+  <!-- TODO: Use Quantity Strings (PLURALS)-->
+  <TextView
+    android:id="@+id/textview_item_ingredient_list_description"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_marginStart="@dimen/margin_all_horizontal"
+    android:layout_marginEnd="@dimen/margin_all_horizontal"
+    android:layout_gravity="center"
+    android:textAlignment="center"
+    android:textSize="16sp"
+    tools:text="@sample/recipe_data.json/ingredients/ingredient"/>
+</LinearLayout>
