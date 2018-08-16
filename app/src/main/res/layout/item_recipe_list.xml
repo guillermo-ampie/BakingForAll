@@ -6,7 +6,7 @@
   android:id="@+id/cardview_recipe_list_cardlayout"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:layout_margin="@dimen/margin_item_recipe_list_cardview"
+  android:layout_margin="@dimen/margin_all_horizontal"
   android:layout_gravity="center"
   card_view:cardCornerRadius="@dimen/radius_corner_item_recipe_list_cardview"
   card_view:cardElevation="@dimen/elevation_item_recipe_list_cardview">
