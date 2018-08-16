@@ -19,7 +19,6 @@
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
   </android.support.design.widget.AppBarLayout>
 
   <FrameLayout
@@ -30,13 +29,5 @@
 
     <include layout="@layout/layout_recipe_list"/>
   </FrameLayout>
-
-  <android.support.design.widget.FloatingActionButton
-    android:id="@+id/fab_recipe_list"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_all_fab"
-    android:layout_gravity="bottom|end"
-    app:srcCompat="@android:drawable/ic_dialog_email"/>
 
 </android.support.design.widget.CoordinatorLayout>
