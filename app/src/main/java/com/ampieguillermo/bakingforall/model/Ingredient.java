@@ -1,6 +1,7 @@
 package com.ampieguillermo.bakingforall.model;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.Locale;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -34,7 +35,7 @@ public class Ingredient {
    */
   public Ingredient(final double quantity, final String measure, final String ingredient) {
     this.quantity = quantity;
-    this.measure = measure;
+    this.measure = measure.toUpperCase(Locale.US);
     this.ingredient = ingredient;
   }
 

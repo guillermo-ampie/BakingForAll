@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -50,7 +51,7 @@ public class Recipe {
       final int servings,
       final String image) {
     this.id = id;
-    this.name = name;
+    this.name = name.toUpperCase(Locale.US);
     this.ingredients = new ArrayList<>(ingredients);
     this.steps = new ArrayList<>(steps);
     this.servings = servings;
