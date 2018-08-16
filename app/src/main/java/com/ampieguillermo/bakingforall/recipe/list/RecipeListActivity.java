@@ -2,16 +2,14 @@ package com.ampieguillermo.bakingforall.recipe.list;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import com.ampieguillermo.bakingforall.R;
-import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
 import com.ampieguillermo.bakingforall.model.Recipe;
+import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
@@ -52,11 +50,6 @@ public class RecipeListActivity extends AppCompatActivity {
     final Toolbar toolbar = findViewById(R.id.toolbar_recipe_list);
     setSupportActionBar(toolbar);
     toolbar.setTitle(getTitle());
-
-    final FloatingActionButton fab = findViewById(R.id.fab_recipe_list);
-    fab.setOnClickListener(view -> Snackbar
-        .make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        .setAction("Action", null).show());
 
     if (findViewById(R.id.recipe_detail_container) != null) {
       // The detail container view will be present only in the
