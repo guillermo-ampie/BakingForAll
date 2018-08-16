@@ -1,5 +1,6 @@
 package com.ampieguillermo.bakingforall.model;
 
+import android.util.Log;
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,6 +34,7 @@ public class Recipe {
 
   public Recipe() {
     // Mandatory default constructor needed by the Parceler library
+    Log.v("Recipe Constructor", ">>>>> NEW OBJECT");
   }
 
   /**
@@ -51,7 +53,7 @@ public class Recipe {
       final int servings,
       final String image) {
     this.id = id;
-    this.name = name.toUpperCase(Locale.US);
+    this.name = name;
     this.ingredients = new ArrayList<>(ingredients);
     this.steps = new ArrayList<>(steps);
     this.servings = servings;
@@ -63,7 +65,7 @@ public class Recipe {
   }
 
   public String getName() {
-    return name;
+    return name.toUpperCase(Locale.US);
   }
 
   public List<Ingredient> getIngredients() {
