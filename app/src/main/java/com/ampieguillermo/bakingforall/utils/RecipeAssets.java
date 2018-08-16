@@ -34,7 +34,7 @@ public enum RecipeAssets {
     return (result != null) ? result : R.drawable.ic_broken_image_black_180dp;
   }
 
-  public static final int getDrawableAsset (final String measure) {
+  public static int getDrawableAsset(final String measure) {
     final Integer result = DRAWABLE_ASSETS_MAP.get(measure.toUpperCase(Locale.US));
     return (result != null) ? result : R.drawable.ic_ingredient_24dp;
   }
