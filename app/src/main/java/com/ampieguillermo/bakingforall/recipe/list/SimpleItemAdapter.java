@@ -15,7 +15,7 @@ import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
 import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailFragment;
 import com.ampieguillermo.bakingforall.recipe.list.SimpleItemAdapter.SimpleItemViewHolder;
 import com.ampieguillermo.bakingforall.model.Recipe;
-import com.ampieguillermo.bakingforall.utils.RecipePhotoAssets;
+import com.ampieguillermo.bakingforall.utils.RecipeAssets;
 import java.util.List;
 import java.util.Objects;
 
@@ -95,7 +95,7 @@ public class SimpleItemAdapter extends ListAdapter<Recipe, SimpleItemViewHolder>
     void setupItemView(final Recipe recipe) {
       final String recipeName = recipe.getName();
       textRecipeName.setText(String.format("  %s  ", recipeName));
-      imageRecipePhoto.setImageResource(RecipePhotoAssets.getPhotoAsset(recipeName));
+      imageRecipePhoto.setImageResource(RecipeAssets.getPhotoAsset(recipeName));
       itemView.setTag(getAdapterPosition());
     }
   }
