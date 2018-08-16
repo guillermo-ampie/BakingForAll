@@ -7,7 +7,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:layout_margin="@dimen/margin_layout_recipe_list_recyclerview"
-  android:name="com.ampieguillermo.bakingforall.RecipeListFragment"
+  android:name="com.ampieguillermo.bakingforall.recipe.list.RecipeListFragment"
   app:layoutManager="android.support.v7.widget.GridLayoutManager"
   tools:context=".recipe.list.RecipeListActivity"
   tools:listitem="@layout/item_recipe_list"/>
