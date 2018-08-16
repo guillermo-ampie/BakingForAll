@@ -3,12 +3,18 @@
   <dimen name="margin_all_fab">16dp</dimen>
   <dimen name="height_recipe_detail_appbar">200dp</dimen>
 
+  <dimen name="radius_corner_item_recipe_list_cardview">8dp</dimen>
+  <dimen name="elevation_item_recipe_list_cardview">@dimen/cardview_default_elevation</dimen>
+
+  <!-- layout_recipe_list -->
   <dimen name="width_layout_recipe_list_item">320dp</dimen>
   <dimen name="margin_layout_recipe_list_recyclerview">16dp</dimen>
 
+  <!-- item_recipe_list.xml -->
   <dimen name="margin_item_recipe_list_recipe_name">32dp</dimen>
   <dimen name="margin_item_recipe_list_cardview">8dp</dimen>
   <dimen name="padding_item_recipe_list_recipe_photo">16dp</dimen>
-  <dimen name="radius_corner_item_recipe_list_cardview">8dp</dimen>
-  <dimen name="elevation_item_recipe_list_cardview">@dimen/cardview_default_elevation</dimen>
+
+  <!-- fragment_recipe_detail -->
+  <dimen name="size_fragment_recipe_detail_ingredient_icon">32dp</dimen>
 </resources>
