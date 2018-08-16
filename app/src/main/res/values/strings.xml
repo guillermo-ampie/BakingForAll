@@ -5,4 +5,5 @@
 
   <!-- Strings for "android:contentDescription" -->
   <string name="description_recipe_image">The Recipe\'s Photo</string>
+  <string name="description_ingredient_icon">An icon giving a cue of the ingredient measure</string>
 </resources>
