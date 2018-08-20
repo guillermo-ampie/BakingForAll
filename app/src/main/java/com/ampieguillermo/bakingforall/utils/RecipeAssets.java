@@ -10,7 +10,7 @@ public enum RecipeAssets {
   ;
 
   // The Ingredient's measure is used as key, not the best approach but it is what we got...
-  public static final ArrayMap<String, Integer> DRAWABLE_ASSETS_MAP = new ArrayMap<>();
+  private static final ArrayMap<String, Integer> DRAWABLE_ASSETS_MAP = new ArrayMap<>();
   // The Recipe's name is used as key, not the best approach but it is what we got...
   private static final ArrayMap<String, Integer> PHOTO_ASSETS_MAP = new ArrayMap<>();
 
