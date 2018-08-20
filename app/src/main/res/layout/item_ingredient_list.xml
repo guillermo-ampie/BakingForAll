@@ -14,8 +14,6 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="horizontal">
-  <!--android:divider="?android:attr/dividerVertical"-->
-  <!--android:showDividers="middle"-->
   <ImageView
     android:id="@+id/imageview_item_ingredient_list_icon"
     android:layout_width="@dimen/size_item_ingredient_list_icon"
