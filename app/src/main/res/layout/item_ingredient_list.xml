@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v7.widget.CardView
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:card_view="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/cardview_ingredient_list_cardlayout"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:divider="?android:attr/dividerVertical"
-  android:orientation="horizontal"
-  android:showDividers="middle">
-
+  android:layout_margin="@dimen/margin_all_horizontal"
+  android:layout_gravity="center"
+  card_view:cardCornerRadius="@dimen/radius_corner_all_cardview"
+  card_view:cardElevation="@dimen/elevation_all_cardview">
+<LinearLayout
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal">
+  <!--android:divider="?android:attr/dividerVertical"-->
+  <!--android:showDividers="middle"-->
   <ImageView
     android:id="@+id/imageview_item_ingredient_list_icon"
     android:layout_width="@dimen/size_item_ingredient_list_icon"
     android:layout_height="@dimen/size_item_ingredient_list_icon"
+    android:layout_marginTop="@dimen/margin_medium_all_vertical"
+    android:layout_marginBottom="@dimen/margin_medium_all_vertical"
     android:layout_marginStart="@dimen/margin_all_horizontal"
     android:layout_marginEnd="@dimen/margin_all_horizontal"
     android:contentDescription="@string/description_ingredient_icon"
@@ -23,10 +33,12 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1"
+    android:layout_marginTop="@dimen/margin_medium_all_vertical"
+    android:layout_marginBottom="@dimen/margin_medium_all_vertical"
     android:layout_marginStart="@dimen/margin_all_horizontal"
     android:layout_marginEnd="@dimen/margin_all_horizontal"
-    android:layout_gravity="center"
-    android:textAlignment="center"
+    android:layout_gravity="start|center"
     android:textSize="16sp"
     tools:text="@sample/recipe_data.json/ingredients/ingredient"/>
 </LinearLayout>
+</android.support.v7.widget.CardView>
