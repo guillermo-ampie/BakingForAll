@@ -85,12 +85,6 @@ public class RecipeDetailFragment extends Fragment {
     final LinearLayoutManager layoutManager =
         (LinearLayoutManager) recyclerIngredientList.getLayoutManager();
 
-    // Set a divider line
-//    final DividerItemDecoration dividerLine =
-//        new DividerItemDecoration(recyclerIngredientList.getContext(),
-//            layoutManager.getOrientation());
-//    recyclerIngredientList.addItemDecoration(dividerLine);
-
     recyclerIngredientList.setHasFixedSize(true);
 
     final IngredientItemAdapter itemAdapter = new IngredientItemAdapter();
