@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -87,10 +86,10 @@ public class RecipeDetailFragment extends Fragment {
         (LinearLayoutManager) recyclerIngredientList.getLayoutManager();
 
     // Set a divider line
-    final DividerItemDecoration dividerLine =
-        new DividerItemDecoration(recyclerIngredientList.getContext(),
-            layoutManager.getOrientation());
-    recyclerIngredientList.addItemDecoration(dividerLine);
+//    final DividerItemDecoration dividerLine =
+//        new DividerItemDecoration(recyclerIngredientList.getContext(),
+//            layoutManager.getOrientation());
+//    recyclerIngredientList.addItemDecoration(dividerLine);
 
     recyclerIngredientList.setHasFixedSize(true);
 
