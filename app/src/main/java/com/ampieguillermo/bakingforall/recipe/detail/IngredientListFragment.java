@@ -17,7 +17,7 @@ import java.util.Objects;
 import org.parceler.Parcels;
 
 /**
- * A fragment representing a single Recipe detail screen.
+ * A fragment representing a single Recipe list of ingredients screen.
  * This fragment is either contained in a {@link RecipeListActivity}
  * in two-pane mode (on tablets) or a {@link RecipeDetailActivity}
  * on handsets.
@@ -47,8 +47,10 @@ public class IngredientListFragment extends Fragment {
   }
 
   @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    final View rootView =
+        inflater.inflate(R.layout.fragment_ingredient_list, container, false);
 
     if (Objects.requireNonNull(getArguments()).containsKey(Recipe.ARGUMENT_SELECTED_RECIPE)) {
       // Get the Recipe specified by the fragment arguments.
@@ -61,16 +63,9 @@ public class IngredientListFragment extends Fragment {
         appBarLayout.setTitle(recipe.getName());
       }
     }
-  }
-
-  @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    final View rootView =
-        inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
     final RecyclerView recyclerViewIngredientList =
-        rootView.findViewById(R.id.recyclerview_fragment_recipe_detail_ingredient_list);
+        rootView.findViewById(R.id.recyclerview_fragment_ingredient_list);
     assert (recyclerViewIngredientList != null);
     setupRecyclerViewIngredientList(recyclerViewIngredientList);
     return rootView;
