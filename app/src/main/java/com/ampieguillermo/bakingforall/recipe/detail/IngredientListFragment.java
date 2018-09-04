@@ -22,9 +22,9 @@ import org.parceler.Parcels;
  * in two-pane mode (on tablets) or a {@link RecipeDetailActivity}
  * on handsets.
  */
-public class RecipeDetailFragment extends Fragment {
+public class IngredientListFragment extends Fragment {
 
-  private static final String LOG_TAG = RecipeDetailFragment.class.getSimpleName();
+  private static final String LOG_TAG = IngredientListFragment.class.getSimpleName();
 
   /**
    * The fragment argument representing the Recipe that this fragment will handle
@@ -37,13 +37,13 @@ public class RecipeDetailFragment extends Fragment {
    * Mandatory empty constructor for the fragment manager to instantiate the
    * fragment (e.g. upon screen orientation changes).
    */
-  public RecipeDetailFragment() {
+  public IngredientListFragment() {
     // Mandatory empty constructor
   }
 
 
-  public static RecipeDetailFragment newInstance(final Recipe recipe) {
-    final RecipeDetailFragment fragment = new RecipeDetailFragment();
+  public static IngredientListFragment newInstance(final Recipe recipe) {
+    final IngredientListFragment fragment = new IngredientListFragment();
     final Bundle args = new Bundle();
 
     args.putParcelable(ARGUMENT_SELECTED_RECIPE, Parcels.wrap(recipe));

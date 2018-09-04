@@ -57,7 +57,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
       // using a fragment transaction.
       final Recipe recipe = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_RECIPE));
 
-      final RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(recipe);
+      final IngredientListFragment fragment = IngredientListFragment.newInstance(recipe);
       getSupportFragmentManager().beginTransaction()
           .add(R.id.recipe_detail_container, fragment)
           .commit();

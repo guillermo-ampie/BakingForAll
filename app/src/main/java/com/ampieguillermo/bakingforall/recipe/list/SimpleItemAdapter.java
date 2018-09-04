@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.ampieguillermo.bakingforall.R;
 import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
-import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailFragment;
+import com.ampieguillermo.bakingforall.recipe.detail.IngredientListFragment;
 import com.ampieguillermo.bakingforall.recipe.list.SimpleItemAdapter.SimpleItemViewHolder;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.ampieguillermo.bakingforall.utils.RecipeAssets;
@@ -44,7 +44,7 @@ public class SimpleItemAdapter extends ListAdapter<Recipe, SimpleItemViewHolder>
       final Recipe recipe = getItem(position);
 
       if (mTwoPane) {
-        final RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(recipe);
+        final IngredientListFragment fragment = IngredientListFragment.newInstance(recipe);
         mParentActivity.getSupportFragmentManager()
             .beginTransaction()
             .replace(R.id.recipe_detail_container, fragment)
