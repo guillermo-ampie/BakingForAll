@@ -26,8 +26,6 @@ public class IngredientListFragment extends Fragment {
 
   private static final String LOG_TAG = IngredientListFragment.class.getSimpleName();
 
-  private Recipe recipe;
-
   /**
    * Mandatory empty constructor for the fragment manager to instantiate the
    * fragment (e.g. upon screen orientation changes).
@@ -54,33 +52,35 @@ public class IngredientListFragment extends Fragment {
 
     if (Objects.requireNonNull(getArguments()).containsKey(Recipe.ARGUMENT_SELECTED_RECIPE)) {
       // Get the Recipe specified by the fragment arguments.
-      recipe = Parcels.unwrap(getArguments().getParcelable(Recipe.ARGUMENT_SELECTED_RECIPE));
+      final Recipe recipe = Parcels
+          .unwrap(getArguments().getParcelable(Recipe.ARGUMENT_SELECTED_RECIPE));
 
-      final Activity activity = getActivity();
-      final CollapsingToolbarLayout appBarLayout = Objects.requireNonNull(activity)
-          .findViewById(R.id.ctoolbarlayout_recipe_detail);
-      if (appBarLayout != null) {
-        appBarLayout.setTitle(recipe.getName());
+      if (recipe != null) {
+        final Activity activity = getActivity();
+        final CollapsingToolbarLayout appBarLayout = Objects.requireNonNull(activity)
+            .findViewById(R.id.ctoolbarlayout_recipe_detail);
+        if (appBarLayout != null) {
+          appBarLayout.setTitle(recipe.getName());
+        }
+        final RecyclerView recyclerViewIngredientList =
+            rootView.findViewById(R.id.recyclerview_ingredient_list);
+        assert (recyclerViewIngredientList != null);
+        setupRecyclerViewIngredientList(recipe, recyclerViewIngredientList);
       }
     }
-
-    final RecyclerView recyclerViewIngredientList =
-        rootView.findViewById(R.id.recyclerview_ingredient_list);
-    assert (recyclerViewIngredientList != null);
-    setupRecyclerViewIngredientList(recyclerViewIngredientList);
     return rootView;
   }
 
-  private void setupRecyclerViewIngredientList(@NonNull final RecyclerView recyclerIngredientList) {
+  private void setupRecyclerViewIngredientList(@NonNull final Recipe recipe,
+      @NonNull final RecyclerView recyclerViewIngredientList) {
     final LinearLayoutManager layoutManager =
-        (LinearLayoutManager) recyclerIngredientList.getLayoutManager();
+        (LinearLayoutManager) recyclerViewIngredientList.getLayoutManager();
 
-    recyclerIngredientList.setHasFixedSize(true);
+    recyclerViewIngredientList.setHasFixedSize(true);
 
     final IngredientItemAdapter itemAdapter = new IngredientItemAdapter();
-    if (recipe != null) {
-      itemAdapter.setItemList(recipe.getIngredients());
-    }
-    recyclerIngredientList.setAdapter(itemAdapter);
+
+    itemAdapter.setItemList(recipe.getIngredients());
+    recyclerViewIngredientList.setAdapter(itemAdapter);
   }
 }
