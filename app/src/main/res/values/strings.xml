@@ -6,4 +6,11 @@
   <!-- Strings for "android:contentDescription" -->
   <string name="description_recipe_image">The Recipe\'s Photo</string>
   <string name="description_ingredient_icon">An icon giving a cue of the ingredient measure</string>
+
+  <!-- Error messages -->
+  <string name="error_opening_file">Error opening file: %s</string>
+  <string name="error_io_operation">I/O Error: %s</string>
+  <string name="error_json_operation">Error reading from JSON file: %s</string>
+  <string name="recipe_list_json_data_file">baking.json</string>
+
 </resources>

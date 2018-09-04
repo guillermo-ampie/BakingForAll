@@ -88,20 +88,25 @@ public class RecipeListActivity extends AppCompatActivity {
   // TODO: 8/11/18 Move this to an AsyncTaskLoader
   private List<Recipe> loadJsonData() {
     final Gson gson = new Gson();
+    List<Recipe> result = Collections.emptyList();
 
-    try (InputStream inputStream = getAssets().open("baking.json")) {
+    try (InputStream inputStream =
+        getAssets().open(getString(R.string.recipe_list_json_data_file))) {
+
       final Reader reader = new InputStreamReader(inputStream, Charset.defaultCharset());
-      return gson.fromJson(reader, new TypeToken<ArrayList<Recipe>>() {}.getType());
+      result = gson.fromJson(reader, new TypeToken<ArrayList<Recipe>>() {}.getType());
+
     } catch (final FileNotFoundException e) {
-      Log.e(LOG_TAG, String.format("Error opening file: %s", e.getLocalizedMessage()));
-      return Collections.emptyList();
+      Log.e(LOG_TAG,
+          String.format(getString(R.string.error_opening_file), e.getLocalizedMessage()));
     } catch (final IOException e) {
-      Log.e(LOG_TAG, String.format("I/O Error: %s", e.getLocalizedMessage()));
-      return Collections.emptyList();
+      Log.e(LOG_TAG,
+          String.format(getString(R.string.error_io_operation), e.getLocalizedMessage()));
     } catch (final JsonIOException | JsonSyntaxException e) {
-      Log.e(LOG_TAG, String.format("Error reading from JSON file: %s", e.getLocalizedMessage()));
-      return Collections.emptyList();
+      Log.e(LOG_TAG,
+          String.format(getString(R.string.error_json_operation), e.getLocalizedMessage()));
     }
+    return result;
   }
 }
 
