@@ -65,7 +65,7 @@ public class IngredientListFragment extends Fragment {
     }
 
     final RecyclerView recyclerViewIngredientList =
-        rootView.findViewById(R.id.recyclerview_fragment_ingredient_list);
+        rootView.findViewById(R.id.recyclerview_ingredient_list);
     assert (recyclerViewIngredientList != null);
     setupRecyclerViewIngredientList(recyclerViewIngredientList);
     return rootView;
