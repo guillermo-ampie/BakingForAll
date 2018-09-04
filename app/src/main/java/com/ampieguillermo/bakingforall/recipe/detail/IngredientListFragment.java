@@ -26,11 +26,6 @@ public class IngredientListFragment extends Fragment {
 
   private static final String LOG_TAG = IngredientListFragment.class.getSimpleName();
 
-  /**
-   * The fragment argument representing the Recipe that this fragment will handle
-   */
-  private static final String ARGUMENT_SELECTED_RECIPE = "ARGUMENT_SELECTED_RECIPE";
-
   private Recipe recipe;
 
   /**
@@ -46,7 +41,7 @@ public class IngredientListFragment extends Fragment {
     final IngredientListFragment fragment = new IngredientListFragment();
     final Bundle args = new Bundle();
 
-    args.putParcelable(ARGUMENT_SELECTED_RECIPE, Parcels.wrap(recipe));
+    args.putParcelable(Recipe.ARGUMENT_SELECTED_RECIPE, Parcels.wrap(recipe));
     fragment.setArguments(args);
     return fragment;
   }
@@ -55,9 +50,9 @@ public class IngredientListFragment extends Fragment {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    if (Objects.requireNonNull(getArguments()).containsKey(ARGUMENT_SELECTED_RECIPE)) {
+    if (Objects.requireNonNull(getArguments()).containsKey(Recipe.ARGUMENT_SELECTED_RECIPE)) {
       // Get the Recipe specified by the fragment arguments.
-      recipe = Parcels.unwrap(getArguments().getParcelable(ARGUMENT_SELECTED_RECIPE));
+      recipe = Parcels.unwrap(getArguments().getParcelable(Recipe.ARGUMENT_SELECTED_RECIPE));
 
       final Activity activity = getActivity();
       final CollapsingToolbarLayout appBarLayout = Objects.requireNonNull(activity)

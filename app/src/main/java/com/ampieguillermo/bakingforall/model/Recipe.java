@@ -17,6 +17,11 @@ import org.parceler.Parcel;
 @Parcel
 public class Recipe {
 
+  /**
+   * The Recipe used as a Fragment argument
+   */
+  public static final String ARGUMENT_SELECTED_RECIPE = "ARGUMENT_SELECTED_RECIPE";
+
   @SerializedName("id")
   /* package */ int id;
   @SerializedName("name")
