@@ -8,7 +8,8 @@
 
   <!-- Strings for "android:contentDescription" -->
   <string name="description_recipe_image">The Recipe\'s Photo</string>
-  <string name="description_ingredient_icon">An icon giving a cue of the ingredient measure</string>
+  <string name="description_ingredient_icon">An icon representing an ingredient measure</string>
+  <string name="description_recipe_step_icon">An icon representing a step to execute while preparing the recipe</string>
 
   <!-- Error messages -->
   <string name="error_opening_file">Error opening file: %s</string>
