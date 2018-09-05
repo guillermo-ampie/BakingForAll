@@ -78,7 +78,7 @@ public class RecipeStepListFragment extends Fragment {
 
     recyclerViewStepList.setHasFixedSize(true);
 
-    final RecipeStepItemAdapter itemAdapter = new RecipeStepItemAdapter();
+    final RecipeStepItemAdapter itemAdapter = new RecipeStepItemAdapter(getActivity(), );
 
     itemAdapter.setItemList(recipe.getSteps());
     recyclerViewStepList.setAdapter(itemAdapter);

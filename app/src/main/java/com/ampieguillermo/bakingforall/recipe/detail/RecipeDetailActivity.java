@@ -21,7 +21,8 @@ import org.parceler.Parcels;
 public class RecipeDetailActivity extends AppCompatActivity {
 
   private static final String LOG_TAG = RecipeDetailActivity.class.getSimpleName();
-  private static final String EXTRA_RECIPE = "com.ampieguillermo.bakingforall.EXTRA_RECIPE";
+  private static final String EXTRA_RECIPE =
+      "com.ampieguillermo.bakingforall.recipe.detail.EXTRA_RECIPE";
 
   public static Intent getStartIntent(final Context context, final Recipe recipe) {
     final Intent intent = new Intent(context, RecipeDetailActivity.class);
@@ -57,7 +58,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
       // using a fragment transaction.
       final Recipe recipe = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_RECIPE));
 
-      final IngredientListFragment fragment = IngredientListFragment.newInstance(recipe);
+      final RecipeStepListFragment fragment = RecipeStepListFragment.newInstance(recipe);
       getSupportFragmentManager().beginTransaction()
           .add(R.id.recipe_detail_container, fragment)
           .commit();

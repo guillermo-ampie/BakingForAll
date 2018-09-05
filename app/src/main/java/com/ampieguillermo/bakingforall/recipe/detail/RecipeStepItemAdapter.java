@@ -1,5 +1,6 @@
 package com.ampieguillermo.bakingforall.recipe.detail;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -11,15 +12,42 @@ import android.widget.TextView;
 import com.ampieguillermo.bakingforall.R;
 import com.ampieguillermo.bakingforall.model.RecipeStep;
 import com.ampieguillermo.bakingforall.recipe.detail.RecipeStepItemAdapter.RecipeStepViewHolder;
+import com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent.RecipeStepContentActivity;
+import com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent.RecipeStepContentFragment;
+import com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity;
 import java.util.Collections;
 import java.util.List;
 
 public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHolder> {
 
-  private List<RecipeStep> recipeStepList;
+  /* package */ List<RecipeStep> recipeStepList;
+  /* package */ final RecipeListActivity mParentActivity;
+  /* package */ final boolean mTwoPane;
+  private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+      final int position = (int) view.getTag();
+      final RecipeStep recipeStep = recipeStepList.get(position);
 
-  public RecipeStepItemAdapter() {
+      if (mTwoPane) {
+        final RecipeStepContentFragment fragment = RecipeStepContentFragment.newInstance(recipeStep);
+        mParentActivity.getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.recipe_detail_container, fragment)
+            .commit();
+      } else { // Phone case
+        final Context context = view.getContext();
+        context.startActivity(RecipeStepContentActivity.getStartIntent(context, recipeStep));
+      }
+    }
+  };
+
+
+
+  public RecipeStepItemAdapter(final RecipeListActivity parentActivity, final boolean twoPane) {
     recipeStepList = Collections.emptyList();
+    mParentActivity = parentActivity;
+    mTwoPane = twoPane;
   }
 
   /**
@@ -96,9 +124,10 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
 
     private final TextView description;
 
-    /* package */ RecipeStepViewHolder(final View view) {
+    /* package */ RecipeStepViewHolder(final View view, final View.OnClickListener listener) {
       super(view);
       description = view.findViewById(R.id.textview_item_step_list_short_description);
+      itemView.setOnClickListener(listener);
     }
 
     /* package */ void setupItemView(final RecipeStep recipeStep) {

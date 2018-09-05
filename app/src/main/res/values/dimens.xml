@@ -21,4 +21,5 @@
 
   <!-- item_ingredient_list.xml -->
   <dimen name="size_item_ingredient_list_icon">32dp</dimen>
+  <dimen name="fab_margin">16dp</dimen>
 </resources>

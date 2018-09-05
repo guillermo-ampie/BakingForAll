@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.ampieguillermo.bakingforall.R;
 import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
-import com.ampieguillermo.bakingforall.recipe.detail.IngredientListFragment;
+import com.ampieguillermo.bakingforall.recipe.detail.RecipeStepListFragment;
 import com.ampieguillermo.bakingforall.recipe.list.SimpleItemAdapter.SimpleItemViewHolder;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.ampieguillermo.bakingforall.utils.RecipeAssets;
@@ -43,13 +43,13 @@ public class SimpleItemAdapter extends ListAdapter<Recipe, SimpleItemViewHolder>
       final int position = (int) view.getTag();
       final Recipe recipe = getItem(position);
 
-      if (mTwoPane) {
-        final IngredientListFragment fragment = IngredientListFragment.newInstance(recipe);
+      if (mTwoPane) { // Tablet case
+        final RecipeStepListFragment fragment = RecipeStepListFragment.newInstance(recipe);
         mParentActivity.getSupportFragmentManager()
             .beginTransaction()
             .replace(R.id.recipe_detail_container, fragment)
             .commit();
-      } else {
+      } else { // Phone case
         final Context context = view.getContext();
         context.startActivity(RecipeDetailActivity.getStartIntent(context, recipe));
       }

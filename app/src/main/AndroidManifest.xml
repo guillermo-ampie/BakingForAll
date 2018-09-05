@@ -5,16 +5,16 @@
   <application
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
-    android:name=".BakingForAllApp"
     android:label="@string/app_name"
+    android:name=".BakingForAllApp"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
     <activity
       android:label="@string/app_name"
+      android:launchMode="singleTop"
       android:name=".recipe.list.RecipeListActivity"
-      android:theme="@style/AppTheme.NoActionBar"
-      android:launchMode="singleTop">
+      android:theme="@style/AppTheme.NoActionBar">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -29,6 +29,15 @@
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
         android:value="com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity"/>
+    </activity>
+    <activity
+      android:label="@string/title_activity_recipe_step_content"
+      android:name=".recipe.detail.recipestepcontent.RecipeStepContentActivity"
+      android:parentActivityName=".recipe.detail.RecipeDetailActivity"
+      android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity"/>
     </activity>
   </application>
 
