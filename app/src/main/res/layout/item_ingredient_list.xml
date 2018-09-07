@@ -10,33 +10,34 @@
   android:layout_gravity="center"
   card_view:cardCornerRadius="@dimen/radius_corner_all_cardview"
   card_view:cardElevation="@dimen/elevation_all_cardview">
-<LinearLayout
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:orientation="horizontal">
-  <ImageView
-    android:id="@+id/imageview_item_ingredient_list_icon"
-    android:layout_width="@dimen/size_item_ingredient_list_icon"
-    android:layout_height="@dimen/size_item_ingredient_list_icon"
-    android:layout_marginTop="@dimen/margin_medium_all_vertical"
-    android:layout_marginBottom="@dimen/margin_medium_all_vertical"
-    android:layout_marginStart="@dimen/margin_all_horizontal"
-    android:layout_marginEnd="@dimen/margin_all_horizontal"
-    android:contentDescription="@string/description_ingredient_icon"
-    tools:srcCompat="@drawable/ic_measure_cup_24dp"/>
-
-  <!-- TODO: Use Quantity Strings (PLURALS)-->
-  <TextView
-    android:id="@+id/textview_item_ingredient_list_description"
-    android:layout_width="0dp"
+  <LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:layout_marginTop="@dimen/margin_medium_all_vertical"
-    android:layout_marginBottom="@dimen/margin_medium_all_vertical"
-    android:layout_marginStart="@dimen/margin_all_horizontal"
-    android:layout_marginEnd="@dimen/margin_all_horizontal"
-    android:layout_gravity="start|center"
-    android:textSize="16sp"
-    tools:text="@sample/recipe_data.json/ingredients/ingredient"/>
-</LinearLayout>
+    android:orientation="horizontal"
+    android:background="@drawable/list_item_selector">
+    <ImageView
+      android:id="@+id/imageview_item_ingredient_list_icon"
+      android:layout_width="@dimen/size_item_ingredient_list_icon"
+      android:layout_height="@dimen/size_item_ingredient_list_icon"
+      android:layout_marginTop="@dimen/margin_medium_all_vertical"
+      android:layout_marginBottom="@dimen/margin_medium_all_vertical"
+      android:layout_marginStart="@dimen/margin_all_horizontal"
+      android:layout_marginEnd="@dimen/margin_all_horizontal"
+      android:contentDescription="@string/description_ingredient_icon"
+      tools:srcCompat="@drawable/ic_measure_cup_24dp"/>
+
+    <!-- TODO: Use Quantity Strings (PLURALS)-->
+    <TextView
+      android:id="@+id/textview_item_ingredient_list_description"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_marginTop="@dimen/margin_medium_all_vertical"
+      android:layout_marginBottom="@dimen/margin_medium_all_vertical"
+      android:layout_marginStart="@dimen/margin_all_horizontal"
+      android:layout_marginEnd="@dimen/margin_all_horizontal"
+      android:layout_gravity="start|center"
+      android:textSize="16sp"
+      tools:text="@sample/recipe_data.json/ingredients/ingredient"/>
+  </LinearLayout>
 </android.support.v7.widget.CardView>
