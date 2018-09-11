@@ -41,5 +41,4 @@
         android:value="com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity"/>
     </activity>
   </application>
-
 </manifest>
