@@ -14,11 +14,13 @@
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/list_item_selector">
+    android:background="@drawable/list_item_selector"
+    android:orientation="horizontal">
     <ImageView
       android:id="@+id/imageview_item_ingredient_list_icon"
       android:layout_width="@dimen/size_item_ingredient_list_icon"
       android:layout_height="@dimen/size_item_ingredient_list_icon"
+      android:layout_gravity="center_vertical"
       android:layout_marginTop="@dimen/margin_medium_all_vertical"
       android:layout_marginBottom="@dimen/margin_medium_all_vertical"
       android:layout_marginStart="@dimen/margin_all_horizontal"
@@ -28,14 +30,24 @@
 
     <TextView
       android:id="@+id/textview_item_step_list_short_description"
-      android:layout_width="match_parent"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_medium_all_vertical"
       android:layout_marginBottom="@dimen/margin_medium_all_vertical"
       android:layout_marginStart="@dimen/margin_all_horizontal"
       android:layout_marginEnd="@dimen/margin_all_horizontal"
-      android:layout_gravity="start|center"
+      android:layout_weight="1"
+      android:layout_gravity="center_vertical"
       android:textSize="16sp"
       tools:text="@sample/recipe_data.json/steps/shortDescription"/>
+    <ImageView
+      android:id="@+id/imageview_recipe_step_content_icon"
+      android:layout_width="@dimen/size_item_ingredient_list_icon"
+      android:layout_height="@dimen/size_item_ingredient_list_icon"
+      android:layout_marginStart="@dimen/margin_all_horizontal"
+      android:layout_marginEnd="@dimen/margin_all_horizontal"
+      android:layout_gravity="center_vertical"
+      android:contentDescription="@string/description_play_video_icon"
+      app:srcCompat="@drawable/ic_play_circle_outline_black_24dp"/>
   </LinearLayout>
 </android.support.v7.widget.CardView>

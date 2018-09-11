@@ -11,10 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ampieguillermo.bakingforall.R;
-import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
-import com.ampieguillermo.bakingforall.recipe.detail.RecipeStepListFragment;
-import com.ampieguillermo.bakingforall.recipe.list.SimpleItemAdapter.SimpleItemViewHolder;
 import com.ampieguillermo.bakingforall.model.Recipe;
+import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
+import com.ampieguillermo.bakingforall.recipe.list.SimpleItemAdapter.SimpleItemViewHolder;
 import com.ampieguillermo.bakingforall.utils.RecipeAssets;
 import java.util.List;
 import java.util.Objects;
@@ -35,32 +34,10 @@ public class SimpleItemAdapter extends ListAdapter<Recipe, SimpleItemViewHolder>
         }
       };
 
-  /* package */ final RecipeListActivity mParentActivity;
-  /* package */ final boolean mTwoPane;
-  private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-      final int position = (int) view.getTag();
-      final Recipe recipe = getItem(position);
+  private final View.OnClickListener mOnClickListener = this::onClick;
 
-      if (mTwoPane) { // Tablet case
-        final RecipeStepListFragment fragment = RecipeStepListFragment.newInstance(recipe);
-        mParentActivity.getSupportFragmentManager()
-            .beginTransaction()
-            .replace(R.id.recipe_detail_container, fragment)
-            .commit();
-      } else { // Phone case
-        final Context context = view.getContext();
-        context.startActivity(RecipeDetailActivity.getStartIntent(context, recipe));
-      }
-    }
-  };
-
-  SimpleItemAdapter(RecipeListActivity parent,
-      boolean twoPane) {
+  SimpleItemAdapter() {
     super(DIFF_CALLBACK);
-    mParentActivity = parent;
-    mTwoPane = twoPane;
   }
 
   public void setItemList(final List<Recipe> itemList) {
@@ -78,6 +55,14 @@ public class SimpleItemAdapter extends ListAdapter<Recipe, SimpleItemViewHolder>
   @Override
   public void onBindViewHolder(@NonNull final SimpleItemViewHolder holder, int position) {
     holder.setupItemView(getItem(position));
+  }
+
+  private void onClick(View view) {
+    final int position = (int) view.getTag();
+    final Recipe recipe = getItem(position);
+    final Context context = view.getContext();
+
+    context.startActivity(RecipeDetailActivity.getStartIntent(context, recipe));
   }
 
   /* package */ static class SimpleItemViewHolder extends RecyclerView.ViewHolder {

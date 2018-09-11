@@ -2,6 +2,7 @@ package com.ampieguillermo.bakingforall.recipe.detail;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
@@ -14,26 +15,27 @@ import com.ampieguillermo.bakingforall.model.RecipeStep;
 import com.ampieguillermo.bakingforall.recipe.detail.RecipeStepItemAdapter.RecipeStepViewHolder;
 import com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent.RecipeStepContentActivity;
 import com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent.RecipeStepContentFragment;
-import com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity;
 import java.util.Collections;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHolder> {
 
-  /* package */ List<RecipeStep> recipeStepList;
-  /* package */ final RecipeListActivity mParentActivity;
+  /* package */ final FragmentActivity mParentActivity;
   /* package */ final boolean mTwoPane;
+  /* package */ List<RecipeStep> recipeStepList;
   private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
     @Override
     public void onClick(View view) {
       final int position = (int) view.getTag();
       final RecipeStep recipeStep = recipeStepList.get(position);
 
-      if (mTwoPane) {
-        final RecipeStepContentFragment fragment = RecipeStepContentFragment.newInstance(recipeStep);
+      if (mTwoPane) { // Tablet case
+        final RecipeStepContentFragment fragment = RecipeStepContentFragment
+            .newInstance(recipeStep);
         mParentActivity.getSupportFragmentManager()
             .beginTransaction()
-            .replace(R.id.recipe_detail_container, fragment)
+            .replace(R.id.recipe_step_content_container, fragment)
             .commit();
       } else { // Phone case
         final Context context = view.getContext();
@@ -43,8 +45,7 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
   };
 
 
-
-  public RecipeStepItemAdapter(final RecipeListActivity parentActivity, final boolean twoPane) {
+  public RecipeStepItemAdapter(final FragmentActivity parentActivity, final boolean twoPane) {
     recipeStepList = Collections.emptyList();
     mParentActivity = parentActivity;
     mTwoPane = twoPane;
@@ -77,7 +78,7 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
     final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     final View view = inflater.inflate(R.layout.item_step_list, parent, false);
 
-    return new RecipeStepViewHolder(view);
+    return new RecipeStepViewHolder(view, mOnClickListener);
   }
 
   /**
@@ -132,6 +133,13 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
 
     /* package */ void setupItemView(final RecipeStep recipeStep) {
       description.setText(recipeStep.getShortDescription());
+
+      // If there is no video for this step --> hide the "play video" icon
+      if (StringUtils.isEmpty(recipeStep.getVideoURL())) {
+        itemView.findViewById(R.id.imageview_recipe_step_content_icon)
+            .setVisibility(View.INVISIBLE);
+      }
+      itemView.setTag(getAdapterPosition());
     }
   }
 }

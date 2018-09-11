@@ -11,7 +11,7 @@
   android:divider="?android:attr/dividerHorizontal"
   android:orientation="horizontal"
   android:showDividers="middle"
-  tools:context=".recipe.list.RecipeListActivity">
+  tools:context=".recipe.detail.RecipeDetailActivity">
 
 
   <!--
@@ -23,17 +23,17 @@
   <android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/recyclerview_recipe_list"
-    android:layout_width="@dimen/width_layout_recipe_list_item"
+    android:id="@+id/recyclerview_recipe_detail_list"
+    android:layout_width="@dimen/width_layout_recipe_detail_list_item"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/margin_layout_recipe_list_recyclerview"
-    app:layoutManager="android.support.v7.widget.GridLayoutManager"
-    tools:context="com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity"
-    tools:listitem="@layout/item_recipe_list"/>
+    android:layout_margin="@dimen/margin_all_recyclerview"
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    tools:context=".recipe.detail.RecipeDetailActivity"
+    tools:listitem="@layout/item_step_list"/>
   <!--android:name="com.ampieguillermo.bakingforall.recipe.list.RecipeListFragment"-->
 
   <FrameLayout
-    android:id="@+id/recipe_detail_container"
+    android:id="@+id/recipe_step_content_container"
     android:layout_width="0dp"
     android:layout_height="match_parent"
     android:layout_weight="3"/>

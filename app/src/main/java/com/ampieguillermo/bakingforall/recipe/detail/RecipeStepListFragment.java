@@ -1,12 +1,12 @@
 package com.ampieguillermo.bakingforall.recipe.detail;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,15 +56,17 @@ public class RecipeStepListFragment extends Fragment {
           .unwrap(getArguments().getParcelable(Recipe.ARGUMENT_SELECTED_RECIPE));
 
       if (recipe != null) {
-        final Activity activity = getActivity();
+        final Toolbar toolbar = rootView.findViewById(R.id.toolbar_recipe_step_content);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         final CollapsingToolbarLayout appBarLayout =
-            Objects.requireNonNull(activity).findViewById(R.id.ctoolbarlayout_recipe_detail);
+            Objects.requireNonNull(getActivity()).findViewById(R.id.ctoolbarlayout_recipe_detail);
+        // TODO: 9/8/18 appBarLayout is always null. WHY!?!?
         if (appBarLayout != null) {
           appBarLayout.setTitle(recipe.getName());
         }
         final RecyclerView recyclerViewStepList =
             rootView.findViewById(R.id.recyclerview_step_list);
-        assert (recyclerViewStepList != null);
+        Objects.requireNonNull(recyclerViewStepList);
         setupRecyclerViewStepList(recipe, recyclerViewStepList);
       }
     }
@@ -73,12 +75,10 @@ public class RecipeStepListFragment extends Fragment {
 
   private void setupRecyclerViewStepList(@NonNull final Recipe recipe,
       @NonNull final RecyclerView recyclerViewStepList) {
-    final LinearLayoutManager layoutManager =
-        (LinearLayoutManager) recyclerViewStepList.getLayoutManager();
 
     recyclerViewStepList.setHasFixedSize(true);
 
-    final RecipeStepItemAdapter itemAdapter = new RecipeStepItemAdapter(getActivity(), );
+    final RecipeStepItemAdapter itemAdapter = new RecipeStepItemAdapter(getActivity(),false);
 
     itemAdapter.setItemList(recipe.getSteps());
     recyclerViewStepList.setAdapter(itemAdapter);

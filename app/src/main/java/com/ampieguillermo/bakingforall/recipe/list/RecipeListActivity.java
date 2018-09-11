@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import com.ampieguillermo.bakingforall.R;
 import com.ampieguillermo.bakingforall.model.Recipe;
-import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
@@ -23,23 +22,17 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * An activity representing a list of Recipes. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link RecipeDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
+ * An activity showing a grid of Recipes. Selecting a recipe launches a
+ * RecipeDetailActivity that presents the ingredients, recipe steps and accompanying
+ * video in two different layouts, one for handsets and another for tablet-size devices
  */
 public class RecipeListActivity extends AppCompatActivity {
 
   private static final String LOG_TAG = RecipeListActivity.class.getSimpleName();
-  /**
-   * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-   * device.
-   */
-  /* package */ boolean mTwoPane;
+
   private SimpleItemAdapter itemAdapter;
 
   @Override
@@ -51,16 +44,8 @@ public class RecipeListActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
     toolbar.setTitle(getTitle());
 
-    if (findViewById(R.id.recipe_detail_container) != null) {
-      // The detail container view will be present only in the
-      // large-screen layouts (res/values-w900dp).
-      // If this view is present, then the
-      // activity should be in two-pane mode.
-      mTwoPane = true;
-    }
-
     final RecyclerView recyclerView = findViewById(R.id.recyclerview_recipe_list);
-    assert recyclerView != null;
+    Objects.requireNonNull(recyclerView);
     setupRecyclerView(recyclerView);
     loadJsonData();
   }
@@ -68,19 +53,11 @@ public class RecipeListActivity extends AppCompatActivity {
   private void setupRecyclerView(@NonNull final RecyclerView recyclerView) {
 
     final GridLayoutManager layoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
-    if (!mTwoPane) {
-      // Phone case
-      layoutManager.setSpanCount(getResources()
-          .getInteger(R.integer.num_columns_layout_recipe_list));
-    }
-
-//    // Set a divider line
-//    final DividerItemDecoration dividerLine =
-//        new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
-//    recyclerView.addItemDecoration(dividerLine);
+    layoutManager.setSpanCount(getResources()
+        .getInteger(R.integer.num_columns_layout_recipe_list));
 
     recyclerView.setHasFixedSize(true);
-    itemAdapter = new SimpleItemAdapter(this, mTwoPane);
+    itemAdapter = new SimpleItemAdapter();
     itemAdapter.setItemList(loadJsonData());
     recyclerView.setAdapter(itemAdapter);
   }
@@ -90,7 +67,7 @@ public class RecipeListActivity extends AppCompatActivity {
     final Gson gson = new Gson();
     List<Recipe> result = Collections.emptyList();
 
-    try (InputStream inputStream =
+    try (final InputStream inputStream =
         getAssets().open(getString(R.string.recipe_list_json_data_file))) {
 
       final Reader reader = new InputStreamReader(inputStream, Charset.defaultCharset());

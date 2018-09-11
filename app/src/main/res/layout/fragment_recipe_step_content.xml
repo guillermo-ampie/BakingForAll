@@ -5,7 +5,56 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".recipe.detail.recipestepcontent.RecipeStepContentFragment"
-  tools:showIn="@layout/activity_recipe_step_content">
+  tools:context=".recipe.detail.recipestepcontent.RecipeStepContentFragment">
+  <android.support.constraint.Guideline
+    android:id="@+id/guideline_left"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_begin="16dp"/>
+  <android.support.constraint.Guideline
+    android:id="@+id/guideline_right"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_end="16dp"/>
+  <android.support.constraint.Guideline
+    android:id="@+id/guideline_top"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_begin="16dp"/>
+  <android.support.constraint.Guideline
+    android:id="@+id/guideline_bottom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_end="16dp"/>
+  <android.support.constraint.Guideline
+    android:id="@+id/guideline_percentage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.618"/>
 
+  <ImageView
+    android:id="@+id/imageView2"
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"
+    android:adjustViewBounds="false"
+    android:src="@drawable/brownies"
+    app:layout_constraintBottom_toTopOf="@id/guideline_percentage"
+    app:layout_constraintEnd_toStartOf="@id/guideline_right"
+    app:layout_constraintStart_toEndOf="@id/guideline_left"
+    app:layout_constraintTop_toTopOf="@+id/guideline_top"
+    tools:src="@tools:sample/backgrounds/scenic"/>
+  <TextView
+    android:id="@+id/textview_recipe_step_content_long_description"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toStartOf="@id/guideline_right"
+    app:layout_constraintStart_toEndOf="@id/guideline_left"
+    app:layout_constraintTop_toBottomOf="@+id/guideline_percentage"
+    app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
+    tools:text="@sample/recipe_data.json/steps/description"/>
 </android.support.constraint.ConstraintLayout>

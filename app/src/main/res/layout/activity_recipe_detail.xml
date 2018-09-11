@@ -23,7 +23,7 @@
       android:fitsSystemWindows="true"
       app:contentScrim="?attr/colorPrimary"
       app:layout_scrollFlags="scroll|exitUntilCollapsed"
-      app:toolbarId="@+id/toolbar_recipe_list">
+      app:toolbarId="@+id/toolbar_recipe_detail">
 
       <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_recipe_detail"
@@ -36,10 +36,12 @@
 
   </android.support.design.widget.AppBarLayout>
 
-  <android.support.v4.widget.NestedScrollView
-    android:id="@+id/recipe_detail_container"
+  <FrameLayout
+    android:id="@+id/recipe_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+    <include layout="@layout/layout_recipe_detail"/>
+  </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>
