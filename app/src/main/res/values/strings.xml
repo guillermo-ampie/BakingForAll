@@ -10,6 +10,7 @@
   <string name="description_recipe_image">The Recipe\'s Photo</string>
   <string name="description_ingredient_icon">An icon representing an ingredient measure</string>
   <string name="description_recipe_step_icon">An icon representing a step to execute while preparing the recipe</string>
+  <string name="description_play_video_icon">An icon showing whether the recipe step has an accompanying video</string>
 
   <!-- Error messages -->
   <string name="error_opening_file">Error opening file: %s</string>
@@ -17,6 +18,4 @@
   <string name="error_json_operation">Error reading from JSON file: %s</string>
   <string name="title_activity_recipe_step_content">RecipeStepContent</string>
   <string name="action_settings">Settings</string>
-
-
 </resources>
