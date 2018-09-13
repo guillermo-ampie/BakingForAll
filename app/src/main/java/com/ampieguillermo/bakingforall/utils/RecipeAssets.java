@@ -31,12 +31,12 @@ public enum RecipeAssets {
 
   public static int getPhotoAsset(final String recipeName) {
     final Integer result = PHOTO_ASSETS_MAP.get(recipeName.toUpperCase(Locale.US));
-    return (result != null) ? result : R.drawable.ic_broken_image_black_180dp;
+    return (result == null) ? R.drawable.ic_broken_image_black_180dp : result;
   }
 
   public static int getDrawableAsset(final String measure) {
     final Integer result = DRAWABLE_ASSETS_MAP.get(measure.toUpperCase(Locale.US));
-    return (result != null) ? result : R.drawable.ic_ingredient_24dp;
+    return (result == null) ? R.drawable.ic_ingredient_24dp : result;
   }
 }
 
