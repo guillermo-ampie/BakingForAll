@@ -26,9 +26,9 @@ public class RecipeStep {
   @SerializedName("description")
   /* package */ String description;
   @SerializedName("videoURL")
-  /* package */ String videoURL; // URL stored as a String
+  /* package */ String videoUrl; // URL stored as a String
   @SerializedName("thumbnailURL")
-  /* package */ String thumbnailURL; // URL stores as a String
+  /* package */ String thumbnailUrl; // URL stores as a String
 
   public RecipeStep() {
     // Mandatory default constructor needed by the Parceler library
@@ -39,19 +39,19 @@ public class RecipeStep {
    * @param id
    * @param shortDescription
    * @param description
-   * @param videoURL
-   * @param thumbnailURL
+   * @param videoUrl
+   * @param thumbnailUrl
    */
   public RecipeStep(final int id,
       final String shortDescription,
       final String description,
-      final String videoURL,
-      final String thumbnailURL) {
+      final String videoUrl,
+      final String thumbnailUrl) {
     this.id = id;
     this.shortDescription = shortDescription;
     this.description = description;
-    this.videoURL = videoURL;
-    this.thumbnailURL = thumbnailURL;
+    this.videoUrl = videoUrl;
+    this.thumbnailUrl = thumbnailUrl;
   }
 
   public int getId() {
@@ -66,12 +66,12 @@ public class RecipeStep {
     return description;
   }
 
-  public String getVideoURL() {
-    return videoURL;
+  public String getVideoUrl() {
+    return videoUrl;
   }
 
-  public String getThumbnailURL() {
-    return thumbnailURL;
+  public String getThumbnailUrl() {
+    return thumbnailUrl;
   }
 
   @Override
@@ -80,8 +80,8 @@ public class RecipeStep {
         .append("id", id)
         .append("shortDescription", shortDescription)
         .append("description", description)
-        .append("videoURL", videoURL)
-        .append("thumbnailURL", thumbnailURL)
+        .append("videoUrl", videoUrl)
+        .append("thumbnailUrl", thumbnailUrl)
         .toString();
   }
 
@@ -91,8 +91,8 @@ public class RecipeStep {
         .append(id)
         .append(shortDescription)
         .append(description)
-        .append(videoURL)
-        .append(thumbnailURL).toHashCode();
+        .append(videoUrl)
+        .append(thumbnailUrl).toHashCode();
   }
 
   @Override
@@ -108,8 +108,8 @@ public class RecipeStep {
         .append(id, rhs.id)
         .append(shortDescription, rhs.shortDescription)
         .append(description, rhs.description)
-        .append(videoURL, rhs.videoURL)
-        .append(thumbnailURL, rhs.thumbnailURL)
+        .append(videoUrl, rhs.videoUrl)
+        .append(thumbnailUrl, rhs.thumbnailUrl)
         .isEquals();
   }
 }
