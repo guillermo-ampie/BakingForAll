@@ -33,8 +33,6 @@ public class RecipeListActivity extends AppCompatActivity {
 
   private static final String LOG_TAG = RecipeListActivity.class.getSimpleName();
 
-  private SimpleItemAdapter itemAdapter;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -47,7 +45,6 @@ public class RecipeListActivity extends AppCompatActivity {
     final RecyclerView recyclerView = findViewById(R.id.recyclerview_recipe_list);
     Objects.requireNonNull(recyclerView);
     setupRecyclerView(recyclerView);
-    loadJsonData();
   }
 
   private void setupRecyclerView(@NonNull final RecyclerView recyclerView) {
@@ -57,7 +54,7 @@ public class RecipeListActivity extends AppCompatActivity {
         .getInteger(R.integer.num_columns_layout_recipe_list));
 
     recyclerView.setHasFixedSize(true);
-    itemAdapter = new SimpleItemAdapter();
+    final SimpleItemAdapter itemAdapter = new SimpleItemAdapter();
     itemAdapter.setItemList(loadJsonData());
     recyclerView.setAdapter(itemAdapter);
   }
