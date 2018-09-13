@@ -33,9 +33,11 @@ public class RecipeStepContentFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    final View rootView = inflater.inflate(R.layout.fragment_recipe_step_content, container, false);
+    final View rootView =
+        inflater.inflate(R.layout.fragment_recipe_step_content, container, false);
 
-    if (Objects.requireNonNull(getArguments()).containsKey(RecipeStep.ARGUMENT_SELECTED_RECIPE_STEP)) {
+    if (Objects.requireNonNull(getArguments())
+        .containsKey(RecipeStep.ARGUMENT_SELECTED_RECIPE_STEP)) {
       // Get the RecipeStep specified by the fragment arguments.
       final RecipeStep recipeStep =
           Parcels.unwrap(getArguments().getParcelable(RecipeStep.ARGUMENT_SELECTED_RECIPE_STEP));
