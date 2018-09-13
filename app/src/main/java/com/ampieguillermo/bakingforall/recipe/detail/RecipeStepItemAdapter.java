@@ -135,7 +135,7 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
       description.setText(recipeStep.getShortDescription());
 
       // If there is no video for this step --> hide the "play video" icon
-      if (StringUtils.isEmpty(recipeStep.getVideoURL())) {
+      if (StringUtils.isEmpty(recipeStep.getVideoUrl())) {
         itemView.findViewById(R.id.imageview_recipe_step_content_icon)
             .setVisibility(View.INVISIBLE);
       }
