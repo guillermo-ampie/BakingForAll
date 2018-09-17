@@ -8,9 +8,11 @@
   <dimen name="margin_all_vertical">8dp</dimen>
   <dimen name="margin_medium_all_vertical">16dp</dimen>
   <dimen name="margin_all_recyclerview">16dp</dimen>
-
-  <dimen name="radius_corner_all_cardview">8dp</dimen>
+  <dimen name="margin_all_guideline">16dp</dimen>
+  <dimen name="radius_corner_all_cardview">6dp</dimen>
   <dimen name="elevation_all_cardview">@dimen/cardview_default_elevation</dimen>
+  <dimen name="padding_all_vertical_divider">16dp</dimen>
+  <dimen name="size_vector_drawable_recommended_maximum">200dp</dimen>
 
   <!-- layout_recipe_detail.xml -->
   <dimen name="width_layout_recipe_detail_list_item">320dp</dimen>
@@ -23,4 +25,8 @@
   <!-- item_ingredient_list.xml -->
   <dimen name="size_item_ingredient_list_icon">32dp</dimen>
   <dimen name="app_bar_height">200dp</dimen>
+
+  <!-- fragment_recipe_step_content.xml -->
+  <dimen name="size_vector_drawable_recipe_step_content">120dp</dimen>
+
 </resources>
