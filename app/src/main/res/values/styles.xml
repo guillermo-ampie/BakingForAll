@@ -6,11 +6,26 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="cardViewStyle">@style/MyCardViewStyle</item>
   </style>
 
   <style name="AppTheme.NoActionBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
+  </style>
+
+  <style name="MyCardViewStyle" parent="@style/CardView">
+    <item name="cardCornerRadius">@dimen/radius_corner_all_cardview</item>
+  </style>
+
+  <style name="DividerLineHorizontal">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1dp</item>
+    <item name="android:layout_marginStart">@dimen/margin_all_horizontal</item>
+    <item name="android:layout_marginEnd">@dimen/margin_all_horizontal</item>
+    <item name="android:layout_marginTop">@dimen/padding_all_vertical_divider</item>
+    <item name="android:layout_marginBottom">@dimen/padding_all_vertical_divider</item>
+    <item name="android:background">@color/colorDivider</item>
   </style>
 
   <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
