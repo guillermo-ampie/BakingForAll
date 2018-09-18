@@ -13,14 +13,14 @@ import android.widget.TextView;
 import com.ampieguillermo.bakingforall.R;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
-import com.ampieguillermo.bakingforall.recipe.list.SimpleItemAdapter.SimpleItemViewHolder;
+import com.ampieguillermo.bakingforall.recipe.list.RecipeItemAdapter.RecipeItemViewHolder;
 import com.ampieguillermo.bakingforall.utils.RecipeAssets;
 import java.util.List;
 import java.util.Objects;
 
-public class SimpleItemAdapter extends ListAdapter<Recipe, SimpleItemViewHolder> {
+public class RecipeItemAdapter extends ListAdapter<Recipe, RecipeItemViewHolder> {
 
-  private static final String LOG_TAG = SimpleItemAdapter.class.getSimpleName();
+  private static final String LOG_TAG = RecipeItemAdapter.class.getSimpleName();
   private static final DiffUtil.ItemCallback<Recipe> DIFF_CALLBACK =
       new DiffUtil.ItemCallback<Recipe>() {
         @Override
@@ -36,7 +36,7 @@ public class SimpleItemAdapter extends ListAdapter<Recipe, SimpleItemViewHolder>
 
   private final View.OnClickListener mOnClickListener = this::onClick;
 
-  SimpleItemAdapter() {
+  RecipeItemAdapter() {
     super(DIFF_CALLBACK);
   }
 
@@ -46,14 +46,14 @@ public class SimpleItemAdapter extends ListAdapter<Recipe, SimpleItemViewHolder>
 
   @NonNull
   @Override
-  public SimpleItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+  public RecipeItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     final View view = LayoutInflater.from(parent.getContext())
         .inflate(R.layout.item_recipe_list, parent, false);
-    return new SimpleItemViewHolder(view, mOnClickListener);
+    return new RecipeItemViewHolder(view, mOnClickListener);
   }
 
   @Override
-  public void onBindViewHolder(@NonNull final SimpleItemViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull final RecipeItemViewHolder holder, int position) {
     holder.setupItemView(getItem(position));
   }
 
@@ -65,12 +65,12 @@ public class SimpleItemAdapter extends ListAdapter<Recipe, SimpleItemViewHolder>
     context.startActivity(RecipeDetailActivity.getStartIntent(context, recipe));
   }
 
-  /* package */ static class SimpleItemViewHolder extends RecyclerView.ViewHolder {
+  /* package */ static class RecipeItemViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView textRecipeName;
     private final ImageView imageRecipePhoto;
 
-    SimpleItemViewHolder(final View view, final View.OnClickListener listener) {
+    RecipeItemViewHolder(final View view, final View.OnClickListener listener) {
       super(view);
       textRecipeName = view.findViewById(R.id.textview_recipe_list_recipe_name);
       imageRecipePhoto = view.findViewById(R.id.imageview_recipe_list_recipe_photo);
