@@ -1,13 +1,13 @@
 package com.ampieguillermo.bakingforall.recipe.list;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import com.ampieguillermo.bakingforall.R;
+import com.ampieguillermo.bakingforall.databinding.ActivityRecipeListBinding;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -22,7 +22,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * An activity showing a grid of Recipes. Selecting a recipe launches a
@@ -32,27 +31,23 @@ import java.util.Objects;
 public class RecipeListActivity extends AppCompatActivity {
 
   private static final String LOG_TAG = RecipeListActivity.class.getSimpleName();
+  private ActivityRecipeListBinding binding;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_recipe_list);
 
-    final Toolbar toolbar = findViewById(R.id.toolbar_recipe_list);
-    setSupportActionBar(toolbar);
-    toolbar.setTitle(getTitle());
-
-    final RecyclerView recyclerView = findViewById(R.id.recyclerview_recipe_list);
-    Objects.requireNonNull(recyclerView);
-    setupRecyclerView(recyclerView);
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_recipe_list);
+    setSupportActionBar(binding.toolbarRecipeList);
+    binding.toolbarRecipeList.setTitle(getTitle());
+    setupRecyclerView();
   }
 
-  private void setupRecyclerView(@NonNull final RecyclerView recyclerView) {
-
+  private void setupRecyclerView() {
+    final RecyclerView recyclerView = binding.recyclerviewRecipeList;
     final GridLayoutManager layoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
-    layoutManager.setSpanCount(getResources()
-        .getInteger(R.integer.num_columns_layout_recipe_list));
 
+    layoutManager.setSpanCount(getResources().getInteger(R.integer.num_columns_layout_recipe_list));
     recyclerView.setHasFixedSize(true);
     final SimpleItemAdapter itemAdapter = new SimpleItemAdapter();
     itemAdapter.setItemList(loadJsonData());
@@ -60,6 +55,7 @@ public class RecipeListActivity extends AppCompatActivity {
   }
 
   // TODO: 8/11/18 Move this to an AsyncTaskLoader
+  // TODO: 9/17/18 Read file in a mixed mode: streaming + object in memory
   private List<Recipe> loadJsonData() {
     final Gson gson = new Gson();
     List<Recipe> result = Collections.emptyList();
@@ -68,7 +64,8 @@ public class RecipeListActivity extends AppCompatActivity {
         getAssets().open(getString(R.string.recipe_list_json_data_file))) {
 
       final Reader reader = new InputStreamReader(inputStream, Charset.defaultCharset());
-      result = gson.fromJson(reader, new TypeToken<ArrayList<Recipe>>() {}.getType());
+      result = gson.fromJson(reader, new TypeToken<ArrayList<Recipe>>() {
+      }.getType());
 
     } catch (final FileNotFoundException e) {
       Log.e(LOG_TAG,

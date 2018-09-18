@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<layout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:fitsSystemWindows="true"
   tools:context=".recipe.list.RecipeListActivity">
-
-  <android.support.design.widget.AppBarLayout
-    android:id="@+id/appbarlayout_recipe_list"
+  <android.support.design.widget.CoordinatorLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.AppBarOverlay">
-
-    <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar_recipe_list"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <android.support.design.widget.AppBarLayout
+      android:id="@+id/appbarlayout_recipe_list"
       android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      app:popupTheme="@style/AppTheme.PopupOverlay"/>
+      android:layout_height="wrap_content"
+      android:theme="@style/AppTheme.AppBarOverlay">
 
-  </android.support.design.widget.AppBarLayout>
+      <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_recipe_list"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
       android:id="@+id/recyclerview_recipe_list"
@@ -33,7 +32,7 @@
       tools:context=".recipe.detail.RecipeDetailActivity"
       tools:listitem="@layout/item_recipe_list">
     </android.support.v7.widget.RecyclerView>
-
-</android.support.design.widget.CoordinatorLayout>
+  </android.support.design.widget.CoordinatorLayout>
+</layout>
 
 
