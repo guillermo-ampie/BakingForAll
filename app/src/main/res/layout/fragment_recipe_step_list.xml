@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/recyclerview_step_list"
+    android:scrollbarStyle="outsideInset"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:name="com.ampieguillermo.bakingforall.recipe.detail.RecipeStepListFragment"
+    android:scrollbars="vertical"
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    tools:context=".recipe.detail.RecipeDetailActivity"
+    tools:listItem="@layout/item_step_list"/>
+</layout>
