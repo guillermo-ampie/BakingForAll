@@ -3,6 +3,8 @@ package com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -54,8 +56,8 @@ public class RecipeStepContentFragment extends Fragment {
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
 
     // Setup the DataBinding access
     binding = FragmentRecipeStepContentBinding.inflate(inflater, container, false);
@@ -102,7 +104,6 @@ public class RecipeStepContentFragment extends Fragment {
   @Override
   public void onDestroy() {
     super.onDestroy();
-
     releasePlayer();
   }
 
