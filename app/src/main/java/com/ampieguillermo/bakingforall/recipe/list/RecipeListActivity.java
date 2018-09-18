@@ -49,7 +49,7 @@ public class RecipeListActivity extends AppCompatActivity {
 
     layoutManager.setSpanCount(getResources().getInteger(R.integer.num_columns_layout_recipe_list));
     recyclerView.setHasFixedSize(true);
-    final SimpleItemAdapter itemAdapter = new SimpleItemAdapter();
+    final RecipeItemAdapter itemAdapter = new RecipeItemAdapter();
     itemAdapter.setItemList(loadJsonData());
     recyclerView.setAdapter(itemAdapter);
   }
