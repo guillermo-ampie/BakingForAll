@@ -2,6 +2,7 @@ package com.ampieguillermo.bakingforall.recipe.detail;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +26,6 @@ import org.parceler.Parcels;
 public class RecipeStepListFragment extends Fragment {
 
   private static final String LOG_TAG = RecipeStepListFragment.class.getSimpleName();
-
   /**
    * Mandatory empty constructor for the fragment manager to instantiate the
    * fragment (e.g. upon screen orientation changes).
@@ -45,10 +45,10 @@ public class RecipeStepListFragment extends Fragment {
   }
 
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
     final View rootView =
-        inflater.inflate(R.layout.fragment_step_list, container, false);
+        inflater.inflate(R.layout.fragment_recipe_step_list, container, false);
 
     if (Objects.requireNonNull(getArguments()).containsKey(Recipe.ARGUMENT_SELECTED_RECIPE)) {
       // Get the Recipe specified by the fragment arguments.
@@ -57,10 +57,9 @@ public class RecipeStepListFragment extends Fragment {
 
       if (recipe != null) {
         final Toolbar toolbar = rootView.findViewById(R.id.toolbar_recipe_step_content);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         final CollapsingToolbarLayout appBarLayout =
             Objects.requireNonNull(getActivity()).findViewById(R.id.ctoolbarlayout_recipe_detail);
-        // TODO: 9/8/18 appBarLayout is always null. WHY!?!?
         if (appBarLayout != null) {
           appBarLayout.setTitle(recipe.getName());
         }
@@ -77,9 +76,7 @@ public class RecipeStepListFragment extends Fragment {
       @NonNull final RecyclerView recyclerViewStepList) {
 
     recyclerViewStepList.setHasFixedSize(true);
-
     final RecipeStepItemAdapter itemAdapter = new RecipeStepItemAdapter(getActivity(),false);
-
     itemAdapter.setItemList(recipe.getSteps());
     recyclerViewStepList.setAdapter(itemAdapter);
   }
