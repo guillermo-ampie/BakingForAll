@@ -2,19 +2,18 @@ package com.ampieguillermo.bakingforall.recipe.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import com.ampieguillermo.bakingforall.R;
+import com.ampieguillermo.bakingforall.databinding.ActivityRecipeDetailBinding;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent.RecipeStepContentActivity;
 import com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity;
-import java.util.Objects;
 import org.parceler.Parcels;
 
 /**
@@ -30,6 +29,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
   private static final String LOG_TAG = RecipeDetailActivity.class.getSimpleName();
   private static final String EXTRA_RECIPE =
       "com.ampieguillermo.bakingforall.recipe.detail.EXTRA_RECIPE";
+  private ActivityRecipeDetailBinding binding;
   /**
    * Whether or not the activity is in two-pane mode, i.e. running on a tablet
    * device.
@@ -46,9 +46,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_recipe_detail);
-    final Toolbar toolbar = findViewById(R.id.toolbar_recipe_detail);
-    setSupportActionBar(toolbar);
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_recipe_detail);
+    setSupportActionBar(binding.toolbarRecipeDetail);
 
     // Show the Up button in the action bar.
     final ActionBar actionBar = getSupportActionBar();
@@ -56,7 +55,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    if (findViewById(R.id.recipe_step_content_container) != null) {
+    if (binding.idLayoutRecipeDetail.recipeStepContentContainer != null) {
       // The detail container view will be present only in the
       // large-screen layouts (res/values-w900dp).
       // If this view is present, then the
@@ -70,20 +69,17 @@ public class RecipeDetailActivity extends AppCompatActivity {
       final Recipe recipe = Parcels.unwrap(intent.getParcelableExtra(EXTRA_RECIPE));
 
       if (recipe != null) {
-        final CollapsingToolbarLayout appBarLayout =
-            findViewById(R.id.ctoolbarlayout_recipe_detail);
+        final CollapsingToolbarLayout appBarLayout = binding.ctoolbarlayoutRecipeDetail;
         if (appBarLayout != null) {
           appBarLayout.setTitle(recipe.getName());
         }
-
-        final RecyclerView recyclerView = findViewById(R.id.recyclerview_recipe_detail_list);
-        Objects.requireNonNull(recyclerView);
-        setupRecyclerView(recyclerView, recipe);
+        setupRecyclerView(recipe);
       }
     }
   }
 
-  private void setupRecyclerView(@NonNull final RecyclerView recyclerView, final Recipe recipe) {
+  private void setupRecyclerView(final Recipe recipe) {
+    final RecyclerView recyclerView = binding.idLayoutRecipeDetail.recyclerviewRecipeDetailList;
 
     recyclerView.setHasFixedSize(true);
     final RecipeStepItemAdapter itemAdapter =
