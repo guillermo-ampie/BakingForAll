@@ -64,7 +64,7 @@ public class RecipeStepListFragment extends Fragment {
           appBarLayout.setTitle(recipe.getName());
         }
         final RecyclerView recyclerViewStepList =
-            rootView.findViewById(R.id.recyclerview_step_list);
+            rootView.findViewById(R.id.recyclerview_recipe_step_list);
         Objects.requireNonNull(recyclerViewStepList);
         setupRecyclerViewStepList(recipe, recyclerViewStepList);
       }
