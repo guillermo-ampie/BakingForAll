@@ -76,7 +76,7 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
   public RecipeStepViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
       final int viewType) {
     final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-    final View view = inflater.inflate(R.layout.item_step_list, parent, false);
+    final View view = inflater.inflate(R.layout.item_recipe_step_list, parent, false);
 
     return new RecipeStepViewHolder(view, mOnClickListener);
   }
