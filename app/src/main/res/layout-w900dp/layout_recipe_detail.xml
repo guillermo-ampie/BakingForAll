@@ -23,13 +23,15 @@
       xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:tools="http://schemas.android.com/tools"
       android:id="@+id/recyclerview_recipe_detail_list"
+      android:scrollbarStyle="insideOverlay"
       android:layout_width="@dimen/width_layout_recipe_detail_list_item"
       android:layout_height="match_parent"
       android:layout_margin="@dimen/margin_all_recyclerview"
+      android:name="com.ampieguillermo.bakingforall.recipe.detail.RecipeStepListFragment"
+      android:scrollbars="vertical"
       app:layoutManager="android.support.v7.widget.LinearLayoutManager"
       tools:context=".recipe.detail.RecipeDetailActivity"
-      tools:listitem="@layout/item_step_list"/>
-    <!--android:name="com.ampieguillermo.bakingforall.recipe.list.RecipeListFragment"-->
+      tools:listitem="@layout/item_recipe_step_list"/>
 
     <FrameLayout
       android:id="@+id/recipe_step_content_container"

@@ -4,8 +4,8 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
   <android.support.v7.widget.RecyclerView
-    android:id="@+id/recyclerview_step_list"
-    android:scrollbarStyle="outsideInset"
+    android:id="@+id/recyclerview_recipe_step_list"
+    android:scrollbarStyle="insideOverlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:name="com.ampieguillermo.bakingforall.recipe.detail.RecipeStepListFragment"

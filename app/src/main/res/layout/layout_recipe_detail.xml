@@ -5,11 +5,13 @@
   xmlns:tools="http://schemas.android.com/tools">
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recyclerview_recipe_detail_list"
+    android:scrollbarStyle="insideOverlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/margin_all_recyclerview"
-    android:name="com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailFragment"
+    android:name="com.ampieguillermo.bakingforall.recipe.detail.RecipeStepListFragment"
+    android:scrollbars="vertical"
     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
     tools:context=".recipe.detail.RecipeDetailActivity"
-    tools:listitem="@layout/item_step_list"/>
+    tools:listitem="@layout/item_recipe_step_list"/>
 </layout>
