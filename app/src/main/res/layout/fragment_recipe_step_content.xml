@@ -61,6 +61,8 @@
             android:id="@+id/playerview_recipe_step_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/margin_all_horizontal"
+            android:layout_marginEnd="@dimen/margin_all_horizontal"
             app:layout_constraintBottom_toTopOf="@id/guideline_percentage"
             app:layout_constraintDimensionRatio="w,16:9"
             app:layout_constraintEnd_toEndOf="@id/guideline_right"
