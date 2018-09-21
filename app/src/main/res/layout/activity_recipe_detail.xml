@@ -45,7 +45,6 @@
       <include layout="@layout/layout_recipe_detail"
         android:id="@+id/id_layout_recipe_detail"/>
     </FrameLayout>
-    <!--android:id="@+id/recipe_detail"-->
 
   </android.support.design.widget.CoordinatorLayout>
 </layout>
