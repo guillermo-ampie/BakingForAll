@@ -8,9 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import com.ampieguillermo.bakingforall.R;
+import com.ampieguillermo.bakingforall.databinding.ItemRecipeListBinding;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
 import com.ampieguillermo.bakingforall.recipe.list.RecipeItemAdapter.RecipeItemViewHolder;
@@ -49,6 +48,7 @@ public class RecipeItemAdapter extends ListAdapter<Recipe, RecipeItemViewHolder>
   public RecipeItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     final View view = LayoutInflater.from(parent.getContext())
         .inflate(R.layout.item_recipe_list, parent, false);
+
     return new RecipeItemViewHolder(view, mOnClickListener);
   }
 
@@ -67,21 +67,23 @@ public class RecipeItemAdapter extends ListAdapter<Recipe, RecipeItemViewHolder>
 
   /* package */ static class RecipeItemViewHolder extends RecyclerView.ViewHolder {
 
-    private final TextView textRecipeName;
-    private final ImageView imageRecipePhoto;
+    // Data Binding library code reference,
+    // URL: https://guides.codepath.com/android/Applying-Data-Binding-for-Views
+    private final ItemRecipeListBinding binding;
 
     RecipeItemViewHolder(final View view, final View.OnClickListener listener) {
       super(view);
-      textRecipeName = view.findViewById(R.id.textview_recipe_list_recipe_name);
-      imageRecipePhoto = view.findViewById(R.id.imageview_recipe_list_recipe_photo);
+      binding = ItemRecipeListBinding.bind(view);
       itemView.setOnClickListener(listener);
     }
 
     void setupItemView(final Recipe recipe) {
       final String recipeName = recipe.getName();
-      textRecipeName.setText(String.format("  %s  ", recipeName));
-      imageRecipePhoto.setImageResource(RecipeAssets.getPhotoAsset(recipeName));
+      binding.textviewRecipeListRecipeName.setText(String.format("  %s  ", recipeName));
+      binding.imageviewRecipeListRecipePhoto.setImageResource(RecipeAssets.getPhotoAsset(recipeName));
+//      binding.executePendingBindings();
       itemView.setTag(getAdapterPosition());
     }
   }
 }
+

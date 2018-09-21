@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<layout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/cardview_recipe_list_cardlayout"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_margin="@dimen/margin_all_horizontal"
-  android:layout_gravity="center"
-  style="?attr/cardViewStyle">
-  <FrameLayout
+  xmlns:tools="http://schemas.android.com/tools">
+  <android.support.v7.widget.CardView
+    android:id="@+id/cardview_recipe_list_cardlayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/list_item_selector">
-
-    <ImageView
-      android:id="@+id/imageview_recipe_list_recipe_photo"
+    android:layout_margin="@dimen/margin_all_horizontal"
+    android:layout_gravity="center"
+    style="?attr/cardViewStyle">
+    <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="start|center_vertical"
-      android:padding="@dimen/padding_item_recipe_list_recipe_photo"
-      android:adjustViewBounds="true"
-      android:contentDescription="@string/description_recipe_image"
-      tools:src="@tools:sample/backgrounds/scenic"/>
+      android:background="@drawable/list_item_selector">
 
-    <TextView
-      android:id="@+id/textview_recipe_list_recipe_name"
-      android:textStyle="bold"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="@dimen/margin_item_recipe_list_recipe_name"
-      android:layout_gravity="bottom|start"
-      android:background="@color/colorAccent"
-      android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
-      tools:text="@sample/recipe_data.json/name"/>
-  </FrameLayout>
-</android.support.v7.widget.CardView>
+      <ImageView
+        android:id="@+id/imageview_recipe_list_recipe_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:padding="@dimen/padding_item_recipe_list_recipe_photo"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/description_recipe_image"
+        tools:src="@tools:sample/backgrounds/scenic"/>
+
+      <TextView
+        android:id="@+id/textview_recipe_list_recipe_name"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_item_recipe_list_recipe_name"
+        android:layout_gravity="bottom|start"
+        android:background="@color/colorAccent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
+        tools:text="@sample/recipe_data.json/name"/>
+    </FrameLayout>
+  </android.support.v7.widget.CardView>
+</layout>
