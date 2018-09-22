@@ -12,5 +12,5 @@
     android:scrollbars="vertical"
     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
     tools:context=".recipe.detail.RecipeDetailActivity"
-    tools:listItem="@layout/item_step_list"/>
+    tools:listItem="@layout/item_recipe_step_list"/>
 </layout>
