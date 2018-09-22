@@ -6,10 +6,9 @@ import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import com.ampieguillermo.bakingforall.R;
+import com.ampieguillermo.bakingforall.databinding.ItemIngredientListBinding;
 import com.ampieguillermo.bakingforall.model.Ingredient;
 import com.ampieguillermo.bakingforall.recipe.detail.IngredientItemAdapter.IngredientViewHolder;
 import com.ampieguillermo.bakingforall.utils.RecipeAssets;
@@ -97,23 +96,24 @@ public class IngredientItemAdapter extends RecyclerView.Adapter<IngredientViewHo
 
   /* package */ static class IngredientViewHolder extends RecyclerView.ViewHolder {
 
-    private final ImageView icon;
-    private final TextView description;
+    private final ItemIngredientListBinding binding;
 
     /* package */ IngredientViewHolder(final View view) {
       super(view);
-      icon = view.findViewById(R.id.imageview_item_ingredient_list_icon);
-      description = view.findViewById(R.id.textview_item_ingredient_list_description);
+      binding = ItemIngredientListBinding.bind(view);
     }
 
     /* package */ void setupItemView(final Ingredient ingredient) {
       final String measure = ingredient.getMeasure();
-      icon.setImageResource(RecipeAssets.getDrawableAsset(measure));
-      description.setText(String.format(Locale.getDefault(),
-          "( %4.2f ) %s of %s",
-          ingredient.getQuantity(),
-          measure,
-          ingredient.getIngredient()));
+      binding.imageviewItemIngredientListIcon
+          .setImageResource(RecipeAssets.getDrawableAsset(measure));
+
+      binding.textviewItemIngredientListDescription
+          .setText(String.format(Locale.getDefault(),
+              "( %4.2f ) %s of %s",
+              ingredient.getQuantity(),
+              measure,
+              ingredient.getIngredient()));
     }
   }
 }

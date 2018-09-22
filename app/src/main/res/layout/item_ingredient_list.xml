@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<layout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/cardview_ingredient_list_cardlayout"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_margin="@dimen/margin_all_horizontal"
-  android:layout_gravity="center"
-  style="?attr/cardViewStyle">
-  <LinearLayout
+  xmlns:tools="http://schemas.android.com/tools">
+  <android.support.v7.widget.CardView
+    android:id="@+id/cardview_ingredient_list_cardlayout"
+    style="?attr/cardViewStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@drawable/list_item_selector">
-    <ImageView
-      android:id="@+id/imageview_item_ingredient_list_icon"
-      android:layout_width="@dimen/size_item_ingredient_list_icon"
-      android:layout_height="@dimen/size_item_ingredient_list_icon"
-      android:layout_marginTop="@dimen/margin_medium_all_vertical"
-      android:layout_marginBottom="@dimen/margin_medium_all_vertical"
-      android:layout_marginStart="@dimen/margin_all_horizontal"
-      android:layout_marginEnd="@dimen/margin_all_horizontal"
-      android:contentDescription="@string/description_ingredient_icon"
-      tools:srcCompat="@drawable/ic_measure_cup_24dp"/>
-
-    <!-- TODO: Use Quantity Strings (PLURALS)-->
-    <TextView
-      android:id="@+id/textview_item_ingredient_list_description"
-      android:layout_width="0dp"
+    android:layout_margin="@dimen/margin_all_horizontal"
+    android:layout_gravity="center">
+    <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:layout_marginTop="@dimen/margin_medium_all_vertical"
-      android:layout_marginBottom="@dimen/margin_medium_all_vertical"
-      android:layout_marginStart="@dimen/margin_all_horizontal"
-      android:layout_marginEnd="@dimen/margin_all_horizontal"
-      android:layout_gravity="start|center"
-      android:textSize="16sp"
-      tools:text="@sample/recipe_data.json/ingredients/ingredient"/>
-  </LinearLayout>
-</android.support.v7.widget.CardView>
+      android:background="@drawable/list_item_selector"
+      android:orientation="horizontal">
+      <ImageView
+        android:id="@+id/imageview_item_ingredient_list_icon"
+        android:layout_width="@dimen/size_item_ingredient_list_icon"
+        android:layout_height="@dimen/size_item_ingredient_list_icon"
+        android:layout_marginTop="@dimen/margin_medium_all_vertical"
+        android:layout_marginBottom="@dimen/margin_medium_all_vertical"
+        android:layout_marginStart="@dimen/margin_all_horizontal"
+        android:layout_marginEnd="@dimen/margin_all_horizontal"
+        android:contentDescription="@string/description_ingredient_icon"
+        tools:srcCompat="@drawable/ic_measure_cup_24dp"/>
+
+      <!-- TODO: Use Quantity Strings (PLURALS)-->
+      <TextView
+        android:id="@+id/textview_item_ingredient_list_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/margin_medium_all_vertical"
+        android:layout_marginBottom="@dimen/margin_medium_all_vertical"
+        android:layout_marginStart="@dimen/margin_all_horizontal"
+        android:layout_marginEnd="@dimen/margin_all_horizontal"
+        android:layout_gravity="start|center"
+        android:textSize="16sp"
+        tools:text="@sample/recipe_data.json/ingredients/ingredient"/>
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
+</layout>
