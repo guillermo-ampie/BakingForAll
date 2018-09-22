@@ -1,16 +1,13 @@
 package com.ampieguillermo.bakingforall.recipe.detail;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.ampieguillermo.bakingforall.R;
+import com.ampieguillermo.bakingforall.databinding.FragmentIngredientListBinding;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity;
 import java.util.Objects;
@@ -25,6 +22,7 @@ import org.parceler.Parcels;
 public class IngredientListFragment extends Fragment {
 
   private static final String LOG_TAG = IngredientListFragment.class.getSimpleName();
+  private FragmentIngredientListBinding binding;
 
   /**
    * Mandatory empty constructor for the fragment manager to instantiate the
@@ -44,20 +42,11 @@ public class IngredientListFragment extends Fragment {
     return fragment;
   }
 
-  private static void setupRecyclerViewIngredientList(@NonNull final Recipe recipe,
-      @NonNull final RecyclerView recyclerViewIngredientList) {
-
-    recyclerViewIngredientList.setHasFixedSize(true);
-    final IngredientItemAdapter itemAdapter = new IngredientItemAdapter();
-    itemAdapter.setItemList(recipe.getIngredients());
-    recyclerViewIngredientList.setAdapter(itemAdapter);
-  }
-
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    final View rootView =
-        inflater.inflate(R.layout.fragment_ingredient_list, container, false);
+
+    binding = FragmentIngredientListBinding.inflate(inflater, container, false);
 
     if (Objects.requireNonNull(getArguments()).containsKey(Recipe.ARGUMENT_SELECTED_RECIPE)) {
       // Get the Recipe specified by the fragment arguments.
@@ -65,18 +54,17 @@ public class IngredientListFragment extends Fragment {
           .unwrap(getArguments().getParcelable(Recipe.ARGUMENT_SELECTED_RECIPE));
 
       if (recipe != null) {
-        final Activity activity = getActivity();
-        final CollapsingToolbarLayout appBarLayout = Objects.requireNonNull(activity)
-            .findViewById(R.id.ctoolbarlayout_recipe_detail);
-        if (appBarLayout != null) {
-          appBarLayout.setTitle(recipe.getName());
-        }
-        final RecyclerView recyclerViewIngredientList =
-            rootView.findViewById(R.id.recyclerview_ingredient_list);
-        Objects.requireNonNull(recyclerViewIngredientList);
-        setupRecyclerViewIngredientList(recipe, recyclerViewIngredientList);
+        setupRecyclerViewIngredientList(recipe);
       }
     }
-    return rootView;
+    return binding.getRoot();
+  }
+
+  private void setupRecyclerViewIngredientList(@NonNull final Recipe recipe) {
+
+    binding.recyclerviewIngredientList.setHasFixedSize(true);
+    final IngredientItemAdapter itemAdapter = new IngredientItemAdapter();
+    itemAdapter.setItemList(recipe.getIngredients());
+    binding.recyclerviewIngredientList.setAdapter(itemAdapter);
   }
 }
