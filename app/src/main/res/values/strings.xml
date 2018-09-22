@@ -5,6 +5,10 @@
 
   <!-- RecipeListActivity -->
   <string name="recipe_list_json_data_file">baking.json</string>
+  <string name="format_name_recipe_list">" %s "</string>
+  <string name="format_servings_recipe_list">" servings: %d "</string>
+
+
 
   <!-- Strings for "android:contentDescription" -->
   <string name="description_recipe_image">The Recipe\'s Photo</string>

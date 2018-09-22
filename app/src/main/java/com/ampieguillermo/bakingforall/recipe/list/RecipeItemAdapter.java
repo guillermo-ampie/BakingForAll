@@ -1,6 +1,7 @@
 package com.ampieguillermo.bakingforall.recipe.list;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
@@ -79,10 +80,18 @@ public class RecipeItemAdapter extends ListAdapter<Recipe, RecipeItemViewHolder>
 
     void setupItemView(final Recipe recipe) {
       final String recipeName = recipe.getName();
-      binding.textviewRecipeListRecipeName.setText(String.format("  %s  ", recipeName));
-      binding.imageviewRecipeListRecipePhoto.setImageResource(RecipeAssets.getPhotoAsset(recipeName));
+      final Resources resources = itemView.getResources();
+
+      binding.textviewRecipeListRecipeName
+          .setText(String.format(resources.getString(R.string.format_name_recipe_list), recipeName));
+      binding.imageviewRecipeListRecipePhoto
+          .setImageResource(RecipeAssets.getPhotoAsset(recipeName));
+      binding.textviewRecipeListRecipeServings
+          .setText(String.format(resources.getString(R.string.format_servings_recipe_list),
+              recipe.getServings()));
 //      binding.executePendingBindings();
       itemView.setTag(getAdapterPosition());
+
     }
   }
 }
