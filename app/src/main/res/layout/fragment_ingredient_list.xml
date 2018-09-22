@@ -5,7 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools">
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recyclerview_ingredient_list"
-    android:scrollbarStyle="outsideInset"
+    android:scrollbarStyle="insideOverlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:name="com.ampieguillermo.bakingforall.recipe.detail.IngredientListFragment"
