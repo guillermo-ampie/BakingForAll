@@ -21,7 +21,7 @@ import org.parceler.Parcels;
  */
 public class RecipeStepContentActivity extends AppCompatActivity {
 
-  public static final String EXTRA_RECIPE_STEP =
+  private static final String EXTRA_RECIPE_STEP =
       "com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent.EXTRA_RECIPE_STEP";
   private static final String LOG_TAG = RecipeStepContentActivity.class.getSimpleName();
 
