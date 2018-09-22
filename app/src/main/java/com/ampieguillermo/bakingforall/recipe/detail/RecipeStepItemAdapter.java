@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 import com.ampieguillermo.bakingforall.R;
+import com.ampieguillermo.bakingforall.databinding.ItemRecipeStepListBinding;
 import com.ampieguillermo.bakingforall.model.RecipeStep;
 import com.ampieguillermo.bakingforall.recipe.detail.RecipeStepItemAdapter.RecipeStepViewHolder;
 import com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent.RecipeStepContentActivity;
@@ -123,21 +123,21 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
 
   /* package */ static class RecipeStepViewHolder extends RecyclerView.ViewHolder {
 
-    private final TextView description;
+    private final ItemRecipeStepListBinding binding;
 
     /* package */ RecipeStepViewHolder(final View view, final View.OnClickListener listener) {
       super(view);
-      description = view.findViewById(R.id.textview_item_step_list_short_description);
+      // The layout is already inflated(in onCreateViewHolder() method), so we need to "bind" it now
+      binding = ItemRecipeStepListBinding.bind(view);
       itemView.setOnClickListener(listener);
     }
 
     /* package */ void setupItemView(final RecipeStep recipeStep) {
-      description.setText(recipeStep.getShortDescription());
+      binding.textviewItemStepListShortDescription.setText(recipeStep.getShortDescription());
 
       // If there is no video for this step --> hide the "play video" icon
       if (StringUtils.isEmpty(recipeStep.getVideoUrl())) {
-        itemView.findViewById(R.id.imageview_recipe_step_content_icon)
-            .setVisibility(View.INVISIBLE);
+            binding.imageviewRecipeStepContentPlayIcon.setVisibility(View.INVISIBLE);
       }
       itemView.setTag(getAdapterPosition());
     }
