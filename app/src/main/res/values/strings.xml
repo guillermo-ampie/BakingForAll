@@ -2,6 +2,8 @@
   <!-- App and Activities titles -->
   <string name="app_name">BakingForAll</string>
   <string name="recipe_detail_title">Recipe Detail</string>
+  <string name="title_activity_recipe_step_content">RecipeStepContent</string>
+
 
   <!-- RecipeListActivity -->
   <string name="json_data_file_recipe_list">baking.json</string>
@@ -22,6 +24,7 @@
   <string name="error_opening_file">Error opening file: %s</string>
   <string name="error_io_operation">I/O Error: %s</string>
   <string name="error_json_operation">Error reading from JSON file: %s</string>
-  <string name="title_activity_recipe_step_content">RecipeStepContent</string>
+
+
   <string name="action_settings">Settings</string>
 </resources>
