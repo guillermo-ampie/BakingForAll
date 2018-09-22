@@ -1,5 +1,6 @@
 package com.ampieguillermo.bakingforall.recipe.detail;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -57,15 +58,15 @@ public class RecipeStepListFragment extends Fragment {
 
       if (recipe != null) {
         final Toolbar toolbar = rootView.findViewById(R.id.toolbar_recipe_step_content);
-        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+        final Activity activity = Objects.requireNonNull(getActivity());
+        ((AppCompatActivity) activity).setSupportActionBar(toolbar);
         final CollapsingToolbarLayout appBarLayout =
-            Objects.requireNonNull(getActivity()).findViewById(R.id.ctoolbarlayout_recipe_detail);
+            activity.findViewById(R.id.ctoolbarlayout_recipe_detail);
         if (appBarLayout != null) {
           appBarLayout.setTitle(recipe.getName());
         }
         final RecyclerView recyclerViewStepList =
             rootView.findViewById(R.id.recyclerview_recipe_step_list);
-        Objects.requireNonNull(recyclerViewStepList);
         setupRecyclerViewStepList(recipe, recyclerViewStepList);
       }
     }
@@ -76,7 +77,8 @@ public class RecipeStepListFragment extends Fragment {
       @NonNull final RecyclerView recyclerViewStepList) {
 
     recyclerViewStepList.setHasFixedSize(true);
-    final RecipeStepItemAdapter itemAdapter = new RecipeStepItemAdapter(getActivity(),false);
+    final RecipeStepItemAdapter itemAdapter =
+        new RecipeStepItemAdapter(getActivity(),false);
     itemAdapter.setItemList(recipe.getSteps());
     recyclerViewStepList.setAdapter(itemAdapter);
   }
