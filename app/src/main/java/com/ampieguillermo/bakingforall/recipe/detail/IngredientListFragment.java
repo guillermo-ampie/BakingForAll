@@ -44,6 +44,15 @@ public class IngredientListFragment extends Fragment {
     return fragment;
   }
 
+  private static void setupRecyclerViewIngredientList(@NonNull final Recipe recipe,
+      @NonNull final RecyclerView recyclerViewIngredientList) {
+
+    recyclerViewIngredientList.setHasFixedSize(true);
+    final IngredientItemAdapter itemAdapter = new IngredientItemAdapter();
+    itemAdapter.setItemList(recipe.getIngredients());
+    recyclerViewIngredientList.setAdapter(itemAdapter);
+  }
+
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
@@ -69,14 +78,5 @@ public class IngredientListFragment extends Fragment {
       }
     }
     return rootView;
-  }
-
-  private void setupRecyclerViewIngredientList(@NonNull final Recipe recipe,
-      @NonNull final RecyclerView recyclerViewIngredientList) {
-
-    recyclerViewIngredientList.setHasFixedSize(true);
-    final IngredientItemAdapter itemAdapter = new IngredientItemAdapter();
-    itemAdapter.setItemList(recipe.getIngredients());
-    recyclerViewIngredientList.setAdapter(itemAdapter);
   }
 }
