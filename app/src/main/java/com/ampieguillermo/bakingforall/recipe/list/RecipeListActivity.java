@@ -61,7 +61,7 @@ public class RecipeListActivity extends AppCompatActivity {
     List<Recipe> result = Collections.emptyList();
 
     try (final InputStream inputStream =
-        getAssets().open(getString(R.string.recipe_list_json_data_file))) {
+        getAssets().open(getString(R.string.json_data_file_recipe_list))) {
 
       final Reader reader = new InputStreamReader(inputStream, Charset.defaultCharset());
       result = gson.fromJson(reader, new TypeToken<ArrayList<Recipe>>() {

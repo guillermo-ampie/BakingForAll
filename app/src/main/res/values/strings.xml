@@ -4,7 +4,7 @@
   <string name="recipe_detail_title">Recipe Detail</string>
 
   <!-- RecipeListActivity -->
-  <string name="recipe_list_json_data_file">baking.json</string>
+  <string name="json_data_file_recipe_list">baking.json</string>
   <string name="format_name_recipe_list">" %s "</string>
   <string name="format_servings_recipe_list">" servings: %d "</string>
 
