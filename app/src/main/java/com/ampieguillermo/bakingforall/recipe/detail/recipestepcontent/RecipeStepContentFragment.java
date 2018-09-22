@@ -79,13 +79,19 @@ public class RecipeStepContentFragment extends Fragment {
 
         binding.textviewRecipeStepContentLongDescription.setText(recipeStep.getDescription());
 
-        final String recipeStepVideoUrl = recipeStep.getVideoUrl();
-        if (StringUtils.isEmpty(recipeStepVideoUrl)) {
+        final String videoUrl = recipeStep.getVideoUrl();
+        final String thumbnailUrl = recipeStep.getThumbnailUrl();
+        if (StringUtils.isEmpty(videoUrl)
+            && StringUtils.isEmpty(thumbnailUrl)) {
           // There is no video for this recipe step
           showNoVideo();
         } else {
+
+          // The accompanying video URL can come in the "videoURL" or "thumbnailURL" field
+          final Uri recipeStepVideoUri =
+              Uri.parse(StringUtils.isEmpty(videoUrl) ? thumbnailUrl : videoUrl);
+
           // Play video!
-          final Uri recipeStepVideoUri = Uri.parse(recipeStepVideoUrl);
           setupExoPlayer(recipeStepVideoUri);
         }
       } else {
