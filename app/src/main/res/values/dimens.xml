@@ -15,7 +15,7 @@
   <dimen name="size_vector_drawable_recommended_maximum">200dp</dimen>
 
   <!-- layout_recipe_detail.xml -->
-  <dimen name="width_layout_recipe_detail_list_item">320dp</dimen>
+  <dimen name="width_layout_recipe_detail_list_item">280dp</dimen>
 
 
   <!-- item_recipe_list.xml -->

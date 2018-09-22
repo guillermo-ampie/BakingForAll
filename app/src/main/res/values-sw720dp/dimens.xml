@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- layout_recipe_detail.xml -->
+  <dimen name="width_layout_recipe_detail_list_item">300dp</dimen>
+</resources>
