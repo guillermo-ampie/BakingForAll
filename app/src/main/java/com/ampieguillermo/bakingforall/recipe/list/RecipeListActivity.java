@@ -39,7 +39,6 @@ public class RecipeListActivity extends AppCompatActivity {
 
     binding = DataBindingUtil.setContentView(this, R.layout.activity_recipe_list);
     setSupportActionBar(binding.toolbarRecipeList);
-    binding.toolbarRecipeList.setTitle(getTitle());
     setupRecyclerView();
   }
 
