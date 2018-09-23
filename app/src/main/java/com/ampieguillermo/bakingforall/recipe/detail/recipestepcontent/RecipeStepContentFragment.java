@@ -2,6 +2,7 @@ package com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import com.ampieguillermo.bakingforall.R;
 import com.ampieguillermo.bakingforall.databinding.FragmentRecipeStepContentBinding;
 import com.ampieguillermo.bakingforall.model.RecipeStep;
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ext.okhttp.OkHttpDataSourceFactory;
@@ -32,11 +34,22 @@ import org.parceler.Parcels;
 /**
  * A placeholder fragment to show a Recipe step details: Accompanying video
  * and detailed instructions.
+ *
+ * Note:
+ * - ExoPlayer setup code from: https://google.github.io/ExoPlayer/guide.html
+ * - ExoPlayer saved state code from: https://google.github.io/ExoPlayer/demo-application.html
  */
 public class RecipeStepContentFragment extends Fragment {
 
+  private static final int MARSHMALLOW = VERSION_CODES.M; // M: Marshmallow --> API level 23
+  // Keys for Bundles
+  private static String BUNDLE_PLAYBACK_POSITION = "BUNDLE_PLAYBACK_POSITION";
+
   private FragmentRecipeStepContentBinding binding;
   private SimpleExoPlayer mExoPlayer;
+  private Uri recipeStepVideoUri;
+
+  private long playbackPosition;
 
   /**
    * Mandatory empty constructor for the fragment manager to instantiate the
@@ -53,6 +66,34 @@ public class RecipeStepContentFragment extends Fragment {
     args.putParcelable(RecipeStep.ARGUMENT_SELECTED_RECIPE_STEP, Parcels.wrap(recipeStep));
     fragment.setArguments(args);
     return fragment;
+  }
+
+  /**
+   * Called to do initial creation of a fragment.  This is called after
+   * {@link #onAttach(Activity)} and before
+   * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+   *
+   * <p>Note that this can be called while the fragment's activity is
+   * still in the process of being created.  As such, you can not rely
+   * on things like the activity's content view hierarchy being initialized
+   * at this point.  If you want to do work once the activity itself is
+   * created, see {@link #onActivityCreated(Bundle)}.
+   *
+   * <p>Any restored child fragments will be created before the base
+   * <code>Fragment.onCreate</code> method returns.</p>
+   *
+   * @param savedInstanceState If the fragment is being re-created from
+   * a previous saved state, this is the state.
+   */
+  @Override
+  public void onCreate(@Nullable final Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    if (savedInstanceState == null) {
+      playbackPosition = C.TIME_UNSET;
+    } else {
+      playbackPosition = savedInstanceState.getLong(BUNDLE_PLAYBACK_POSITION);
+    }
   }
 
   @Override
@@ -86,13 +127,8 @@ public class RecipeStepContentFragment extends Fragment {
           // There is no video for this recipe step
           showNoVideo();
         } else {
-
           // The accompanying video URL can come in the "videoURL" or "thumbnailURL" field
-          final Uri recipeStepVideoUri =
-              Uri.parse(StringUtils.isEmpty(videoUrl) ? thumbnailUrl : videoUrl);
-
-          // Play video!
-          setupExoPlayer(recipeStepVideoUri);
+          recipeStepVideoUri = Uri.parse(StringUtils.isEmpty(videoUrl) ? thumbnailUrl : videoUrl);
         }
       } else {
         showNoVideo();
@@ -104,13 +140,85 @@ public class RecipeStepContentFragment extends Fragment {
   }
 
   /**
-   * Called when the fragment is no longer in use.  This is called
-   * after {@link #onStop()} and before {@link #onDetach()}.
+   * Called when the Fragment is visible to the user.  This is generally
+   * tied to {@link Activity#onStart() Activity.onStart} of the containing
+   * Activity's lifecycle.
    */
   @Override
-  public void onDestroy() {
-    super.onDestroy();
-    releasePlayer();
+  public void onStart() {
+    super.onStart();
+
+    if (Util.SDK_INT > MARSHMALLOW) {
+      initializePlayer();
+    }
+  }
+
+  /**
+   * Called when the fragment is visible to the user and actively running.
+   * This is generally
+   * tied to {@link Activity#onResume() Activity.onResume} of the containing
+   * Activity's lifecycle.
+   */
+  @Override
+  public void onResume() {
+    super.onResume();
+
+    if ((Util.SDK_INT <= MARSHMALLOW) || (mExoPlayer == null)) {
+      initializePlayer();
+    }
+  }
+
+  /**
+   * Called when the Fragment is no longer resumed.  This is generally
+   * tied to {@link Activity#onPause() Activity.onPause} of the containing
+   * Activity's lifecycle.
+   */
+  @Override
+  public void onPause() {
+    super.onPause();
+
+    if (Util.SDK_INT <= MARSHMALLOW) {
+      releasePlayer();
+    }
+  }
+
+  /**
+   * Called when the Fragment is no longer started.  This is generally
+   * tied to {@link Activity#onStop() Activity.onStop} of the containing
+   * Activity's lifecycle.
+   */
+  @Override
+  public void onStop() {
+    super.onStop();
+
+    if (Util.SDK_INT > MARSHMALLOW) {
+      releasePlayer();
+    }
+  }
+
+  /**
+   * Called to ask the fragment to save its current dynamic state, so it
+   * can later be reconstructed in a new instance of its process is
+   * restarted.  If a new instance of the fragment later needs to be
+   * created, the data you place in the Bundle here will be available
+   * in the Bundle given to {@link #onCreate(Bundle)},
+   * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
+   * {@link #onActivityCreated(Bundle)}.
+   *
+   * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
+   * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
+   * applies here as well.  Note however: <em>this method may be called
+   * at any time before {@link #onDestroy()}</em>.  There are many situations
+   * where a fragment may be mostly torn down (such as when placed on the
+   * back stack with no UI showing), but its state will not be saved until
+   * its owning activity actually needs to save its state.
+   *
+   * @param outState Bundle in which to place your saved state.
+   */
+  @Override
+  public void onSaveInstanceState(@NonNull final Bundle outState) {
+    playbackPosition = Math.max(0, mExoPlayer.getCurrentPosition());
+    outState.putLong(BUNDLE_PLAYBACK_POSITION, playbackPosition);
   }
 
   private void showNoVideo() {
@@ -118,26 +226,28 @@ public class RecipeStepContentFragment extends Fragment {
     binding.imageviewRecipeStepContent.setVisibility(View.VISIBLE); // Show a default image
   }
 
-  private void setupExoPlayer(final Uri recipeStepVideoUri) {
-    // Note: ExoPlayer setup code from: https://google.github.io/ExoPlayer/guide.html
-
-//    if (mExoPlayer == null) {
-    // Create an instance of the ExoPlayer.
-
+  /**
+   * Setup the ExoPlayer
+   */
+  private void initializePlayer() {
     final Activity activity = Objects.requireNonNull(getActivity());
     // 1. Create a default TrackSelector
     final DefaultBandwidthMeter defaultBandwidthMeter = new DefaultBandwidthMeter();
-    final TrackSelection.Factory videoTrackSelectionFactory =
-        new AdaptiveTrackSelection.Factory(defaultBandwidthMeter);
-    final DefaultTrackSelector trackSelector =
-        new DefaultTrackSelector(videoTrackSelectionFactory);
+    if (mExoPlayer == null) {
+      //
+      // Create an instance of the ExoPlayer.
+      //
+      final TrackSelection.Factory videoTrackSelectionFactory =
+          new AdaptiveTrackSelection.Factory(defaultBandwidthMeter);
+      final DefaultTrackSelector trackSelector =
+          new DefaultTrackSelector(videoTrackSelectionFactory);
 
-    // 2. Create the player
-    mExoPlayer = ExoPlayerFactory.newSimpleInstance(activity, trackSelector);
+      // 2. Create the player
+      mExoPlayer = ExoPlayerFactory.newSimpleInstance(activity, trackSelector);
 
-    // 3. Bind the player to the view.
-    binding.playerviewRecipeStepContent.setPlayer(mExoPlayer);
-
+      // 3. Bind the player to the view.
+      binding.playerviewRecipeStepContent.setPlayer(mExoPlayer);
+    }
     // 4. Playing a media from the Internet (Uri):
 
     // Produces DataSource instances through which media data is loaded.
@@ -152,21 +262,22 @@ public class RecipeStepContentFragment extends Fragment {
         new ExtractorMediaSource.Factory(dataSourceFactory)
             .createMediaSource(recipeStepVideoUri);
 
+    // Set player position in the media
+    mExoPlayer.seekTo(playbackPosition);
     // Prepare the player with the media source.
-    mExoPlayer.prepare(videoSource);
+    mExoPlayer.prepare(videoSource, false, false);
 
     // Auto-play the video!
     // TODO: 9/16/18 Handle a preference for autoPlay videos
     // TODO: 9/16/18 Cache the videos!
     mExoPlayer.setPlayWhenReady(true);
-//    }
   }
 
   private void releasePlayer() {
     if (mExoPlayer != null) {
       mExoPlayer.stop();
       mExoPlayer.release();
-//      mExoPlayer = null;
+      mExoPlayer = null;
     }
   }
 }
