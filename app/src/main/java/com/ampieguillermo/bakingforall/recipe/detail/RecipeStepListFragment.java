@@ -1,18 +1,13 @@
 package com.ampieguillermo.bakingforall.recipe.detail;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.ampieguillermo.bakingforall.R;
+import com.ampieguillermo.bakingforall.databinding.FragmentRecipeStepListBinding;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity;
 import java.util.Objects;
@@ -27,6 +22,8 @@ import org.parceler.Parcels;
 public class RecipeStepListFragment extends Fragment {
 
   private static final String LOG_TAG = RecipeStepListFragment.class.getSimpleName();
+  private FragmentRecipeStepListBinding binding;
+
   /**
    * Mandatory empty constructor for the fragment manager to instantiate the
    * fragment (e.g. upon screen orientation changes).
@@ -48,8 +45,8 @@ public class RecipeStepListFragment extends Fragment {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    final View rootView =
-        inflater.inflate(R.layout.fragment_recipe_step_list, container, false);
+
+    binding = FragmentRecipeStepListBinding.inflate(inflater, container, false);
 
     if (Objects.requireNonNull(getArguments()).containsKey(Recipe.ARGUMENT_SELECTED_RECIPE)) {
       // Get the Recipe specified by the fragment arguments.
@@ -57,30 +54,19 @@ public class RecipeStepListFragment extends Fragment {
           .unwrap(getArguments().getParcelable(Recipe.ARGUMENT_SELECTED_RECIPE));
 
       if (recipe != null) {
-        final Toolbar toolbar = rootView.findViewById(R.id.toolbar_recipe_step_content);
-        final Activity activity = Objects.requireNonNull(getActivity());
-        ((AppCompatActivity) activity).setSupportActionBar(toolbar);
-        final CollapsingToolbarLayout appBarLayout =
-            activity.findViewById(R.id.ctoolbarlayout_recipe_detail);
-        if (appBarLayout != null) {
-          appBarLayout.setTitle(recipe.getName());
-        }
-        final RecyclerView recyclerViewStepList =
-            rootView.findViewById(R.id.recyclerview_recipe_step_list);
-        setupRecyclerViewStepList(recipe, recyclerViewStepList);
+        setupRecyclerViewStepList(recipe);
       }
     }
-    return rootView;
+    return binding.getRoot();
   }
 
-  private void setupRecyclerViewStepList(@NonNull final Recipe recipe,
-      @NonNull final RecyclerView recyclerViewStepList) {
+  private void setupRecyclerViewStepList(@NonNull final Recipe recipe) {
 
-    recyclerViewStepList.setHasFixedSize(true);
+    binding.recyclerviewRecipeStepList.setHasFixedSize(true);
     final RecipeStepItemAdapter itemAdapter =
         new RecipeStepItemAdapter(getActivity(),false);
     itemAdapter.setItemList(recipe.getSteps());
-    recyclerViewStepList.setAdapter(itemAdapter);
+    binding.recyclerviewRecipeStepList.setAdapter(itemAdapter);
   }
 }
 
