@@ -21,7 +21,7 @@ android {
         }
     }
 
-    // Enable Data Binding
+    // Enable Data Binding libray
     dataBinding.enabled = true
 
     compileOptions {
@@ -46,14 +46,15 @@ dependencies {
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.5'
+
     // Apache Commons Lang Library
     implementation 'org.apache.commons:commons-lang3:3.8.1'
+
     // Parceler
     implementation 'org.parceler:parceler-api:1.1.11'
     annotationProcessor 'org.parceler:parceler:1.1.11'
-    //
+
     // LeakCanary
-    //
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
     // Optional, when using support library fragments:
