@@ -14,11 +14,6 @@ import org.parceler.Parcel;
 @Parcel
 public class RecipeStep {
 
-  /**
-   * The Recipe step used as a Fragment argument
-   */
-  public static final String ARGUMENT_SELECTED_RECIPE_STEP = "ARGUMENT_SELECTED_RECIPE_STEP";
-
   @SerializedName("id")
   /* package */ int id;
   @SerializedName("shortDescription")

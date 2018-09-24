@@ -41,14 +41,23 @@ import org.parceler.Parcels;
  */
 public class RecipeStepContentFragment extends Fragment {
 
+  //
+  // Keys for Fragment Arguments
+  //
+
+  // The Recipe step used as a Fragment argument
+  private static final String ARGUMENT_SELECTED_RECIPE_STEP = "ARGUMENT_SELECTED_RECIPE_STEP";
+
   private static final int MARSHMALLOW = VERSION_CODES.M; // M: Marshmallow --> API level 23
+
+  //
   // Keys for Bundles
-  private static String BUNDLE_PLAYBACK_POSITION = "BUNDLE_PLAYBACK_POSITION";
+  //
+  private static final String BUNDLE_PLAYBACK_POSITION = "BUNDLE_PLAYBACK_POSITION";
 
   private FragmentRecipeStepContentBinding binding;
   private SimpleExoPlayer mExoPlayer;
   private Uri recipeStepVideoUri;
-
   private long playbackPosition;
 
   /**
@@ -63,7 +72,7 @@ public class RecipeStepContentFragment extends Fragment {
     final RecipeStepContentFragment fragment = new RecipeStepContentFragment();
     final Bundle args = new Bundle();
 
-    args.putParcelable(RecipeStep.ARGUMENT_SELECTED_RECIPE_STEP, Parcels.wrap(recipeStep));
+    args.putParcelable(ARGUMENT_SELECTED_RECIPE_STEP, Parcels.wrap(recipeStep));
     fragment.setArguments(args);
     return fragment;
   }
@@ -104,10 +113,10 @@ public class RecipeStepContentFragment extends Fragment {
     binding = FragmentRecipeStepContentBinding.inflate(inflater, container, false);
 
     if (Objects.requireNonNull(getArguments())
-        .containsKey(RecipeStep.ARGUMENT_SELECTED_RECIPE_STEP)) {
+        .containsKey(ARGUMENT_SELECTED_RECIPE_STEP)) {
       // Get the RecipeStep specified by the fragment arguments.
       final RecipeStep recipeStep =
-          Parcels.unwrap(getArguments().getParcelable(RecipeStep.ARGUMENT_SELECTED_RECIPE_STEP));
+          Parcels.unwrap(getArguments().getParcelable(ARGUMENT_SELECTED_RECIPE_STEP));
       if (recipeStep != null) {
         final CollapsingToolbarLayout appBarLayout =
             Objects.requireNonNull(getActivity())
