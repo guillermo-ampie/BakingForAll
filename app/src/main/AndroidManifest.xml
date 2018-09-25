@@ -27,6 +27,7 @@
     <activity
       android:label="@string/recipe_detail_title"
       android:launchMode="singleTop"
+      android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
       android:name=".recipe.detail.RecipeDetailActivity"
       android:parentActivityName=".recipe.list.RecipeListActivity"
       android:theme="@style/AppTheme.NoActionBar">

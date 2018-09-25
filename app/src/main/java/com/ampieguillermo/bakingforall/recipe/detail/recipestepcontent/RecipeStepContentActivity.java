@@ -59,7 +59,7 @@ public class RecipeStepContentActivity extends AppCompatActivity {
       final RecipeStep recipeStep =
           Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_RECIPE_STEP));
       final RecipeStepContentFragment fragment =
-          RecipeStepContentFragment.newInstance(recipeStep);
+          RecipeStepContentFragment.newInstance(recipeStep, false);
       getSupportFragmentManager()
           .beginTransaction()
           .add(R.id.recipe_step_content_container, fragment)

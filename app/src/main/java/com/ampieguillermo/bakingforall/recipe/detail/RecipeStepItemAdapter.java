@@ -32,7 +32,7 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
 
       if (mTwoPane) { // Tablet case
         final RecipeStepContentFragment fragment = RecipeStepContentFragment
-            .newInstance(recipeStep);
+            .newInstance(recipeStep, mTwoPane);
         mParentActivity.getSupportFragmentManager()
             .beginTransaction()
             .replace(R.id.recipe_step_content_container, fragment)
