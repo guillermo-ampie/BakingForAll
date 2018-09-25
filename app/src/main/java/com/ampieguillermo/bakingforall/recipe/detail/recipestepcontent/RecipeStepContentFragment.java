@@ -2,7 +2,7 @@ package com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent;
 
 import android.app.Activity;
 import android.net.Uri;
-import android.os.Build.VERSION_CODES;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -45,10 +45,13 @@ public class RecipeStepContentFragment extends Fragment {
   // Keys for Fragment Arguments
   //
 
+  // Flag to indicate if the UI is in one or two panes
+  public static final String ARGUMENT_TWO_PANE_ENABLED = "ARGUMENT_TWO_PANE_ENABLED";
   // The Recipe step used as a Fragment argument
   private static final String ARGUMENT_SELECTED_RECIPE_STEP = "ARGUMENT_SELECTED_RECIPE_STEP";
 
-  private static final int MARSHMALLOW = VERSION_CODES.M; // M: Marshmallow --> API level 23
+  // M: Marshmallow --> API level 23
+  private static final int MARSHMALLOW = Build.VERSION_CODES.M;
 
   //
   // Keys for Bundles
@@ -56,9 +59,12 @@ public class RecipeStepContentFragment extends Fragment {
   private static final String BUNDLE_PLAYBACK_POSITION = "BUNDLE_PLAYBACK_POSITION";
 
   private FragmentRecipeStepContentBinding binding;
-  private SimpleExoPlayer mExoPlayer;
+  private SimpleExoPlayer exoPlayer;
   private Uri recipeStepVideoUri;
   private long playbackPosition;
+  private boolean twoPaneEnabled;
+
+  private int screenOrientation;
 
   /**
    * Mandatory empty constructor for the fragment manager to instantiate the
@@ -68,11 +74,13 @@ public class RecipeStepContentFragment extends Fragment {
     // Mandatory empty constructor
   }
 
-  public static RecipeStepContentFragment newInstance(final RecipeStep recipeStep) {
+  public static RecipeStepContentFragment newInstance(final RecipeStep recipeStep,
+      final boolean twoPaneEnabled) {
     final RecipeStepContentFragment fragment = new RecipeStepContentFragment();
     final Bundle args = new Bundle();
 
     args.putParcelable(ARGUMENT_SELECTED_RECIPE_STEP, Parcels.wrap(recipeStep));
+    args.putBoolean(ARGUMENT_TWO_PANE_ENABLED, twoPaneEnabled);
     fragment.setArguments(args);
     return fragment;
   }
@@ -108,15 +116,18 @@ public class RecipeStepContentFragment extends Fragment {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-
     // Setup the DataBinding access
     binding = FragmentRecipeStepContentBinding.inflate(inflater, container, false);
 
-    if (Objects.requireNonNull(getArguments())
-        .containsKey(ARGUMENT_SELECTED_RECIPE_STEP)) {
+    final Bundle arguments = Objects.requireNonNull(getArguments());
+    if (arguments.containsKey(ARGUMENT_SELECTED_RECIPE_STEP)
+        && arguments.containsKey(ARGUMENT_TWO_PANE_ENABLED)) {
+      // Get the flag for UI's panes
+      twoPaneEnabled = arguments.getBoolean(ARGUMENT_TWO_PANE_ENABLED);
       // Get the RecipeStep specified by the fragment arguments.
       final RecipeStep recipeStep =
-          Parcels.unwrap(getArguments().getParcelable(ARGUMENT_SELECTED_RECIPE_STEP));
+          Parcels.unwrap(arguments.getParcelable(ARGUMENT_SELECTED_RECIPE_STEP));
+
       if (recipeStep != null) {
         final CollapsingToolbarLayout appBarLayout =
             Objects.requireNonNull(getActivity())
@@ -172,7 +183,10 @@ public class RecipeStepContentFragment extends Fragment {
   public void onResume() {
     super.onResume();
 
-    if ((Util.SDK_INT <= MARSHMALLOW) || (mExoPlayer == null)) {
+    if (!twoPaneEnabled) { // TODO: 9/24/18 Call hideSystemUi when in one pane only and landscape
+      hideSystemUi();
+    }
+    if ((Util.SDK_INT <= MARSHMALLOW) || (exoPlayer == null)) {
       initializePlayer();
     }
   }
@@ -226,7 +240,6 @@ public class RecipeStepContentFragment extends Fragment {
    */
   @Override
   public void onSaveInstanceState(@NonNull final Bundle outState) {
-    playbackPosition = Math.max(0, mExoPlayer.getCurrentPosition());
     outState.putLong(BUNDLE_PLAYBACK_POSITION, playbackPosition);
   }
 
@@ -242,7 +255,7 @@ public class RecipeStepContentFragment extends Fragment {
     final Activity activity = Objects.requireNonNull(getActivity());
     // 1. Create a default TrackSelector
     final DefaultBandwidthMeter defaultBandwidthMeter = new DefaultBandwidthMeter();
-    if (mExoPlayer == null) {
+    if (exoPlayer == null) {
       //
       // Create an instance of the ExoPlayer.
       //
@@ -252,10 +265,10 @@ public class RecipeStepContentFragment extends Fragment {
           new DefaultTrackSelector(videoTrackSelectionFactory);
 
       // 2. Create the player
-      mExoPlayer = ExoPlayerFactory.newSimpleInstance(activity, trackSelector);
+      exoPlayer = ExoPlayerFactory.newSimpleInstance(activity, trackSelector);
 
       // 3. Bind the player to the view.
-      binding.playerviewRecipeStepContent.setPlayer(mExoPlayer);
+      binding.playerviewRecipeStepContent.setPlayer(exoPlayer);
     }
     // 4. Playing a media from the Internet (Uri):
 
@@ -272,22 +285,37 @@ public class RecipeStepContentFragment extends Fragment {
             .createMediaSource(recipeStepVideoUri);
 
     // Set player position in the media
-    mExoPlayer.seekTo(playbackPosition);
+    exoPlayer.seekTo(playbackPosition);
     // Prepare the player with the media source.
-    mExoPlayer.prepare(videoSource, false, false);
+    exoPlayer.prepare(videoSource, false, false);
 
     // Auto-play the video!
     // TODO: 9/16/18 Handle a preference for autoPlay videos
     // TODO: 9/16/18 Cache the videos!
-    mExoPlayer.setPlayWhenReady(true);
+    exoPlayer.setPlayWhenReady(true);
+
+    if (!twoPaneEnabled) { // TODO: 9/24/18 Call hideSystemUi when in one pane only and lanscape
+      hideSystemUi();
+    }
   }
 
   private void releasePlayer() {
-    if (mExoPlayer != null) {
-      mExoPlayer.stop();
-      mExoPlayer.release();
-      mExoPlayer = null;
+    if (exoPlayer != null) {
+      playbackPosition = Math.max(0, exoPlayer.getCurrentPosition());
+      exoPlayer.stop();
+      exoPlayer.release();
+      exoPlayer = null;
     }
+  }
+
+  //  @SuppressLint("InlinedApi")
+  private void hideSystemUi() {
+    binding.playerviewRecipeStepContent.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+        | View.SYSTEM_UI_FLAG_FULLSCREEN
+        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
   }
 }
 
