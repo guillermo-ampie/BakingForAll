@@ -22,6 +22,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.parceler.Parcels;
 
 /**
  * An activity showing a grid of Recipes. Selecting a recipe launches a
@@ -30,8 +31,10 @@ import java.util.List;
  */
 public class RecipeListActivity extends AppCompatActivity {
 
+  public static final String BUNDLE_RECIPE_LIST = "BUNDLE_RECIPE_LIST";
   private static final String LOG_TAG = RecipeListActivity.class.getSimpleName();
   private ActivityRecipeListBinding binding;
+  private List<Recipe> recipeList = Collections.emptyList();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +42,22 @@ public class RecipeListActivity extends AppCompatActivity {
 
     binding = DataBindingUtil.setContentView(this, R.layout.activity_recipe_list);
     setSupportActionBar(binding.toolbarRecipeList);
+    if (savedInstanceState == null) { // Load data for the first time
+      recipeList = loadJsonData();
+    } else { // Recover saved state
+      recipeList = Parcels.unwrap(savedInstanceState.getParcelable(BUNDLE_RECIPE_LIST));
+    }
+
     setupRecyclerView();
   }
+
+  @Override
+  protected void onSaveInstanceState(final Bundle outState) {
+    outState.putParcelable(BUNDLE_RECIPE_LIST, Parcels.wrap(recipeList));
+    // Save any view hierarchy
+    super.onSaveInstanceState(outState);
+  }
+
 
   private void setupRecyclerView() {
     final RecyclerView recyclerView = binding.recyclerviewRecipeList;
@@ -49,7 +66,8 @@ public class RecipeListActivity extends AppCompatActivity {
     layoutManager.setSpanCount(getResources().getInteger(R.integer.num_columns_layout_recipe_list));
     recyclerView.setHasFixedSize(true);
     final RecipeItemAdapter itemAdapter = new RecipeItemAdapter();
-    itemAdapter.setItemList(loadJsonData());
+
+    itemAdapter.setItemList(recipeList);
     recyclerView.setAdapter(itemAdapter);
   }
 
@@ -58,7 +76,6 @@ public class RecipeListActivity extends AppCompatActivity {
   private List<Recipe> loadJsonData() {
     final Gson gson = new Gson();
     List<Recipe> result = Collections.emptyList();
-
     try (final InputStream inputStream =
         getAssets().open(getString(R.string.json_data_file_recipe_list))) {
 
