@@ -37,7 +37,8 @@ import org.parceler.Parcels;
  *
  * Note:
  * - ExoPlayer setup code from: https://google.github.io/ExoPlayer/guide.html
- * - ExoPlayer saved state code from: https://google.github.io/ExoPlayer/demo-application.html
+ * - ExoPlayer saved state code from ExoPlayer Demo App:
+ * https://google.github.io/ExoPlayer/demo-application.html
  */
 public class RecipeStepContentFragment extends Fragment {
 
@@ -47,17 +48,15 @@ public class RecipeStepContentFragment extends Fragment {
 
   // Flag to indicate if the UI is in one or two panes
   public static final String ARGUMENT_TWO_PANE_ENABLED = "ARGUMENT_TWO_PANE_ENABLED";
+  public static final String BUNDLE_CURRENT_WINDOW = "BUNDLE_CURRENT_WINDOW ";
   // The Recipe step used as a Fragment argument
   private static final String ARGUMENT_SELECTED_RECIPE_STEP = "ARGUMENT_SELECTED_RECIPE_STEP";
-
   // M: Marshmallow --> API level 23
   private static final int MARSHMALLOW = Build.VERSION_CODES.M;
-
   //
   // Keys for Bundles
   //
   private static final String BUNDLE_PLAYBACK_POSITION = "BUNDLE_PLAYBACK_POSITION";
-
   private FragmentRecipeStepContentBinding binding;
   private SimpleExoPlayer exoPlayer;
   private Uri recipeStepVideoUri;
@@ -65,6 +64,7 @@ public class RecipeStepContentFragment extends Fragment {
   private boolean twoPaneEnabled;
 
   private int screenOrientation;
+  private int currentWindow;
 
   /**
    * Mandatory empty constructor for the fragment manager to instantiate the
@@ -107,9 +107,10 @@ public class RecipeStepContentFragment extends Fragment {
     super.onCreate(savedInstanceState);
 
     if (savedInstanceState == null) {
-      playbackPosition = C.TIME_UNSET;
+      clearStartPosition();
     } else {
       playbackPosition = savedInstanceState.getLong(BUNDLE_PLAYBACK_POSITION);
+      currentWindow = savedInstanceState.getInt(BUNDLE_CURRENT_WINDOW);
     }
   }
 
@@ -240,7 +241,9 @@ public class RecipeStepContentFragment extends Fragment {
    */
   @Override
   public void onSaveInstanceState(@NonNull final Bundle outState) {
+    updatePlaybackPosition();
     outState.putLong(BUNDLE_PLAYBACK_POSITION, playbackPosition);
+    outState.putInt(BUNDLE_CURRENT_WINDOW, currentWindow);
   }
 
   private void showNoVideo() {
@@ -284,25 +287,27 @@ public class RecipeStepContentFragment extends Fragment {
         new ExtractorMediaSource.Factory(dataSourceFactory)
             .createMediaSource(recipeStepVideoUri);
 
-    // Set player position in the media
-    exoPlayer.seekTo(playbackPosition);
+    final boolean hasPlaybackPosition = currentWindow != C.INDEX_UNSET;
+    if (hasPlaybackPosition) {
+      // Set player position in the media
+      exoPlayer.seekTo(currentWindow, playbackPosition);
+    }
     // Prepare the player with the media source.
-    exoPlayer.prepare(videoSource, false, false);
+    exoPlayer.prepare(videoSource, !hasPlaybackPosition, false);
 
     // Auto-play the video!
     // TODO: 9/16/18 Handle a preference for autoPlay videos
     // TODO: 9/16/18 Cache the videos!
     exoPlayer.setPlayWhenReady(true);
 
-    if (!twoPaneEnabled) { // TODO: 9/24/18 Call hideSystemUi when in one pane only and lanscape
+    if (!twoPaneEnabled) { // TODO: 9/24/18 Call hideSystemUi when in one pane only and landscape
       hideSystemUi();
     }
   }
 
   private void releasePlayer() {
     if (exoPlayer != null) {
-      playbackPosition = Math.max(0, exoPlayer.getCurrentPosition());
-      exoPlayer.stop();
+      updatePlaybackPosition();
       exoPlayer.release();
       exoPlayer = null;
     }
@@ -316,6 +321,19 @@ public class RecipeStepContentFragment extends Fragment {
         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+  }
+
+  private void updatePlaybackPosition() {
+    if (exoPlayer != null) {
+      playbackPosition = Math.max(0L, exoPlayer.getCurrentPosition());
+      currentWindow = exoPlayer.getCurrentWindowIndex();
+    }
+  }
+
+  private void clearStartPosition() {
+//    startAutoPlay = true;
+    currentWindow = C.INDEX_UNSET;
+    playbackPosition = C.TIME_UNSET;
   }
 }
 
