@@ -135,10 +135,12 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
     /* package */ void setupItemView(final RecipeStep recipeStep) {
       binding.textviewItemStepListShortDescription.setText(recipeStep.getShortDescription());
 
-      // If there is no video for this step --> hide the "play video" icon
+      // If there is no video for this step --> show an ellipsis icon ("more horizontal" icon)
+      // instead than the "play icon"
       if (StringUtils.isEmpty(recipeStep.getVideoUrl())
           && StringUtils.isEmpty(recipeStep.getThumbnailUrl())) {
-            binding.imageviewRecipeStepContentPlayIcon.setVisibility(View.INVISIBLE);
+        binding.imageviewRecipeStepContentPlayIcon
+            .setImageResource(R.drawable.ic_more_horiz_black_24dp);
       }
       itemView.setTag(getAdapterPosition());
     }
