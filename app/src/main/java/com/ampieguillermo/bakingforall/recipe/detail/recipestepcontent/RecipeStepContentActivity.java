@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.ampieguillermo.bakingforall.R;
 import com.ampieguillermo.bakingforall.model.RecipeStep;
 import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
+import java.util.Objects;
 import org.parceler.Parcels;
 
 /**
@@ -21,14 +22,27 @@ import org.parceler.Parcels;
  */
 public class RecipeStepContentActivity extends AppCompatActivity {
 
+  private static final String LOG_TAG = RecipeStepContentActivity.class.getSimpleName();
+
+  //
+  // Keys for Intent EXTRAS
+  //
   private static final String EXTRA_RECIPE_STEP =
       "com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent.EXTRA_RECIPE_STEP";
-  private static final String LOG_TAG = RecipeStepContentActivity.class.getSimpleName();
+
+  //
+  // Keys for Bundles
+  //
+  private static final String BUNDLE_RECIPE_STEP = "BUNDLE_RECIPE_STEP";
 
   public static Intent getStartIntent(final Context context, final RecipeStep recipeStep) {
     final Intent intent = new Intent(context, RecipeStepContentActivity.class);
+    // See comment on RecipeDetailActivity.getStartIntent() for the Bundle related code
+    final Bundle bundle = new Bundle();
 
-    intent.putExtra(EXTRA_RECIPE_STEP, Parcels.wrap(recipeStep));
+    bundle.putParcelable(BUNDLE_RECIPE_STEP, Parcels.wrap(recipeStep));
+//    intent.putExtra(EXTRA_RECIPE_STEP,Parcels.wrap(recipeStep));
+    intent.putExtra(EXTRA_RECIPE_STEP, bundle);
     return intent;
   }
 
@@ -56,14 +70,21 @@ public class RecipeStepContentActivity extends AppCompatActivity {
     if (savedInstanceState == null) {
       // Create the detail fragment and add it to the activity
       // using a fragment transaction.
-      final RecipeStep recipeStep =
-          Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_RECIPE_STEP));
-      final RecipeStepContentFragment fragment =
-          RecipeStepContentFragment.newInstance(recipeStep, false);
-      getSupportFragmentManager()
-          .beginTransaction()
-          .add(R.id.recipe_step_content_container, fragment)
-          .commit();
+//      final RecipeStep recipeStep =
+//          Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_RECIPE_STEP));
+      final Intent intent = getIntent();
+      if (intent.hasExtra(EXTRA_RECIPE_STEP)) {
+        final Bundle bundle = intent.getBundleExtra(EXTRA_RECIPE_STEP);
+        final RecipeStep recipeStep =
+            Parcels.unwrap(Objects.requireNonNull(bundle.getParcelable(BUNDLE_RECIPE_STEP)));
+        final RecipeStepContentFragment fragment =
+            RecipeStepContentFragment.newInstance(recipeStep, false);
+
+        getSupportFragmentManager()
+            .beginTransaction()
+            .add(R.id.recipe_step_content_container, fragment)
+            .commit();
+      }
     }
   }
 
