@@ -43,27 +43,31 @@ import org.parceler.Parcels;
 public class RecipeStepContentFragment extends Fragment {
 
   //
-  // Keys for Fragment Arguments
+  // Keys for Fragment arguments
   //
-
   // Flag to indicate if the UI is in one or two panes
-  public static final String ARGUMENT_TWO_PANE_ENABLED = "ARGUMENT_TWO_PANE_ENABLED";
-  public static final String BUNDLE_CURRENT_WINDOW = "BUNDLE_CURRENT_WINDOW ";
+  private static final String ARGUMENT_TWO_PANE_ENABLED = "ARGUMENT_TWO_PANE_ENABLED";
   // The Recipe step used as a Fragment argument
   private static final String ARGUMENT_SELECTED_RECIPE_STEP = "ARGUMENT_SELECTED_RECIPE_STEP";
+
   // M: Marshmallow --> API level 23
   private static final int MARSHMALLOW = Build.VERSION_CODES.M;
+
   //
   // Keys for Bundles
   //
   private static final String BUNDLE_PLAYBACK_POSITION = "BUNDLE_PLAYBACK_POSITION";
-  private FragmentRecipeStepContentBinding binding;
-  private SimpleExoPlayer exoPlayer;
-  private Uri recipeStepVideoUri;
-  private long playbackPosition;
-  private boolean twoPaneEnabled;
+  private static final String BUNDLE_CURRENT_WINDOW = "BUNDLE_CURRENT_WINDOW";
 
+  private FragmentRecipeStepContentBinding binding;
+
+  private Uri recipeStepVideoUri;
+  private boolean twoPaneEnabled;
+  private boolean hasVideo;
   private int screenOrientation;
+
+  private SimpleExoPlayer exoPlayer;
+  private long playbackPosition;
   private int currentWindow;
 
   /**
@@ -107,7 +111,7 @@ public class RecipeStepContentFragment extends Fragment {
     super.onCreate(savedInstanceState);
 
     if (savedInstanceState == null) {
-      clearStartPosition();
+      clearPlaybackPosition();
     } else {
       playbackPosition = savedInstanceState.getLong(BUNDLE_PLAYBACK_POSITION);
       currentWindow = savedInstanceState.getInt(BUNDLE_CURRENT_WINDOW);
@@ -141,15 +145,16 @@ public class RecipeStepContentFragment extends Fragment {
 
         binding.textviewRecipeStepContentLongDescription.setText(recipeStep.getDescription());
 
+        // Check whether the Recipe step has an accompanying video or not
         final String videoUrl = recipeStep.getVideoUrl();
         final String thumbnailUrl = recipeStep.getThumbnailUrl();
-        if (StringUtils.isEmpty(videoUrl)
-            && StringUtils.isEmpty(thumbnailUrl)) {
-          // There is no video for this recipe step
-          showNoVideo();
-        } else {
+        hasVideo = !StringUtils.isEmpty(videoUrl) || !StringUtils.isEmpty(thumbnailUrl);
+        if (hasVideo) {
           // The accompanying video URL can come in the "videoURL" or "thumbnailURL" field
           recipeStepVideoUri = Uri.parse(StringUtils.isEmpty(videoUrl) ? thumbnailUrl : videoUrl);
+        } else {
+          // There is no video for this recipe step
+          showNoVideo();
         }
       } else {
         showNoVideo();
@@ -169,7 +174,7 @@ public class RecipeStepContentFragment extends Fragment {
   public void onStart() {
     super.onStart();
 
-    if (Util.SDK_INT > MARSHMALLOW) {
+    if ((Util.SDK_INT > MARSHMALLOW) && hasVideo) {
       initializePlayer();
     }
   }
@@ -187,7 +192,7 @@ public class RecipeStepContentFragment extends Fragment {
     if (!twoPaneEnabled) { // TODO: 9/24/18 Call hideSystemUi when in one pane only and landscape
       hideSystemUi();
     }
-    if ((Util.SDK_INT <= MARSHMALLOW) || (exoPlayer == null)) {
+    if (((Util.SDK_INT <= MARSHMALLOW) || (exoPlayer == null)) && hasVideo) {
       initializePlayer();
     }
   }
@@ -330,7 +335,7 @@ public class RecipeStepContentFragment extends Fragment {
     }
   }
 
-  private void clearStartPosition() {
+  private void clearPlaybackPosition() {
 //    startAutoPlay = true;
     currentWindow = C.INDEX_UNSET;
     playbackPosition = C.TIME_UNSET;
