@@ -29,6 +29,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
   private static final String LOG_TAG = RecipeDetailActivity.class.getSimpleName();
   private static final String EXTRA_RECIPE =
       "com.ampieguillermo.bakingforall.recipe.detail.EXTRA_RECIPE";
+  public static final String ARGUMENT_RECIPE = "ARGUMENT_RECIPE";
   private ActivityRecipeDetailBinding binding;
   /**
    * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -39,7 +40,29 @@ public class RecipeDetailActivity extends AppCompatActivity {
   public static Intent getStartIntent(final Context context, final Recipe recipe) {
     final Intent intent = new Intent(context, RecipeDetailActivity.class);
 
-    intent.putExtra(EXTRA_RECIPE, Parcels.wrap(recipe));
+    /** When using a Samsung "Galaxy 7 Prime"(SM-G610M) with Android 7.0 the following error and
+     * warning appeared in Logcat:
+     * "E/Parcel: Class not found when unmarshalling:
+     * com.ampieguillermo.bakingforall.model.Recipe$$Parcelable
+     * java.lang.ClassNotFoundException: com.ampieguillermo.bakingforall.model.Recipe$$Parcelable"
+     *
+     * "W/Bundle: Failed to parse Bundle, but defusing quietly
+     * android.os.BadParcelableException: ClassNotFoundException when unmarshalling:
+     * com.ampieguillermo.bakingforall.model.Recipe$$Parcelable"
+     *
+     * Note-1: In spite of this error, the App does not crash
+     * Note-2: For Parcelable objects, the App uses the Parceler Library
+     * Note-3: The error does not appears in the emulators
+     * Workaround: Instead of putting the "Recipe" object in the Intent's EXTRA, the Recipe is
+     * firstly put in a Bundle object, and later on, this bundle is sent as the Intent's EXTRA
+     * Reference: https://stackoverflow.com/questions/28589509/android-e-parcel-class-not
+     * -found-when-unmarshalling-only-on-samsung-tab3
+     */
+    final Bundle bundle = new Bundle();
+    bundle.putParcelable(ARGUMENT_RECIPE, Parcels.wrap(recipe));
+//    intent.putExtra(EXTRA_RECIPE, Parcels.wrap(recipe));
+    intent.putExtra(EXTRA_RECIPE, bundle);
+
     return intent;
   }
 
@@ -66,7 +89,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
     final Intent intent = getIntent();
     if (intent.hasExtra(EXTRA_RECIPE)) {
       // Get the Recipe specified by the fragment arguments.
-      final Recipe recipe = Parcels.unwrap(intent.getParcelableExtra(EXTRA_RECIPE));
+      final Bundle bundle = intent.getBundleExtra(EXTRA_RECIPE);
+      final Recipe recipe = Parcels.unwrap(bundle.getParcelable(ARGUMENT_RECIPE));
+//      final Recipe recipe = Parcels.unwrap(intent.getParcelableExtra(EXTRA_RECIPE));
 
       if (recipe != null) {
         final CollapsingToolbarLayout appBarLayout = binding.ctoolbarlayoutRecipeDetail;
