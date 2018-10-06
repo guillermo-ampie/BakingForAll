@@ -4,10 +4,11 @@
   <dimen name="height_recipe_detail_appbar">200dp</dimen>
 
   <dimen name="margin_all_horizontal">8dp</dimen>
-  <dimen name="margin_big_all_horizontal">32dp</dimen>
-  <dimen name="margin_all_vertical">8dp</dimen>
-  <dimen name="margin_medium_all_vertical">16dp</dimen>
   <dimen name="margin_all_recyclerview">16dp</dimen>
+  <dimen name="margin_all_vertical">8dp</dimen>
+  <dimen name="margin_big_all_horizontal">32dp</dimen>
+  <dimen name="margin_medium_all_vertical">16dp</dimen>
+  <dimen name="margin_medium_all_horizontal">16dp</dimen>
   <dimen name="margin_all_guideline">16dp</dimen>
   <dimen name="radius_corner_all_cardview">6dp</dimen>
   <dimen name="elevation_all_cardview">@dimen/cardview_default_elevation</dimen>
