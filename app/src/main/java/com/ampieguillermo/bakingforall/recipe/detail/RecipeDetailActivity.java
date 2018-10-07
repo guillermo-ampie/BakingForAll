@@ -6,9 +6,11 @@ import android.databinding.DataBindingUtil;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
+import android.support.design.widget.TabLayout;
+import android.support.design.widget.TabLayout.Tab;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.content.res.AppCompatResources;
 import android.view.MenuItem;
 import com.ampieguillermo.bakingforall.R;
 import com.ampieguillermo.bakingforall.databinding.ActivityRecipeDetailBinding;
@@ -29,8 +31,9 @@ import org.parceler.Parcels;
  */
 public class RecipeDetailActivity extends AppCompatActivity {
 
+  public static final int INGREDIENT_LIST_TAB_INDEX = 0;
+  public static final int RECIPE_STEP_LIST_INDEX = 1;
   private static final String LOG_TAG = RecipeDetailActivity.class.getSimpleName();
-
   //
   // Keys for Intent EXTRAS
   //
@@ -48,8 +51,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
    */
   /* package */ boolean mTwoPane;
   private ActivityRecipeDetailBinding binding;
-
-
+  private TabLayout.OnTabSelectedListener tabSelectedListener;
 
   public static Intent getStartIntent(final Context context, final Recipe recipe) {
     final Intent intent = new Intent(context, RecipeDetailActivity.class);
@@ -110,20 +112,17 @@ public class RecipeDetailActivity extends AppCompatActivity {
 //      final Recipe recipe = Parcels.unwrap(intent.getParcelableExtra(EXTRA_RECIPE));
 
       if (recipe != null) {
-//        final CollapsingToolbarLayout appBarLayout = binding.ctoolbarlayoutRecipeDetail;
-//        if (appBarLayout != null) {
-//          appBarLayout.setTitle(recipe.getName());
-//        }
-//        setupRecyclerView(recipe);
         setTitle(recipe.getName());
         binding.imageviewRecipeDetail
             .setImageResource(RecipeAssets.getPhotoAsset(recipe.getName()));
 
         final ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        // Setup Fragments
         final IngredientListFragment ingredientListFragment =
             IngredientListFragment.newInstance(recipe);
         final RecipeStepListFragment recipeStepListFragment =
             RecipeStepListFragment.newInstance(recipe, mTwoPane);
+
         viewPagerAdapter.addFragmentPage(ingredientListFragment,
             getString(R.string.recipe_detail_ingredients_tab_label));
         viewPagerAdapter.addFragmentPage(recipeStepListFragment,
@@ -132,34 +131,27 @@ public class RecipeDetailActivity extends AppCompatActivity {
         binding.idLayoutRecipeDetail.viewpagerLayoutRecipeDetail.setAdapter(viewPagerAdapter);
         binding.tablayoutRecipeDetail
             .setupWithViewPager(binding.idLayoutRecipeDetail.viewpagerLayoutRecipeDetail);
+
         setTabLayoutIcons();
+//        binding.idLayoutRecipeDetail.viewpagerLayoutRecipeDetail.setCurrentItem(0);
       }
     }
   }
 
-  private void setTabLayoutIcons () {
-    final int color = getResources().getColor(R.color.colorIconTab);
-    final Drawable ingredientListDrawable =
-        ResourcesCompat.getDrawable(getResources(),
-            R.drawable.ic_ingredient_list_24dp,
-            null);
-        ingredientListDrawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-    binding.tablayoutRecipeDetail.getTabAt(0).setIcon(ingredientListDrawable);
+  @Override
+  protected void onStart() {
+    super.onStart();
 
-    final Drawable recipeStepsDrawable = ResourcesCompat
-        .getDrawable(getResources(), R.drawable.ic_steps_white_24dp, null);
-        recipeStepsDrawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-    binding.tablayoutRecipeDetail.getTabAt(1).setIcon(recipeStepsDrawable);
+    addOnTabSelectedListener();
   }
-//  private void setupRecyclerView(final Recipe recipe) {
-//    final RecyclerView recyclerView = binding.idLayoutRecipeDetail.recyclerviewRecipeDetailList;
-//
-//    recyclerView.setHasFixedSize(true);
-//    final RecipeStepItemAdapter itemAdapter =
-//        new RecipeStepItemAdapter(this, mTwoPane);
-//    itemAdapter.setItemList(recipe.getSteps());
-//    recyclerView.setAdapter(itemAdapter);
-//  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+
+    removeOnTabSelectedListener();
+  }
+
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
@@ -175,5 +167,62 @@ public class RecipeDetailActivity extends AppCompatActivity {
       return true;
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  private void setTabLayoutIcons() {
+
+    // TODO: 10/6/18 Use a ColorStateList to get system's colors, instead than my own here and in
+    // addOnTabSelectedListener
+    //ColorStateList colorList = binding.tablayoutRecipeDetail.getTabTextColors();
+    // getTabIconTint()
+    final int colorTabIcon = getResources().getColor(R.color.colorTabIcon);
+    final int colorTabIconSelected = getResources().getColor(R.color.colorTabIconSelected);
+
+    final Drawable ingredientListDrawable =
+        AppCompatResources.getDrawable(this,
+            R.drawable.ic_ingredient_list_24dp);
+    ingredientListDrawable.setColorFilter(colorTabIconSelected, PorterDuff.Mode.SRC_ATOP);
+    binding.tablayoutRecipeDetail
+        .getTabAt(INGREDIENT_LIST_TAB_INDEX).setIcon(ingredientListDrawable);
+
+    final Drawable recipeStepsDrawable =
+        AppCompatResources.getDrawable(this, R.drawable.ic_steps_white_24dp);
+    recipeStepsDrawable.setColorFilter(colorTabIcon, PorterDuff.Mode.SRC_ATOP);
+    binding.tablayoutRecipeDetail
+        .getTabAt(RECIPE_STEP_LIST_INDEX).setIcon(recipeStepsDrawable);
+  }
+
+  private void addOnTabSelectedListener() {
+    // Manage icon colors according to tab state
+
+    tabSelectedListener =
+        new TabLayout.ViewPagerOnTabSelectedListener(binding
+            .idLayoutRecipeDetail
+            .viewpagerLayoutRecipeDetail) {
+
+          private void setIconColor(final Tab tab, int color) {
+            final Drawable tabIcon = tab.getIcon();
+            tabIcon.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+          }
+
+          @Override
+          public void onTabUnselected(final Tab tab) {
+            super.onTabUnselected(tab);
+            setIconColor(tab, getResources().getColor(R.color.colorTabIcon));
+          }
+
+          @Override
+          public void onTabSelected(final Tab tab) {
+            super.onTabSelected(tab);
+            setIconColor(tab, getResources().getColor(R.color.colorTabIconSelected));
+          }
+
+        };
+
+    binding.tablayoutRecipeDetail.addOnTabSelectedListener(tabSelectedListener);
+  }
+
+  private void removeOnTabSelectedListener() {
+    binding.tablayoutRecipeDetail.removeOnTabSelectedListener(tabSelectedListener);
   }
 }

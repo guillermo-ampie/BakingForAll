@@ -12,8 +12,8 @@
 
   <!--<color name="colorIconTab">@android:color/background_light</color>-->
   <!-- lighter gray -->
-  <color name="colorIconTab">#DDDDDD</color>
+  <color name="colorTabIcon">#DDDDDD</color>
   <!-- white -->
-  <color name="colorIconTabSelected">#FFFFFF</color>
+  <color name="colorTabIconSelected">#FFFFFF</color>
 
 </resources>
