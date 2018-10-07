@@ -27,4 +27,6 @@
 
 
   <string name="action_settings">Settings</string>
+  <string name="recipe_detail_ingredients_tab_label">INGREDIENTS</string>
+  <string name="recipe_detail_recipe_steps_tab_label">STEPS</string>
 </resources>
