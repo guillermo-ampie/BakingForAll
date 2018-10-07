@@ -9,4 +9,9 @@
   <color name="colorSecondaryText">#757575</color>
   <color name="colorIcons">#212121</color>
   <color name="colorDivider">#BDBDBD</color>
+
+  <!--<color name="colorIconTab">@android:color/background_light</color>-->
+  <!-- lighter gray -->
+  <color name="colorIconTab">#ddd</color>
+
 </resources>
