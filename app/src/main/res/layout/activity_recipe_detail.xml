@@ -13,25 +13,48 @@
     <android.support.design.widget.AppBarLayout
       android:id="@+id/appbarlayout_recipe_detail"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/height_recipe_detail_appbar"
+      android:layout_height="wrap_content"
       android:fitsSystemWindows="true"
       android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+      <!-- Parallax Scrolling Tabs reference code:
+      https://android.jlelse.eu/parallax-scrolling-header-tabs-android-tutorial-2cc6e40aa257
+      https://material.io/develop/android/components/collapsing-toolbar-layout/ -->
       <android.support.design.widget.CollapsingToolbarLayout
         android:id="@+id/ctoolbarlayout_recipe_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/app_bar_height"
         android:fitsSystemWindows="true"
         app:contentScrim="?attr/colorPrimary"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        app:toolbarId="@+id/toolbar_recipe_detail">
+        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+        app:titleEnabled="false">
+
+        <ImageView
+          android:id="@+id/imageview_recipe_detail"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:fitsSystemWindows="true"
+          android:scaleType="centerCrop"
+          app:layout_collapseMode="parallax"
+          app:layout_collapseParallaxMultiplier="0.85"
+          android:contentDescription="@string/description_recipe_image"/>
 
         <android.support.v7.widget.Toolbar
           android:id="@+id/toolbar_recipe_detail"
           android:layout_width="match_parent"
           android:layout_height="?attr/actionBarSize"
+          android:layout_gravity="top"
+          android:layout_marginBottom="48dp"
           app:layout_collapseMode="pin"
           app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <android.support.design.widget.TabLayout
+          android:id="@+id/tablayout_recipe_detail"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="bottom"
+          app:tabGravity="fill"
+          app:tabMode="fixed"/>
 
       </android.support.design.widget.CollapsingToolbarLayout>
 

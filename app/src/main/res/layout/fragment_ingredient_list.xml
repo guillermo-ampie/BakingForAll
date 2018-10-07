@@ -8,6 +8,7 @@
     android:scrollbarStyle="insideOverlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_all_recyclerview"
     android:name="com.ampieguillermo.bakingforall.recipe.detail.IngredientListFragment"
     android:scrollbars="vertical"
     app:layoutManager="android.support.v7.widget.LinearLayoutManager"

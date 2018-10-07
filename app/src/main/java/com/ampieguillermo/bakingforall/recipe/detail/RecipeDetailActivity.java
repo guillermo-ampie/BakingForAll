@@ -3,17 +3,19 @@ package com.ampieguillermo.bakingforall.recipe.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import com.ampieguillermo.bakingforall.R;
 import com.ampieguillermo.bakingforall.databinding.ActivityRecipeDetailBinding;
 import com.ampieguillermo.bakingforall.model.Recipe;
 import com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent.RecipeStepContentActivity;
 import com.ampieguillermo.bakingforall.recipe.list.RecipeListActivity;
+import com.ampieguillermo.bakingforall.utils.RecipeAssets;
 import java.util.Objects;
 import org.parceler.Parcels;
 
@@ -46,6 +48,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
    */
   /* package */ boolean mTwoPane;
   private ActivityRecipeDetailBinding binding;
+
+
 
   public static Intent getStartIntent(final Context context, final Recipe recipe) {
     final Intent intent = new Intent(context, RecipeDetailActivity.class);
@@ -91,7 +95,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     if (binding.idLayoutRecipeDetail.recipeStepContentContainer != null) {
       // The detail container view will be present only in the
-      // large-screen layouts (res/values-w900dp).
+      // large-screen layouts (res/values-sw600dp).
       // If this view is present, then the
       // activity should be in two-pane mode.
       mTwoPane = true;
@@ -106,24 +110,56 @@ public class RecipeDetailActivity extends AppCompatActivity {
 //      final Recipe recipe = Parcels.unwrap(intent.getParcelableExtra(EXTRA_RECIPE));
 
       if (recipe != null) {
-        final CollapsingToolbarLayout appBarLayout = binding.ctoolbarlayoutRecipeDetail;
-        if (appBarLayout != null) {
-          appBarLayout.setTitle(recipe.getName());
-        }
-        setupRecyclerView(recipe);
+//        final CollapsingToolbarLayout appBarLayout = binding.ctoolbarlayoutRecipeDetail;
+//        if (appBarLayout != null) {
+//          appBarLayout.setTitle(recipe.getName());
+//        }
+//        setupRecyclerView(recipe);
+        setTitle(recipe.getName());
+        binding.imageviewRecipeDetail
+            .setImageResource(RecipeAssets.getPhotoAsset(recipe.getName()));
+
+        final ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        final IngredientListFragment ingredientListFragment =
+            IngredientListFragment.newInstance(recipe);
+        final RecipeStepListFragment recipeStepListFragment =
+            RecipeStepListFragment.newInstance(recipe, mTwoPane);
+        viewPagerAdapter.addFragmentPage(ingredientListFragment,
+            getString(R.string.recipe_detail_ingredients_tab_label));
+        viewPagerAdapter.addFragmentPage(recipeStepListFragment,
+            getString(R.string.recipe_detail_recipe_steps_tab_label));
+
+        binding.idLayoutRecipeDetail.viewpagerLayoutRecipeDetail.setAdapter(viewPagerAdapter);
+        binding.tablayoutRecipeDetail
+            .setupWithViewPager(binding.idLayoutRecipeDetail.viewpagerLayoutRecipeDetail);
+        setTabLayoutIcons();
       }
     }
   }
 
-  private void setupRecyclerView(final Recipe recipe) {
-    final RecyclerView recyclerView = binding.idLayoutRecipeDetail.recyclerviewRecipeDetailList;
+  private void setTabLayoutIcons () {
+    final int color = getResources().getColor(R.color.colorIconTab);
+    final Drawable ingredientListDrawable =
+        ResourcesCompat.getDrawable(getResources(),
+            R.drawable.ic_ingredient_list_24dp,
+            null);
+        ingredientListDrawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+    binding.tablayoutRecipeDetail.getTabAt(0).setIcon(ingredientListDrawable);
 
-    recyclerView.setHasFixedSize(true);
-    final RecipeStepItemAdapter itemAdapter =
-        new RecipeStepItemAdapter(this, mTwoPane);
-    itemAdapter.setItemList(recipe.getSteps());
-    recyclerView.setAdapter(itemAdapter);
+    final Drawable recipeStepsDrawable = ResourcesCompat
+        .getDrawable(getResources(), R.drawable.ic_steps_white_24dp, null);
+        recipeStepsDrawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+    binding.tablayoutRecipeDetail.getTabAt(1).setIcon(recipeStepsDrawable);
   }
+//  private void setupRecyclerView(final Recipe recipe) {
+//    final RecyclerView recyclerView = binding.idLayoutRecipeDetail.recyclerviewRecipeDetailList;
+//
+//    recyclerView.setHasFixedSize(true);
+//    final RecipeStepItemAdapter itemAdapter =
+//        new RecipeStepItemAdapter(this, mTwoPane);
+//    itemAdapter.setItemList(recipe.getSteps());
+//    recyclerView.setAdapter(itemAdapter);
+//  }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {

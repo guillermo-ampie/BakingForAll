@@ -22,7 +22,15 @@ import org.parceler.Parcels;
 public class RecipeStepListFragment extends Fragment {
 
   private static final String LOG_TAG = RecipeStepListFragment.class.getSimpleName();
+
+  //
+  // Keys for Fragment arguments
+  //
+  // Flag to indicate if the UI is in one or two panes
+  private static final String ARGUMENT_TWO_PANE_ENABLED = "ARGUMENT_TWO_PANE_ENABLED";
   private FragmentRecipeStepListBinding binding;
+  private boolean twoPaneEnabled;
+
 
   /**
    * Mandatory empty constructor for the fragment manager to instantiate the
@@ -33,11 +41,14 @@ public class RecipeStepListFragment extends Fragment {
   }
 
 
-  public static RecipeStepListFragment newInstance(final Recipe recipe) {
+  public static RecipeStepListFragment newInstance(final Recipe recipe,
+      final boolean twoPaneEnabled) {
     final RecipeStepListFragment fragment = new RecipeStepListFragment();
     final Bundle args = new Bundle();
 
     args.putParcelable(Recipe.ARGUMENT_SELECTED_RECIPE, Parcels.wrap(recipe));
+    args.putBoolean(ARGUMENT_TWO_PANE_ENABLED, twoPaneEnabled);
+
     fragment.setArguments(args);
     return fragment;
   }
@@ -48,7 +59,11 @@ public class RecipeStepListFragment extends Fragment {
 
     binding = FragmentRecipeStepListBinding.inflate(inflater, container, false);
 
-    if (Objects.requireNonNull(getArguments()).containsKey(Recipe.ARGUMENT_SELECTED_RECIPE)) {
+    final Bundle arguments = Objects.requireNonNull(getArguments());
+    if (arguments.containsKey(Recipe.ARGUMENT_SELECTED_RECIPE)
+        && arguments.containsKey(ARGUMENT_TWO_PANE_ENABLED)) {
+      // Get the flag for UI's panes
+      twoPaneEnabled = arguments.getBoolean(ARGUMENT_TWO_PANE_ENABLED);
       // Get the Recipe specified by the fragment arguments.
       final Recipe recipe = Parcels
           .unwrap(getArguments().getParcelable(Recipe.ARGUMENT_SELECTED_RECIPE));
@@ -64,7 +79,7 @@ public class RecipeStepListFragment extends Fragment {
 
     binding.recyclerviewRecipeStepList.setHasFixedSize(true);
     final RecipeStepItemAdapter itemAdapter =
-        new RecipeStepItemAdapter(getActivity(),false);
+        new RecipeStepItemAdapter(getActivity(), twoPaneEnabled);
     itemAdapter.setItemList(recipe.getSteps());
     binding.recyclerviewRecipeStepList.setAdapter(itemAdapter);
   }
