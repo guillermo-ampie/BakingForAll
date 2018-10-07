@@ -171,7 +171,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
   private void setTabLayoutIcons() {
 
-    // TODO: 10/6/18 Use a ColorStateList to get system's colors, instead than my own here and in
+    // TODO: 10/6/18 Use a ColorStateList to get system's colors, instead than my own. Here and in
     // addOnTabSelectedListener
     //ColorStateList colorList = binding.tablayoutRecipeDetail.getTabTextColors();
     // getTabIconTint()
