@@ -1,6 +1,7 @@
 package com.ampieguillermo.bakingforall.model;
 
 import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -68,6 +69,11 @@ public class RecipeStep {
   public String getThumbnailUrl() {
     return thumbnailUrl;
   }
+
+  public boolean hasVideo() {
+    return !(StringUtils.isEmpty(videoUrl) && StringUtils.isEmpty(thumbnailUrl));
+  }
+
 
   @Override
   public String toString() {

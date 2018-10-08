@@ -18,7 +18,6 @@ import com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent.RecipeSte
 import com.ampieguillermo.bakingforall.recipe.detail.recipestepcontent.RecipeStepContentFragment;
 import java.util.Collections;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 
 public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHolder> {
 
@@ -152,13 +151,8 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
 
       // If there is no video for this step --> show an ellipsis icon ("more horizontal" icon)
       // instead of the "play icon"
-
-      // Check whether the Recipe step has an accompanying video or not
-      final boolean hasVideo = !(StringUtils.isEmpty(recipeStep.getVideoUrl())
-          && StringUtils.isEmpty(recipeStep.getThumbnailUrl()));
-      final int resId = hasVideo ? R.drawable.ic_play_circle_outline_black_24dp
+      final int resId = recipeStep.hasVideo() ? R.drawable.ic_play_circle_outline_black_24dp
           : R.drawable.ic_more_horiz_black_24dp;
-
       binding.imageviewRecipeStepContentPlayIcon.setImageResource(resId);
 
       final int position = getAdapterPosition();

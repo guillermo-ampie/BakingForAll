@@ -148,7 +148,7 @@ public class RecipeStepContentFragment extends Fragment {
         // Check whether the Recipe step has an accompanying video or not
         final String videoUrl = recipeStep.getVideoUrl();
         final String thumbnailUrl = recipeStep.getThumbnailUrl();
-        hasVideo = !StringUtils.isEmpty(videoUrl) || !StringUtils.isEmpty(thumbnailUrl);
+        hasVideo = recipeStep.hasVideo();
         if (hasVideo) {
           // The accompanying video URL can come in the "videoURL" or "thumbnailURL" field
           recipeStepVideoUri = Uri.parse(StringUtils.isEmpty(videoUrl) ? thumbnailUrl : videoUrl);
