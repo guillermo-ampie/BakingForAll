@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,14 +22,28 @@ import org.apache.commons.lang3.StringUtils;
 
 public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHolder> {
 
+  public static final String LOG_TAG = RecipeStepItemAdapter.class.getSimpleName();
+
   /* package */ final FragmentActivity mParentActivity;
   /* package */ final boolean mTwoPane;
   /* package */ List<RecipeStep> recipeStepList;
+
+  // RecyclerView highlight selected item reference code: https://code.i-harness.com/en/q/19ef2bc
+  //
+  // To save the selected item's position
+  /* package */ int selection = RecyclerView.NO_POSITION;
+
   private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
     @Override
     public void onClick(View view) {
       final int position = (int) view.getTag();
       final RecipeStep recipeStep = recipeStepList.get(position);
+
+      Log.v(LOG_TAG, ">>>>> onClick");
+      // Handle the selection
+      notifyItemChanged(selection);
+      selection = position; // update the selection
+      notifyItemChanged(selection);
 
       if (mTwoPane) { // Tablet case
         final RecipeStepContentFragment fragment = RecipeStepContentFragment
@@ -103,7 +118,7 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
    */
   @Override
   public void onBindViewHolder(@NonNull final RecipeStepViewHolder holder, final int position) {
-    holder.setupItemView(recipeStepList.get(position));
+    holder.setupItemView(recipeStepList.get(position), selection);
   }
 
   /**
@@ -132,17 +147,32 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
       itemView.setOnClickListener(listener);
     }
 
-    /* package */ void setupItemView(final RecipeStep recipeStep) {
+    /* package */ void setupItemView(final RecipeStep recipeStep, final int selection) {
       binding.textviewItemStepListShortDescription.setText(recipeStep.getShortDescription());
 
       // If there is no video for this step --> show an ellipsis icon ("more horizontal" icon)
-      // instead than the "play icon"
-      if (StringUtils.isEmpty(recipeStep.getVideoUrl())
-          && StringUtils.isEmpty(recipeStep.getThumbnailUrl())) {
-        binding.imageviewRecipeStepContentPlayIcon
-            .setImageResource(R.drawable.ic_more_horiz_black_24dp);
+      // instead of the "play icon"
+
+      // Check whether the Recipe step has an accompanying video or not
+      final boolean hasVideo = !(StringUtils.isEmpty(recipeStep.getVideoUrl())
+          && StringUtils.isEmpty(recipeStep.getThumbnailUrl()));
+      final int resId = hasVideo ? R.drawable.ic_play_circle_outline_black_24dp
+          : R.drawable.ic_more_horiz_black_24dp;
+
+      binding.imageviewRecipeStepContentPlayIcon.setImageResource(resId);
+
+      final int position = getAdapterPosition();
+      itemView.setTag(position);
+
+      // Handle the selection
+      // itemView.setSelected(selection == position);
+      if (selection == position) {
+        Log.v(LOG_TAG, ">>>>> HIGHLIGHT ME: " + position);
+        itemView.setSelected(true);
+      } else {
+        Log.v(LOG_TAG, ">>>>> CLEAR ME: " + position);
+        itemView.setSelected(false);
       }
-      itemView.setTag(getAdapterPosition());
     }
   }
 }

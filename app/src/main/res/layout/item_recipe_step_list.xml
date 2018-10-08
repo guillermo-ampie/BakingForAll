@@ -15,6 +15,8 @@
       android:layout_height="wrap_content"
       android:background="@drawable/list_item_selector"
       android:orientation="horizontal">
+      <!--android:background="?attr/selectableItemBackgroundBorderless"-->
+
       <ImageView
         android:id="@+id/imageview_item_recipe_step_list_step_icon"
         android:layout_width="@dimen/size_item_ingredient_list_icon"
