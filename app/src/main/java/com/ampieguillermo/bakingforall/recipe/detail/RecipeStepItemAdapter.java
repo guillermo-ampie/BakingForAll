@@ -21,7 +21,7 @@ import java.util.List;
 
 public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHolder> {
 
-  public static final String LOG_TAG = RecipeStepItemAdapter.class.getSimpleName();
+  private static final String LOG_TAG = RecipeStepItemAdapter.class.getSimpleName();
 
   /* package */ final FragmentActivity mParentActivity;
   /* package */ final boolean mTwoPane;
