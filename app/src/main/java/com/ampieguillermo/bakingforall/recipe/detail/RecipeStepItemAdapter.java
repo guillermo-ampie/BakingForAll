@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import java.util.List;
 
 public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHolder> {
 
-  private static final String LOG_TAG = RecipeStepItemAdapter.class.getSimpleName();
+  /* package */ static final String LOG_TAG = RecipeStepItemAdapter.class.getSimpleName();
 
   /* package */ final FragmentActivity mParentActivity;
   /* package */ final boolean mTwoPane;
@@ -38,7 +37,6 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
       final int position = (int) view.getTag();
       final RecipeStep recipeStep = recipeStepList.get(position);
 
-      Log.v(LOG_TAG, ">>>>> onClick");
       // Handle the selection
       notifyItemChanged(selection);
       selection = position; // update the selection
@@ -159,14 +157,7 @@ public class RecipeStepItemAdapter extends RecyclerView.Adapter<RecipeStepViewHo
       itemView.setTag(position);
 
       // Handle the selection
-      // itemView.setSelected(selection == position);
-      if (selection == position) {
-        Log.v(LOG_TAG, ">>>>> HIGHLIGHT ME: " + position);
-        itemView.setSelected(true);
-      } else {
-        Log.v(LOG_TAG, ">>>>> CLEAR ME: " + position);
-        itemView.setSelected(false);
-      }
+       itemView.setSelected(selection == position);
     }
   }
 }
