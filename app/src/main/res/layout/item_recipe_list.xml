@@ -12,7 +12,7 @@
     <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@drawable/list_item_selector">
+      android:background="@drawable/list_item_full_selector">
 
       <ImageView
         android:id="@+id/imageview_recipe_list_recipe_photo"
