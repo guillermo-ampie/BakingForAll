@@ -19,19 +19,6 @@
     master/detail flow.
     -->
 
-    <!--<android.support.v7.widget.RecyclerView-->
-      <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-      <!--xmlns:tools="http://schemas.android.com/tools"-->
-      <!--android:id="@+id/recyclerview_recipe_detail_list"-->
-      <!--android:scrollbarStyle="insideOverlay"-->
-      <!--android:layout_width="@dimen/width_layout_recipe_detail_list_item"-->
-      <!--android:layout_height="match_parent"-->
-      <!--android:layout_margin="@dimen/margin_all_recyclerview"-->
-      <!--android:name="com.ampieguillermo.bakingforall.recipe.detail.RecipeStepListFragment"-->
-      <!--android:scrollbars="vertical"-->
-      <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
-      <!--tools:context=".recipe.detail.RecipeDetailActivity"-->
-      <!--tools:listitem="@layout/item_recipe_step_list"/>-->
     <android.support.v4.view.ViewPager
       android:id="@+id/viewpager_layout_recipe_detail"
       android:layout_width="@dimen/width_layout_recipe_detail_list_item"
