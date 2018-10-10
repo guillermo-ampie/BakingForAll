@@ -28,6 +28,5 @@
   <string name="error_io_operation">I/O Error: %s</string>
   <string name="error_json_operation">Error reading from JSON file: %s</string>
 
-  <string name="appwidget_text">EXAMPLE</string>
-  <string name="add_widget">Add widget</string>
+  <string name="appwidget_text">Baking!</string>
 </resources>
