@@ -25,9 +25,9 @@
       </intent-filter>
     </activity>
     <activity
+      android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
       android:label="@string/recipe_detail_title"
       android:launchMode="singleTop"
-      android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
       android:name=".recipe.detail.RecipeDetailActivity"
       android:parentActivityName=".recipe.list.RecipeListActivity"
       android:theme="@style/AppTheme.NoActionBar">
@@ -44,5 +44,16 @@
         android:name="android.support.PARENT_ACTIVITY"
         android:value="com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity"/>
     </activity>
+
+    <receiver android:name=".BakingForAllWidgetProvider">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/baking_for_all_widget_provider_info"/>
+    </receiver>
   </application>
+
 </manifest>

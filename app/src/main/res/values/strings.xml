@@ -3,6 +3,7 @@
   <string name="app_name">BakingForAll</string>
   <string name="recipe_detail_title">Recipe Detail</string>
   <string name="title_activity_recipe_step_content">RecipeStepContent</string>
+  <string name="action_settings">Settings</string>
 
 
   <!-- RecipeListActivity -->
@@ -10,7 +11,9 @@
   <string name="format_name_recipe_list">" %s "</string>
   <string name="format_servings_recipe_list">" servings: %d "</string>
 
-
+  <!-- RecipeDetailActivity -->
+  <string name="recipe_detail_ingredients_tab_label">INGREDIENTS</string>
+  <string name="recipe_detail_recipe_steps_tab_label">STEPS</string>
 
   <!-- Strings for "android:contentDescription" -->
   <string name="description_recipe_image">The Recipe\'s Photo</string>
@@ -25,8 +28,6 @@
   <string name="error_io_operation">I/O Error: %s</string>
   <string name="error_json_operation">Error reading from JSON file: %s</string>
 
-
-  <string name="action_settings">Settings</string>
-  <string name="recipe_detail_ingredients_tab_label">INGREDIENTS</string>
-  <string name="recipe_detail_recipe_steps_tab_label">STEPS</string>
+  <string name="appwidget_text">EXAMPLE</string>
+  <string name="add_widget">Add widget</string>
 </resources>

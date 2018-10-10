@@ -30,4 +30,10 @@
   <!-- fragment_recipe_step_content.xml -->
   <dimen name="size_vector_drawable_recipe_step_content">120dp</dimen>
 
+  <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+  <dimen name="widget_margin">8dp</dimen>
+
 </resources>
