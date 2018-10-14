@@ -15,7 +15,7 @@
     android:src="@mipmap/ic_launcher"/>
 
   <TextView
-    android:id="@+id/appwidget_text"
+    android:id="@+id/textview_appwidget"
     android:textStyle="bold|italic"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
