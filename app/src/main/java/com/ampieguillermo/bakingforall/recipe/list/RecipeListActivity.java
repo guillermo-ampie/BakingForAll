@@ -42,11 +42,9 @@ public class RecipeListActivity extends AppCompatActivity {
 
     binding = DataBindingUtil.setContentView(this, R.layout.activity_recipe_list);
     setSupportActionBar(binding.toolbarRecipeList);
-    if (savedInstanceState == null) { // Load data for the first time
-      recipeList = loadJsonData();
-    } else { // Recover saved state
-      recipeList = Parcels.unwrap(savedInstanceState.getParcelable(BUNDLE_RECIPE_LIST));
-    }
+    // Load data for the first time or recover list from saved state
+    recipeList = (savedInstanceState == null) ? loadJsonData()
+        : Parcels.unwrap(savedInstanceState.getParcelable(BUNDLE_RECIPE_LIST));
 
     setupRecyclerView();
   }
@@ -57,7 +55,6 @@ public class RecipeListActivity extends AppCompatActivity {
     // Save any view hierarchy
     super.onSaveInstanceState(outState);
   }
-
 
   private void setupRecyclerView() {
     final RecyclerView recyclerView = binding.recyclerviewRecipeList;
