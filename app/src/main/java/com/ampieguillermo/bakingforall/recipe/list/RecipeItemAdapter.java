@@ -15,6 +15,7 @@ import com.ampieguillermo.bakingforall.model.Recipe;
 import com.ampieguillermo.bakingforall.recipe.detail.RecipeDetailActivity;
 import com.ampieguillermo.bakingforall.recipe.list.RecipeItemAdapter.RecipeItemViewHolder;
 import com.ampieguillermo.bakingforall.utils.RecipeAssets;
+import com.ampieguillermo.bakingforall.widget.ShowIngredientsService;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,8 +64,9 @@ public class RecipeItemAdapter extends ListAdapter<Recipe, RecipeItemViewHolder>
     final Recipe recipe = getItem(position);
     final Context context = view.getContext();
 
+    ShowIngredientsService.startActionShowIngredients(context, recipe);
     context.startActivity(RecipeDetailActivity.getStartIntent(context, recipe));
-  }
+}
 
   /* package */ static class RecipeItemViewHolder extends RecyclerView.ViewHolder {
 
